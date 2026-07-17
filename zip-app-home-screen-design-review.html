@@ -1,0 +1,993 @@
+<!--
+  ZIP-SKILL TEMPLATE — Multi-Stakeholder Design Review
+
+  HOW TO USE THIS FILE
+  1. Copy it to the output location, then edit only the REPORT object inside
+     the <script> tag near the bottom (search for "ZIP-SKILL: EDIT BELOW").
+  2. Do not need to touch the CSS or the render functions unless something
+     about this specific review genuinely doesn't fit the layout.
+  3. Each lens needs a "tier": "primary" or "secondary". Primary lenses
+     (End-user, Product Designer, Product Manager by default) render in
+     their own sidebar group above the secondary ones — this is what lets
+     the review go deep on the lenses that matter most without losing the
+     rest. Order within REPORT.lenses doesn't matter; tier does.
+  4. Severity must be exactly "High", "Medium", or "Low" (case-sensitive).
+     Effort must be exactly "High", "Medium", or "Low". The Quick Wins view
+     and the filter dropdowns match on these exact strings — anything else
+     will silently fail to show up.
+  5. Every opportunity needs a "hypothesis" alongside its "rationale" —
+     rationale is why a stakeholder cares, hypothesis is what you'd expect
+     to actually improve if the opportunity is acted on (ideally something
+     measurable, e.g. "Completion rate on this step increases because the
+     user no longer has to scroll back to check the total"). Don't skip it
+     or leave it generic — a hypothesis with nothing to test isn't one.
+  6. Every opportunity also needs a "type": "Refine" (change what's there),
+     "Add" (introduce something new), or "Replace" (swap it for something
+     else). Not every opportunity has to be a tweak to the existing screen.
+  7. "signal" on an opportunity is optional — a short note on a comparable
+     app doing this differently, feeding from the same research that fills
+     out REPORT.competitive. Omit it when there's no such grounding.
+  8. meta.screenshot should be a base64 data URI ("data:image/png;base64,...")
+     if you can obtain the real image bytes — straightforward when the input
+     was an uploaded screenshot file (read it and encode it). Leave it null
+     if you can't get the raw bytes (this can happen with some Figma tool
+     setups). Set meta.figmaLink to the source URL when you have one, even
+     if you couldn't embed the image — the screen-reference pane falls back
+     to a clear "open the source" link instead of a broken or fake image.
+  9. REPORT.context holds the job-to-be-done confirmed with the person in
+     Step 2 of SKILL.md: "jobToBeDone" (their confirmed statement, in their
+     words) and "primaryUser" (who's using the screen in this moment). This
+     isn't optional — it's what the whole review is measured against, and
+     it renders at the top of the Overview panel so nobody reading the
+     review later has to guess what frame it used.
+  10. REPORT.competitive is optional. Include "intro" (why these apps) and
+      an "apps" array (name, category, pattern, sourceLabel, sourceUrl) only
+      if you actually did that research for this screen — omit the whole
+      key otherwise, rather than shipping an empty or generic section.
+  11. The layout is a persistent three-pane view — section nav, screen
+      reference, and analysis — so the reviewer never has to tab away from
+      the screen to read a finding about it. If there's no screenshot and no
+      figmaLink at all, the reference pane hides itself automatically.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Review</title>
+<style>
+  :root {
+    /* Real Zip Co tokens, pulled via get_variable_defs from this Figma file
+       (Primary/Fearless-dark, Fearless-lightest, Zip - Confidence, Gray scale). */
+    --accent: #6542BE;       /* Primary/Fearless-dark */
+    --accent-dark: #4E3096;  /* darkened for hover/active states */
+    --accent-tint: #EDE6FF;  /* Primary/Fearless-lightest */
+    --bg: #F9F8FB;
+    --surface: #FFFFFF;
+    --border: #ECEBE9;       /* Neutral/Gray-300 */
+    --text: #1A0826;         /* Core/Zip - Confidence */
+    --text-muted: #544A5A;   /* Neutral/Gray-800 -- accessibility override, Gray-600 fails WCAG AA */
+    --sev-high: #B3261E;
+    --sev-high-bg: #FBEAE9;
+    --sev-medium: #8A5A00;
+    --sev-medium-bg: #FBF1DC;
+    --sev-low: #3E7A4C;
+    --sev-low-bg: #E9F5EA;
+    --type-color: #2B5FAD;
+    --type-bg: #E9F0FB;
+    --radius: 10px;
+    --sidebar-w: 232px;
+    --screen-pane-w: 340px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Sharp Grotesk", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ---------- Sidebar ---------- */
+  #sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 16px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  #sidebar .brand {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin: 0 8px 4px;
+  }
+  #sidebar .brand-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0 8px 20px;
+  }
+  #sidebar .nav-group-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 18px 8px 6px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text);
+    user-select: none;
+  }
+  .nav-item .icon { font-size: 15px; width: 18px; text-align: center; flex-shrink: 0; }
+  .nav-item:hover { background: var(--accent-tint); }
+  .nav-item.active { background: var(--accent); color: #fff; }
+  .nav-item .count {
+    margin-left: auto;
+    font-size: 11px;
+    background: var(--border);
+    color: var(--text-muted);
+    padding: 1px 7px;
+    border-radius: 999px;
+  }
+  .nav-item.active .count { background: rgba(255,255,255,0.25); color: #fff; }
+
+  /* ---------- Screen reference pane ---------- */
+  #screenshotPane {
+    width: var(--screen-pane-w);
+    flex-shrink: 0;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .screen-pane-header {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 16px 18px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .screen-pane-header .label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .screen-pane-header a {
+    font-size: 12px; color: var(--accent-dark); text-decoration: none; font-weight: 600; white-space: nowrap;
+  }
+  .screen-pane-header a:hover { text-decoration: underline; }
+  #screenPaneClose { display: none; background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted); }
+  .screen-pane-body {
+    flex: 1; overflow-y: auto; padding: 18px; display: flex; justify-content: center;
+  }
+  .screen-pane-body img {
+    width: 100%; max-width: 340px; height: auto; border-radius: 14px; border: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06); display: block;
+  }
+  .screen-pane-placeholder {
+    text-align: center; color: var(--text-muted); font-size: 13px; padding: 32px 8px; align-self: flex-start; width: 100%;
+  }
+  .screen-pane-placeholder .box {
+    background: var(--accent-tint); border-radius: var(--radius); height: 180px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 13px;
+  }
+  .screen-pane-placeholder .figma-link {
+    display: inline-block; background: var(--accent); color: #fff; text-decoration: none;
+    font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 8px;
+  }
+  body.no-screen-pane #screenshotPane, body.no-screen-pane #screenToggle { display: none !important; }
+
+  /* ---------- Main ---------- */
+  #main { flex: 1; min-width: 0; padding: 36px 44px; max-width: 900px; }
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadein 0.18s ease; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  h1 { font-size: 26px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  h2 { font-size: 19px; margin: 0 0 4px; }
+  .subtitle { color: var(--text-muted); font-size: 14px; margin: 0 0 28px; }
+  .section-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--text-muted); margin: 32px 0 12px;
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  .stat-row { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 14px 18px; min-width: 110px;
+  }
+  .stat-card .num { font-size: 24px; font-weight: 700; }
+  .stat-card .label { font-size: 12px; color: var(--text-muted); }
+
+  .context-card {
+    background: var(--accent-tint); border-left: 3px solid var(--accent); border-radius: var(--radius);
+    padding: 14px 18px; margin-bottom: 24px;
+  }
+  .context-card .field-label { color: var(--accent-dark); }
+  .context-card .context-jtbd { font-size: 14.5px; font-style: italic; color: var(--text); margin-bottom: 8px; }
+  .context-card .context-user { font-size: 13px; color: var(--text-muted); }
+
+  /* Cards */
+  .opp-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 18px; margin-bottom: 12px;
+  }
+  .opp-field { margin-bottom: 11px; }
+  .opp-field:last-of-type { margin-bottom: 13px; }
+  .field-label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent-dark); margin-bottom: 3px;
+  }
+  .field-value { font-size: 13.5px; }
+  .field-value.opp-title { font-size: 15px; font-weight: 600; }
+  .field-value.muted { color: var(--text-muted); }
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .badge.sev-High { background: var(--sev-high-bg); color: var(--sev-high); }
+  .badge.sev-Medium { background: var(--sev-medium-bg); color: var(--sev-medium); }
+  .badge.sev-Low { background: var(--sev-low-bg); color: var(--sev-low); }
+  .badge.eff { background: var(--accent-tint); color: var(--accent-dark); }
+  .badge.type { background: var(--type-bg); color: var(--type-color); }
+  .badge.lens-tag { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+
+  .field-value.signal { font-style: italic; }
+
+  /* Competitive landscape */
+  .competitor-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 18px; margin-bottom: 12px;
+  }
+  .competitor-card .competitor-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .competitor-card .competitor-name { font-weight: 600; font-size: 15px; }
+  .competitor-card .competitor-category {
+    font-size: 11.5px; color: var(--text-muted); background: var(--bg); border: 1px solid var(--border);
+    border-radius: 999px; padding: 2px 9px;
+  }
+  .competitor-card .competitor-pattern { font-size: 13.5px; color: var(--text); margin-bottom: 8px; }
+  .competitor-card a.competitor-source { font-size: 12.5px; color: var(--accent-dark); text-decoration: none; font-weight: 600; }
+  .competitor-card a.competitor-source:hover { text-decoration: underline; }
+
+  ul.plain { padding-left: 20px; margin: 0 0 20px; font-size: 13.5px; }
+  ul.plain li { margin-bottom: 7px; }
+
+  /* All Opportunities table */
+  .filters { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filters select {
+    font-size: 13px; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text);
+  }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: var(--radius); overflow: hidden; }
+  th, td { text-align: left; padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); cursor: pointer; }
+  th:hover { color: var(--accent-dark); }
+  tr:last-child td { border-bottom: none; }
+  .table-hypothesis { margin-top: 6px; font-size: 12.5px; color: var(--text-muted); }
+  .table-hypothesis .mini-label {
+    font-weight: 700; color: var(--accent-dark); text-transform: uppercase; font-size: 10px; margin-right: 4px;
+  }
+  .empty-note { color: var(--text-muted); font-size: 13px; padding: 20px 0; }
+
+  /* Mobile */
+  #menuToggle, #screenToggle { display: none; }
+  @media (max-width: 1000px) {
+    body { flex-direction: column; }
+    #sidebar {
+      width: 100%; height: auto; position: relative; border-right: none;
+      border-bottom: 1px solid var(--border); display: none;
+    }
+    #sidebar.open { display: block; }
+    #screenshotPane {
+      width: 100%; height: 100vh; position: fixed; inset: 0; z-index: 50;
+      display: none; border-right: none;
+    }
+    #screenshotPane.open { display: flex; }
+    #screenPaneClose { display: block; }
+    #menuToggle, #screenToggle {
+      display: inline-block; margin: 16px 8px 0; padding: 10px 14px; border-radius: 8px;
+      background: var(--accent); color: #fff; border: none; font-size: 14px; cursor: pointer;
+    }
+    #main { padding: 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel.active { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<button id="menuToggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰ Sections</button>
+<button id="screenToggle" onclick="document.getElementById('screenshotPane').classList.toggle('open')">🖼 Screen</button>
+
+<nav id="sidebar">
+  <div class="brand">Design Review</div>
+  <div class="brand-sub" id="screenNameLabel">Screen name</div>
+  <div id="navList"></div>
+</nav>
+
+<aside id="screenshotPane">
+  <div class="screen-pane-header">
+    <span class="label">Screen reference</span>
+    <a id="screenSourceLink" href="#" target="_blank" rel="noopener" style="display:none;">Open source ↗</a>
+    <button id="screenPaneClose" onclick="document.getElementById('screenshotPane').classList.remove('open')">✕</button>
+  </div>
+  <div class="screen-pane-body" id="screenshotPaneBody"></div>
+</aside>
+
+<main id="main">
+  <div id="panelHost"></div>
+</main>
+
+<script>
+/* =====================================================================
+   ZIP-SKILL: EDIT BELOW — replace this object with the real review
+   content. Everything above and below this block is rendering logic
+   and should not need to change.
+   ===================================================================== */
+const REPORT = {
+  meta: {
+    screenName: "Zip App — Home / Shopping Discovery Screen",
+    description: "The app's primary landing screen: account status + spending power, search, category browsing, promotional/affiliate merchandising, gift cards, referral and physical-card growth CTAs, ZIP EDU education content, and FAQ, all in one continuous scroll (~3275px / 8+ screen-heights on a 390px-wide frame).",
+    screenshot: null,
+    figmaLink: "https://www.figma.com/design/Ok3jZ5n1Hf5aVzGFQRXGWn/-Yuan--Zip-App?node-id=15362-29398&m=dev"
+  },
+  context: {
+    jobToBeDone: "When a Zip user opens the app — whether it's their first time or they're a returning user — they want to check their account status at a glance and find somewhere to shop or manage their money, so they can decide what to do next with confidence. Returning users tend to arrive with more specific intent; first-time or less-familiar users still need orientation to what the app offers and how Zip works.",
+    primaryUser: "Both first-time and returning Zip customers — returning users generally arrive with more task intent, while newer users are still building familiarity with the app."
+  },
+  lenses: [
+    {
+      id: "end-user",
+      name: "End-user",
+      icon: "🙂",
+      tier: "primary",
+      opportunities: [
+        {
+          title: "Separate the spending-power number from the \"spend more\" nudge",
+          rationale: "The account's live spending power (\"$650.00\") sits close to a prompt to \"pay a little more upfront to unlock larger purchases\" — placed together, this can read as encouragement to stretch past a limit the user just saw, which isn't the reassurance a user typically wants right after checking their available balance.",
+          hypothesis: "Sentiment around feeling \"pushed to spend\" (in support contacts or app-store reviews mentioning this screen) decreases, because the balance and the upsell no longer sit in the same visual breath.",
+          type: "Refine",
+          signal: "Affirm's own promotional copy for its purchasing-power feature pairs it with explicit reassurance — users are underwritten per-transaction and \"never pay a penny in late fees or compound interest\" — addressing the over-commitment concern head-on instead of leaving it implicit the way this screen currently does.",
+          severity: "High",
+          effort: "Medium"
+        },
+        {
+          title: "Clarify what the combined search/URL field is for",
+          rationale: "\"Search or enter URL\" doubles as a product search and an in-app browser address bar — a first-time user has no obvious cue that both are valid, which can lead to typing a plain search term and getting a confusing dead-end.",
+          hypothesis: "\"Search doesn't work\" style support contacts and search abandonment both decrease, because users understand upfront that either a search term or a URL is valid input.",
+          type: "Refine",
+          signal: null,
+          severity: "Medium",
+          effort: "Low"
+        },
+        {
+          title: "Expand the top snapshot beyond spending power alone",
+          rationale: "Right now the only account-specific thing visible up top is the spending-power figure. Nothing here tells the user what they actually owe next or when — the information most directly tied to \"am I on track,\" which is arguably more reassuring than a spend-more prompt.",
+          hypothesis: "Users self-report better understanding of \"where they stand\" (in support tickets or app-store review sentiment) because the next payment amount and due date are visible without navigating away from home.",
+          type: "Add",
+          signal: "Affirm's home screen leads with a single snapshot combining purchasing power, cash back earned, savings, and outstanding payments together. Klarna's leads with upcoming payments front and center. Zip's equivalent today shows only the spending-power figure.",
+          severity: "Medium",
+          effort: "Medium"
+        },
+        {
+          title: "Differentiate the experience for first-time vs. returning users",
+          rationale: "The confirmed primary user for this screen spans two groups with genuinely different needs: returning users arrive with specific intent (they know what they're here to do), while first-time or less-familiar users still need orientation to what Zip offers and how it works. Right now both groups see the exact same fixed stack, with the ZIP EDU orientation content buried at the very bottom, roughly 8 screen-heights down, regardless of which group someone is in.",
+          hypothesis: "Task completion improves for returning users (nothing unfamiliar to wade through) and orientation/comprehension improves for first-time users (education content surfaces earlier, before merchandising), because the screen responds to which of the two confirmed audiences is actually using it instead of showing everyone the same thing.",
+          type: "Add",
+          signal: null,
+          severity: "Medium",
+          effort: "High"
+        }
+      ],
+      painPoints: [
+        "A long, mostly generic merchandising scroll follows a personalized greeting, which can undercut the personal feel the greeting set up.",
+        "No next-payment amount or due date is visible anywhere on this screen — a user has to leave home to find out what they owe next.",
+        "The screen treats first-time and returning users identically, despite those two confirmed audiences wanting different things from this exact moment — one needs orientation, the other wants to move fast."
+      ],
+      questions: [
+        "Has the spending-power / spend-more juxtaposition been user-tested for how it reads emotionally, not just whether it converts?",
+        "Is there any existing signal (account age, session count) already available to distinguish a first-time user from a returning one at the point this screen loads?"
+      ]
+    },
+    {
+      id: "product-designer",
+      name: "Product Designer",
+      icon: "✏️",
+      tier: "primary",
+      opportunities: [
+        {
+          title: "Replace the placeholder copy shipping in a live-styled ad unit",
+          rationale: "One ad card's body text still reads \"Lorem ipsum dolor sit amet\" — this is styled and positioned like finished content, not a visible work-in-progress marker, so it's easy to miss in review and would look broken to a real user.",
+          hypothesis: "User trust in that ad unit (and willingness to tap it) holds instead of dropping, because the card no longer visibly displays unfinished placeholder content.",
+          type: "Refine",
+          signal: null,
+          severity: "High",
+          effort: "Low"
+        },
+        {
+          title: "Replace the flat section stack with a small set of persistent tabs",
+          rationale: "Top brands, sponsored brands, bills, and gift cards all use a similar grid-of-logos treatment stacked back to back in one continuous scroll — a designer scrolling this cold has trouble telling where one section's purpose ends and the next begins, and a dozen-plus lookalike sections is a lot to ask anyone to scroll through linearly. It's also the most direct structural fix for serving two different confirmed audiences at once: tabs would let a returning user jump straight past everything to what they came for, while a first-time user could still browse or land on orientation content without it being buried at the bottom of a single long scroll.",
+          hypothesis: "Time-to-first-relevant-tap decreases and scroll-through fatigue drops, because users can jump to the section they actually want instead of scrolling past everything else to find it.",
+          type: "Replace",
+          signal: "Both Affirm (Shop / Card / Manage / Save) and Klarna (Shop / Payments / Orders / More) organize their home experience into a small, persistent set of tabs rather than one continuous merchandising scroll — this is a structural pattern, not just a styling one.",
+          severity: "Medium",
+          effort: "High"
+        },
+        {
+          title: "Audit the ad-card component for one shared CTA pattern",
+          rationale: "The two ad banners use different CTA labels (\"Shop now\" vs. \"Learn more\") — worth confirming this is a deliberate content difference and not two diverging instances of what should be one component.",
+          hypothesis: "Design QA time on future ad-campaign updates drops, because there's one component to update instead of two independently-diverging instances.",
+          type: "Refine",
+          signal: null,
+          severity: "Low",
+          effort: "Low"
+        }
+      ],
+      painPoints: [
+        "Placeholder \"Lorem ipsum\" text present in a styled, shippable-looking ad card.",
+        "Roughly a dozen visually similar logo-grid sections in a row make the screen feel monotonous past the first few, which works against any one section standing out."
+      ],
+      questions: [
+        "Is there a target for how many merchandising sections this screen should carry before it's considered too dense, or has that limit never been set?"
+      ]
+    },
+    {
+      id: "product-manager",
+      name: "Product Manager",
+      icon: "🧭",
+      tier: "primary",
+      opportunities: [
+        {
+          title: "Define this screen's single primary job",
+          rationale: "It currently carries navigation (search, categories), discovery (5+ merchant sections), and three distinct growth mechanics (referral, physical card, spending-power upsell) at once — without a stated primary metric, every future change to this screen risks optimizing the wrong thing. That's sharper now that the confirmed audience spans both first-time and returning users with different needs: a metric tuned for returning-user task speed could actively work against first-time-user orientation, and vice versa.",
+          hypothesis: "Future design decisions on this screen stop being litigated case-by-case, because every section can be evaluated against the same stated metric instead of competing, implicit goals.",
+          type: "Refine",
+          signal: null,
+          severity: "Medium",
+          effort: "High"
+        },
+        {
+          title: "Re-examine placement of the three growth CTAs as a set",
+          rationale: "Referral (\"Give $10, get $10\"), physical card, and spending-power upsell all compete for attention on one screen — a PM should confirm this is a deliberate placement strategy rather than each one being added independently over time.",
+          hypothesis: "Conversion on at least one of the three growth mechanics improves, because it's no longer directly competing with the other two for the same scroll position and attention.",
+          type: "Refine",
+          signal: null,
+          severity: "Medium",
+          effort: "Medium"
+        },
+        {
+          title: "Give payment management a dedicated, one-tap-from-home destination",
+          rationale: "There's no visible way to manage active plans without leaving this screen entirely — if that capability lives deep in another tab today, it's competing with a much longer path than the merchandising this screen prioritizes.",
+          hypothesis: "Self-service plan-management engagement increases, because it's one tap from home instead of requiring users to hunt for it elsewhere in the app.",
+          type: "Add",
+          signal: "Affirm's Manage tab and Dave's dedicated ExtraCash tab both put plan or advance management one tap from home, rather than requiring navigation away from the home feed.",
+          severity: "Medium",
+          effort: "Medium"
+        }
+      ],
+      painPoints: [
+        "No visible signal (in the design itself) of which of the many sections here is the current top priority for the business."
+      ],
+      questions: [
+        "What's the north-star metric for this screen specifically, and is it search usage, category-tap rate, merchant-tile clicks, or something else?",
+        "How does this screen's length and merchandising density compare to Afterpay/Klarna/Affirm's home screens — is that gap intentional?",
+        "Should success on this screen be measured differently for first-time vs. returning users, given they're confirmed to want different things here, or is one metric meant to serve both?"
+      ]
+    },
+    {
+      id: "engineer",
+      name: "Engineer",
+      icon: "🛠️",
+      tier: "secondary",
+      opportunities: [
+        {
+          title: "Confirm merchant grids are data-driven, not hand-built per section",
+          rationale: "Top brands, sponsored brands, bills, and gift cards each look like they could be the same underlying grid component fed different data — if instead each is custom-built, every merchant rotation becomes a design + dev cycle instead of a content update.",
+          hypothesis: "Time to ship a merchant rotation drops from a design-plus-dev cycle to a content update, because one shared component renders all four grids from data instead of four separately-coded sections.",
+          type: "Refine",
+          signal: null,
+          severity: "Medium",
+          effort: "Medium"
+        }
+      ],
+      painPoints: [
+        "Dozens of individually exported vector/icon assets (generic \"Vector\", \"Union\" names) suggest some icons may be one-off exports rather than pulls from a shared icon component set.",
+        "The entire screen returns as one large component instance in Figma rather than a composition of separable sections, which typically mirrors — or forecasts — a large, hard-to-test monolith in code."
+      ],
+      questions: [
+        "Is each merchandising section backed by a shared, data-driven grid component, or are they separately coded per section?"
+      ]
+    },
+    {
+      id: "marketing",
+      name: "Marketing",
+      icon: "📣",
+      tier: "secondary",
+      opportunities: [
+        {
+          title: "Increase the visual weight of the affiliate disclosure",
+          rationale: "An \"Affiliate disclosure\" link exists, but it's one small text link doing duty for a screen with two ad banners plus a full sponsored-brands section — its prominence should scale with how much sponsored content it needs to cover.",
+          hypothesis: "Disclosure visibility scales proportionally with the sponsored content it covers, which reduces compliance and brand-trust risk versus a fixed-size link regardless of sponsored volume.",
+          type: "Refine",
+          signal: null,
+          severity: "Medium",
+          effort: "Low"
+        }
+      ],
+      painPoints: [
+        "Placeholder \"Lorem ipsum\" copy in an ad unit is a brand-voice miss as much as a design one — it would read as broken to anyone who saw it live.",
+        "At least five simultaneous promotional slots (two ad banners, sponsored brands, spending-power upsell, referral, physical card) run on one screen with no stated cap on how many can run at once."
+      ],
+      questions: [
+        "Who owns the decision on how many paid/promotional units can appear on this one screen at a time?"
+      ]
+    },
+    {
+      id: "business",
+      name: "Business",
+      icon: "💼",
+      tier: "secondary",
+      opportunities: [
+        {
+          title: "Attribute revenue per merchandising section",
+          rationale: "Top brands, sponsored brands, bills, gift cards, and the spending-power upsell likely each contribute differently to affiliate revenue and average transaction size — without per-section attribution, it's hard to know which of these five-plus monetized surfaces is actually worth the screen real estate it occupies.",
+          hypothesis: "The team can reallocate screen real estate toward higher-converting sections, because revenue-per-section becomes measurable instead of assumed.",
+          type: "Refine",
+          signal: null,
+          severity: "Medium",
+          effort: "Medium"
+        }
+      ],
+      painPoints: [
+        "Heavy simultaneous monetization (ads, sponsored brands, upsells, referral) alongside core utility (search, categories) risks user fatigue that could suppress engagement with the very sections generating revenue."
+      ],
+      questions: [
+        "If every section on this screen were ranked by revenue-per-scroll-inch, would the current ordering still make sense?"
+      ]
+    },
+    {
+      id: "risk-compliance-legal",
+      name: "Risk/Compliance & Legal",
+      icon: "⚖️",
+      tier: "secondary",
+      opportunities: [
+        {
+          title: "Confirm disclosure prominence against the volume of sponsored content",
+          rationale: "The one \"Affiliate disclosure\" link is the sole disclosure covering two ad banners and a full sponsored-brands section — legal should confirm this placement and size actually satisfies disclosure expectations for a financial-services app, rather than the design assuming a single link is always sufficient regardless of how much sponsored content it covers.",
+          hypothesis: "An open regulatory question gets closed and documented before this screen changes further, rather than the team discovering post-launch that disclosure was inadequate for the volume of sponsored content.",
+          type: "Refine",
+          signal: null,
+          severity: "High",
+          effort: "Low"
+        },
+        {
+          title: "Route the spending-power upsell copy through compliance review",
+          rationale: "\"Pay a little more upfront to unlock larger purchases using Zip\" sits directly beside the account's live spending power — any messaging that nudges toward increasing spending capacity is responsible-lending territory, and this specific pairing and copy should have an explicit compliance sign-off on record rather than being treated as ordinary merchandising copy.",
+          hypothesis: "This specific copy-and-placement pairing has a documented compliance approval on file, reducing the risk of a future finding that it crossed into inappropriate encouragement to over-borrow.",
+          type: "Refine",
+          signal: "Affirm pairs its purchasing-power prompt with explicit reassurance copy about per-transaction underwriting and never charging late fees or compound interest. Zip's equivalent nudge currently has no comparable reassurance alongside it.",
+          severity: "High",
+          effort: "Low"
+        }
+      ],
+      painPoints: [],
+      questions: [
+        "Has legal signed off on the affiliate disclosure's placement and prominence for every region this screen ships to?",
+        "Is there a documented compliance review specifically for the spending-power upsell copy and its adjacency to the live balance?",
+        "Is it confirmed and intentional that repayment-term and fee disclosures are deferred entirely to checkout rather than surfaced anywhere on this discovery screen?"
+      ]
+    },
+    {
+      id: "data-analytics",
+      name: "Data & Analytics",
+      icon: "📊",
+      tier: "secondary",
+      opportunities: [
+        {
+          title: "Instrument each merchandising section as a distinct event, not one rollup",
+          rationale: "With top brands, sponsored brands, bills, gift cards, referral, card upsell, and edu content all on one screen, a single generic \"home screen click\" event would make it impossible later to tell which section is actually earning its space.",
+          hypothesis: "The team can rank sections by actual engagement and conversion instead of guessing, because each section's clicks are attributable individually rather than rolled into one generic event.",
+          type: "Refine",
+          signal: null,
+          severity: "Medium",
+          effort: "Medium"
+        }
+      ],
+      painPoints: [],
+      questions: [
+        "Is scroll depth currently tracked for this screen, and if so, what percentage of sessions reach the ZIP EDU / FAQ sections?"
+      ]
+    },
+    {
+      id: "customer-support-success",
+      name: "Customer Support/Success",
+      icon: "🎧",
+      tier: "secondary",
+      opportunities: [
+        {
+          title: "Give the referral program a self-serve status view",
+          rationale: "\"Earn $10 for each friend that makes their first app purchase\" is exactly the kind of mechanic that generates tickets when a reward doesn't show up right away — a visible \"referrals pending / earned\" view would let users check for themselves before contacting support.",
+          hypothesis: "Referral-related support ticket volume decreases, because users can check pending/earned rewards themselves instead of contacting support to ask.",
+          type: "Add",
+          signal: null,
+          severity: "Medium",
+          effort: "Medium"
+        }
+      ],
+      painPoints: [
+        "A combined search/URL field that behaves unexpectedly on ambiguous input (a plain search term typed where a URL is also accepted) is a plausible, easy-to-miss source of \"the search doesn't work\" tickets."
+      ],
+      questions: [
+        "Does support currently see tickets related to referral reward timing, and if so, how many?"
+      ]
+    },
+    {
+      id: "accessibility",
+      name: "Accessibility",
+      icon: "♿",
+      tier: "secondary",
+      opportunities: [
+        {
+          title: "Contrast-check every brand logo tile individually",
+          rationale: "Merchant tiles rely on brand-specific colors (e.g. very light or very dark wordmarks) as the primary identifier across roughly 20 brands — brand color alone doesn't guarantee WCAG contrast against its tile background, and this needs a per-tile pass rather than an assumption that brand color is automatically accessible.",
+          hypothesis: "Every merchant tile passes a WCAG AA contrast check individually, closing any gaps that exist today for the specific brands whose colors run light-on-light or dark-on-dark.",
+          type: "Refine",
+          signal: null,
+          severity: "Medium",
+          effort: "Medium"
+        }
+      ],
+      painPoints: [
+        "At 8+ screen-heights with a dozen-plus similar sections, a screen-reader or switch-control user has a very long linear path to reach the ZIP EDU/FAQ content near the bottom, with no apparent way to jump ahead."
+      ],
+      questions: [
+        "Has a contrast audit been run against the actual brand-color tiles, or only against the app's own design-system colors?"
+      ]
+    }
+  ],
+  competitive: {
+    context: "Zip's home screen combines an account/spending snapshot with heavy merchandising in one continuous scroll. To evaluate that structure, this compares against two direct BNPL competitors (Klarna, Affirm) and two cross-industry neobank/cash-advance apps (Chime, Dave) that solve a similar \"personal finance app home screen\" problem, even though the latter two aren't BNPL.",
+    apps: [
+      {
+        name: "Klarna",
+        category: "BNPL",
+        pattern: "Leads its home screen with upcoming payments at the top, then organizes the rest of the app into a small set of persistent sections (Shop, Payments, Orders, More) rather than one long scroll. Recent purchases, cashback offers, and store shortcuts sit below the payments summary, not above it.",
+        sourceLabel: "Klarna App Guide, 2026",
+        sourceUrl: "https://instapv.co.uk/klarna-app/"
+      },
+      {
+        name: "Affirm",
+        category: "BNPL",
+        pattern: "Its home screen leads with a single \"snapshot\" combining purchasing power, cash back earned, savings, and outstanding payments — Zip's equivalent today shows only spending power. Affirm also pairs its purchasing-power messaging with explicit reassurance that users are underwritten per-transaction and never charged late fees or compound interest.",
+        sourceLabel: "Affirm press release, Oct 2024",
+        sourceUrl: "https://investors.affirm.com/news-releases/news-release-details/affirm-updates-app-feature-more-offers-leading-holiday-season"
+      },
+      {
+        name: "Chime",
+        category: "Neobank (cross-industry)",
+        pattern: "Its most recent app redesign consolidated the app's most-used features directly onto the home screen with an emphasis on clearer, more intuitive balance visibility. Separately, Chime's own UX research found the label \"Spending Balance\" confused users, who trusted the plainer \"Available Balance\" more — a useful data point given Zip uses similar spending terminology on this same screen.",
+        sourceLabel: "Chime newsroom, 2025",
+        sourceUrl: "https://www.chime.com/newsroom/news/chime-launches-premium-membership-tier-and-more-than-a-dozen-new-features-in-redesigned-app/"
+      },
+      {
+        name: "Dave",
+        category: "Cash advance app (cross-industry)",
+        pattern: "Organizes its home experience into a small set of dedicated tabs (ExtraCash, Spending, Goals, Side Hustle) rather than a single long scroll, putting the cash-advance eligibility amount in its own dedicated tab rather than embedding it in a merchandising feed.",
+        sourceLabel: "Dave — ExtraCash",
+        sourceUrl: "https://dave.com/about-extra-cash"
+      }
+    ]
+  }
+};
+/* ===================================================================== */
+
+// ---------- Rendering (should not need edits) ----------
+
+const SEVERITY_ORDER = { High: 0, Medium: 1, Low: 2 };
+const EFFORT_ORDER = { Low: 0, Medium: 1, High: 2 };
+
+function flattenOpportunities() {
+  const rows = [];
+  REPORT.lenses.forEach(lens => {
+    (lens.opportunities || []).forEach(opp => {
+      rows.push({ ...opp, lensName: lens.name, lensId: lens.id });
+    });
+  });
+  return rows;
+}
+
+function isQuickWin(opp) {
+  return (opp.severity === "High" || opp.severity === "Medium") && opp.effort === "Low";
+}
+
+function badge(text, cls) {
+  return `<span class="badge ${cls}">${text}</span>`;
+}
+
+function severityBadge(sev) { return badge(sev, `sev-${sev}`); }
+function effortBadge(eff) { return badge(`${eff} effort`, "eff"); }
+function lensBadge(name) { return badge(name, "lens-tag"); }
+function typeBadge(type) { return badge(type, "type"); }
+
+function renderOppCard(opp, showLens) {
+  return `
+    <div class="opp-card">
+      <div class="opp-field">
+        <div class="field-label">Opportunity</div>
+        <div class="field-value opp-title">${opp.title}</div>
+      </div>
+      <div class="opp-field">
+        <div class="field-label">Rationale</div>
+        <div class="field-value muted">${opp.rationale}</div>
+      </div>
+      <div class="opp-field">
+        <div class="field-label">Hypothesis</div>
+        <div class="field-value muted">${opp.hypothesis || "Not yet specified."}</div>
+      </div>
+      ${opp.signal ? `
+      <div class="opp-field">
+        <div class="field-label">Seen elsewhere</div>
+        <div class="field-value muted signal">${opp.signal}</div>
+      </div>` : ""}
+      <div class="badge-row">
+        ${opp.type ? typeBadge(opp.type) : ""}
+        ${severityBadge(opp.severity)}
+        ${effortBadge(opp.effort)}
+        ${showLens ? lensBadge(opp.lensName) : ""}
+      </div>
+    </div>`;
+}
+
+function renderOverviewPanel() {
+  const all = flattenOpportunities();
+  const counts = { High: 0, Medium: 0, Low: 0 };
+  all.forEach(o => { if (counts[o.severity] !== undefined) counts[o.severity]++; });
+  const quickWins = all.filter(isQuickWin);
+
+  return `
+    <h1>${REPORT.meta.screenName}</h1>
+    <p class="subtitle">${REPORT.meta.description}</p>
+    ${REPORT.context ? `
+    <div class="context-card">
+      <div class="field-label">Job to be done</div>
+      <div class="context-jtbd">"${REPORT.context.jobToBeDone}"</div>
+      ${REPORT.context.primaryUser ? `<div class="context-user">Primary user in this moment: ${REPORT.context.primaryUser}</div>` : ""}
+    </div>` : ""}
+    <div class="stat-row">
+      <div class="stat-card"><div class="num">${all.length}</div><div class="label">Total opportunities</div></div>
+      <div class="stat-card"><div class="num">${counts.High}</div><div class="label">High severity</div></div>
+      <div class="stat-card"><div class="num">${counts.Medium}</div><div class="label">Medium severity</div></div>
+      <div class="stat-card"><div class="num">${counts.Low}</div><div class="label">Low severity</div></div>
+      <div class="stat-card"><div class="num">${quickWins.length}</div><div class="label">Quick wins</div></div>
+    </div>
+    <div class="section-label">Top quick wins</div>
+    ${quickWins.length ? quickWins.slice(0, 4).map(o => renderOppCard(o, true)).join("") : `<p class="empty-note">No high-impact, low-effort items surfaced yet.</p>`}
+  `;
+}
+
+function renderLensPanel(lens) {
+  const opps = lens.opportunities || [];
+  const pains = lens.painPoints || [];
+  const questions = lens.questions || [];
+  return `
+    <h1>${lens.icon} ${lens.name}</h1>
+    <div class="section-label">Opportunities</div>
+    ${opps.length ? opps.map(o => renderOppCard(o, false)).join("") : `<p class="empty-note">No material opportunities surfaced from this lens for this screen.</p>`}
+    <div class="section-label">Pain points today</div>
+    ${pains.length ? `<ul class="plain">${pains.map(p => `<li>${p}</li>`).join("")}</ul>` : `<p class="empty-note">None identified.</p>`}
+    <div class="section-label">Questions to ask</div>
+    ${questions.length ? `<ul class="plain">${questions.map(q => `<li>${q}</li>`).join("")}</ul>` : `<p class="empty-note">None identified.</p>`}
+  `;
+}
+
+let allOppsSort = { key: null, dir: 1 };
+let allOppsFilters = { lens: "all", severity: "all", effort: "all" };
+
+function renderAllOpportunitiesPanel() {
+  let rows = flattenOpportunities();
+  if (allOppsFilters.lens !== "all") rows = rows.filter(r => r.lensId === allOppsFilters.lens);
+  if (allOppsFilters.severity !== "all") rows = rows.filter(r => r.severity === allOppsFilters.severity);
+  if (allOppsFilters.effort !== "all") rows = rows.filter(r => r.effort === allOppsFilters.effort);
+
+  if (allOppsSort.key) {
+    rows.sort((a, b) => {
+      let av = a[allOppsSort.key], bv = b[allOppsSort.key];
+      if (allOppsSort.key === "severity") { av = SEVERITY_ORDER[av]; bv = SEVERITY_ORDER[bv]; }
+      if (allOppsSort.key === "effort") { av = EFFORT_ORDER[av]; bv = EFFORT_ORDER[bv]; }
+      if (av < bv) return -1 * allOppsSort.dir;
+      if (av > bv) return 1 * allOppsSort.dir;
+      return 0;
+    });
+  }
+
+  const lensOptions = REPORT.lenses.map(l => `<option value="${l.id}" ${allOppsFilters.lens === l.id ? "selected" : ""}>${l.name}</option>`).join("");
+
+  const tableRows = rows.map(o => `
+    <tr>
+      <td>${o.title}</td>
+      <td>${o.lensName}</td>
+      <td>${o.type ? typeBadge(o.type) : "—"}</td>
+      <td>${severityBadge(o.severity)}</td>
+      <td>${effortBadge(o.effort)}</td>
+      <td>
+        <div>${o.rationale}</div>
+        <div class="table-hypothesis"><span class="mini-label">Hypothesis</span>${o.hypothesis || "—"}</div>
+        ${o.signal ? `<div class="table-hypothesis"><span class="mini-label">Seen elsewhere</span>${o.signal}</div>` : ""}
+      </td>
+    </tr>`).join("");
+
+  return `
+    <h1>All opportunities</h1>
+    <p class="subtitle">${rows.length} of ${flattenOpportunities().length} shown</p>
+    <div class="filters">
+      <select onchange="allOppsFilters.lens=this.value; rerender();">
+        <option value="all">All lenses</option>
+        ${lensOptions}
+      </select>
+      <select onchange="allOppsFilters.severity=this.value; rerender();">
+        <option value="all">All severities</option>
+        <option value="High" ${allOppsFilters.severity === "High" ? "selected" : ""}>High</option>
+        <option value="Medium" ${allOppsFilters.severity === "Medium" ? "selected" : ""}>Medium</option>
+        <option value="Low" ${allOppsFilters.severity === "Low" ? "selected" : ""}>Low</option>
+      </select>
+      <select onchange="allOppsFilters.effort=this.value; rerender();">
+        <option value="all">All efforts</option>
+        <option value="High" ${allOppsFilters.effort === "High" ? "selected" : ""}>High</option>
+        <option value="Medium" ${allOppsFilters.effort === "Medium" ? "selected" : ""}>Medium</option>
+        <option value="Low" ${allOppsFilters.effort === "Low" ? "selected" : ""}>Low</option>
+      </select>
+    </div>
+    ${rows.length ? `
+    <table>
+      <thead>
+        <tr>
+          <th onclick="sortBy('title')">Opportunity</th>
+          <th onclick="sortBy('lensName')">Lens</th>
+          <th>Type</th>
+          <th onclick="sortBy('severity')">Severity</th>
+          <th onclick="sortBy('effort')">Effort</th>
+          <th>Rationale &amp; hypothesis</th>
+        </tr>
+      </thead>
+      <tbody>${tableRows}</tbody>
+    </table>` : `<p class="empty-note">No opportunities match these filters.</p>`}
+  `;
+}
+
+function renderQuickWinsPanel() {
+  const wins = flattenOpportunities().filter(isQuickWin);
+  return `
+    <h1>Quick wins</h1>
+    <p class="subtitle">High or Medium severity, Low effort — the highest-leverage place to start.</p>
+    ${wins.length ? wins.map(o => renderOppCard(o, true)).join("") : `<p class="empty-note">No quick wins surfaced across the ten lenses for this screen.</p>`}
+  `;
+}
+
+function sortBy(key) {
+  if (allOppsSort.key === key) { allOppsSort.dir *= -1; } else { allOppsSort = { key, dir: 1 }; }
+  rerender();
+}
+
+const PANELS = { overview: renderOverviewPanel, allOpportunities: renderAllOpportunitiesPanel, quickWins: renderQuickWinsPanel, competitive: renderCompetitivePanel };
+REPORT.lenses.forEach(lens => { PANELS[lens.id] = () => renderLensPanel(lens); });
+
+let activePanel = "overview";
+
+function buildNav() {
+  const opps = flattenOpportunities();
+  const qwCount = opps.filter(isQuickWin).length;
+  const primaryLenses = REPORT.lenses.filter(l => l.tier !== "secondary");
+  const secondaryLenses = REPORT.lenses.filter(l => l.tier === "secondary");
+
+  let html = `<div class="nav-item" data-panel="overview"><span class="icon">🏠</span> Overview</div>`;
+
+  html += `<div class="nav-group-label">Primary lenses</div>`;
+  primaryLenses.forEach(lens => {
+    const count = (lens.opportunities || []).length;
+    html += `<div class="nav-item" data-panel="${lens.id}"><span class="icon">${lens.icon}</span> ${lens.name}<span class="count">${count}</span></div>`;
+  });
+
+  if (secondaryLenses.length) {
+    html += `<div class="nav-group-label">Additional lenses</div>`;
+    secondaryLenses.forEach(lens => {
+      const count = (lens.opportunities || []).length;
+      html += `<div class="nav-item" data-panel="${lens.id}"><span class="icon">${lens.icon}</span> ${lens.name}<span class="count">${count}</span></div>`;
+    });
+  }
+
+  if (REPORT.competitive && REPORT.competitive.apps && REPORT.competitive.apps.length) {
+    html += `<div class="nav-group-label">Research</div>`;
+    html += `<div class="nav-item" data-panel="competitive"><span class="icon">🌐</span> Competitive landscape<span class="count">${REPORT.competitive.apps.length}</span></div>`;
+  }
+
+  html += `<div class="nav-group-label">Synthesis</div>`;
+  html += `<div class="nav-item" data-panel="allOpportunities"><span class="icon">📋</span> All opportunities<span class="count">${opps.length}</span></div>`;
+  html += `<div class="nav-item" data-panel="quickWins"><span class="icon">⚡</span> Quick wins<span class="count">${qwCount}</span></div>`;
+  document.getElementById("navList").innerHTML = html;
+  document.querySelectorAll(".nav-item").forEach(el => {
+    el.addEventListener("click", () => {
+      activePanel = el.dataset.panel; rerender();
+      document.getElementById("sidebar").classList.remove("open");
+    });
+  });
+}
+
+function renderCompetitivePanel() {
+  const comp = REPORT.competitive;
+  if (!comp || !comp.apps || !comp.apps.length) {
+    return `<h1>Competitive landscape</h1><p class="empty-note">No competitive research recorded for this screen.</p>`;
+  }
+  return `
+    <h1>Competitive landscape</h1>
+    <p class="subtitle">${comp.intro || ""}</p>
+    ${comp.apps.map(a => `
+      <div class="competitor-card">
+        <div class="competitor-head">
+          <span class="competitor-name">${a.name}</span>
+          ${a.category ? `<span class="competitor-category">${a.category}</span>` : ""}
+        </div>
+        <div class="competitor-pattern">${a.pattern}</div>
+        ${a.sourceUrl ? `<a class="competitor-source" href="${a.sourceUrl}" target="_blank" rel="noopener">${a.sourceLabel || "Source"} ↗</a>` : ""}
+      </div>
+    `).join("")}
+  `;
+}
+
+function buildScreenshotPane() {
+  const hasRef = !!(REPORT.meta.screenshot || REPORT.meta.figmaLink);
+  if (!hasRef) {
+    document.body.classList.add("no-screen-pane");
+    return;
+  }
+  const body = document.getElementById("screenshotPaneBody");
+  if (REPORT.meta.screenshot) {
+    body.innerHTML = `<img src="${REPORT.meta.screenshot}" alt="${REPORT.meta.screenName} screenshot">`;
+  } else {
+    body.innerHTML = `
+      <div class="screen-pane-placeholder">
+        <div class="box">Screenshot not embedded</div>
+        <p>Open the original design alongside this review:</p>
+        <a class="figma-link" href="${REPORT.meta.figmaLink}" target="_blank" rel="noopener">Open in Figma ↗</a>
+      </div>`;
+  }
+  const sourceLink = document.getElementById("screenSourceLink");
+  if (REPORT.meta.figmaLink) {
+    sourceLink.href = REPORT.meta.figmaLink;
+    sourceLink.style.display = "inline";
+  }
+}
+
+function rerender() {
+  document.getElementById("screenNameLabel").textContent = REPORT.meta.screenName;
+  document.getElementById("panelHost").innerHTML = `<div class="panel active">${PANELS[activePanel]()}</div>`;
+  document.querySelectorAll(".nav-item").forEach(el => {
+    el.classList.toggle("active", el.dataset.panel === activePanel);
+  });
+}
+
+buildNav();
+buildScreenshotPane();
+rerender();
+</script>
+</body>
+</html>
