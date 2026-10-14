@@ -1195,16 +1195,6 @@ const REPORT = {
           severity: "Medium", effort: "Medium"
         },
         {
-          title: "Confirm the bottom navigation is one shared component, not per-screen instances",
-          rationale: "The label mismatch between Home (\u201cOrders\u201d) and Deals (\u201cPayments\u201d) suggests either two separately-configured instances of the nav bar exist, or a single component is being fed inconsistent props per screen \u2014 either way, a maintenance risk that can drift further out of sync over time.",
-          hypothesis: "Future nav changes (adding, renaming, or reordering a tab) only need to happen in one place, because the whole app pulls from a single shared bottom-nav component instead of per-screen copies.",
-          metrics: [],
-          type: "Refine",
-          signal: null,
-          screenIds: ["home", "deals"],
-          severity: "Medium", effort: "Medium"
-        },
-        {
           title: "Confirm every deal card guarantees text-over-photo contrast, not just the ones that happen to look fine",
           rationale: "Every card overlays white or dark text directly on a photo (a beach, a pool, a palm tree) rather than a solid color \u2014 legible in the samples reviewed here, but worth confirming there's an enforced scrim or text-shadow rule behind the text rather than case-by-case luck depending on which photo a merchant's asset happens to be.",
           hypothesis: "Every deal card stays legible regardless of which photo a merchant supplies, because contrast is a guaranteed system rule, not a per-asset coincidence.",
@@ -1275,16 +1265,6 @@ const REPORT = {
           signal: null,
           screenIds: ["instore-how-to-pay"],
           severity: "High", effort: "Low"
-        },
-        {
-          title: "Reconsider the pre-fill education modal trigger timing",
-          rationale: "The modal (2a) surfaces only after a user has completed 2 in-store purchases without pre-fill. By that point, the user has already formed a habit of the old flow and the modal is teaching them something they have already worked around. Showing it before the first purchase would build confidence rather than correct a pattern.",
-          hypothesis: "New in-store users who see the pre-fill education modal before their first in-store attempt have a higher first-attempt success rate because they start with the right mental model rather than discovering the feature after building a workaround habit.",
-          metrics: ["First-attempt PR completion rate (users who saw modal early vs. late)", "Pre-fill feature adoption rate by cohort"],
-          type: "Refine",
-          signal: null,
-          screenIds: ["instore-default-modal"],
-          severity: "Medium", effort: "Low"
         }
         ],
       painPoints: [
@@ -1579,17 +1559,6 @@ const REPORT = {
           signal: null,
           screenIds: ["instore-location-disabled", "instore-location-enabled"],
           severity: "High", effort: "Low"
-        },
-        {
-          title: "Resolve [Apple Pay] as a build-time or runtime content variable rather than a hardcoded placeholder",
-          rationale: "If the wallet label is meant to reflect the actual device wallet (Apple Pay on iOS, Google Pay on Android), this should be a runtime variable resolved from the device context \u2014 not a hardcoded string that accidentally shipped with brackets. If it is always Apple Pay on iOS, it should simply be hardcoded correctly.",
-          hypothesis: "The How to Pay screen shows the correct wallet label for 100% of users on both platforms, removing a visible bug that currently damages trust at a key educational moment.",
-          metrics: ["Error rate for wallet label rendering on iOS vs. Android", "How-to-pay screen QA pass rate post-fix"],
-          type: "Refine",
-          evidence: { strength: "Supporting", text: "Same surface as the How to Pay placeholder: guidance for paying in store is part of the largest support theme (22.5% of comments)." },
-          signal: null,
-          screenIds: ["instore-how-to-pay"],
-          severity: "High", effort: "Low"
         }
         ],
       painPoints: [],
@@ -1779,17 +1748,7 @@ const REPORT = {
           screenIds: ["deals", "all-deals", "deals-category-travel"],
           severity: "High", effort: "Low"
         },
-      ,
-        {
-          title: "Confirm legal sign-off on location data collection language for every market Zip operates in",
-          rationale: "The current location permission screen says Zip 'collects location data to help you find nearby deals and optimize your in-store experience' with a link to the Privacy Policy. Location data collection language is a jurisdiction-specific compliance requirement \u2014 the wording that clears legal in the US may not be sufficient in other markets.",
-          hypothesis: "A legal review confirms the current copy is compliant in all active markets, or produces a localized variant for any that require it.",
-          metrics: [],
-          type: "Add",
-          signal: null,
-          screenIds: ["instore-location-prompt"],
-          severity: "High", effort: "Medium"
-        }
+      
         ],
       painPoints: [],
       questions: [
@@ -1990,16 +1949,6 @@ const REPORT = {
           type: "Refine",
           signal: null,
           screenIds: ["instore-location-enabled"],
-          severity: "Medium", effort: "Low"
-        },
-        {
-          title: "Ensure the virtual card mock details (card number, CVC, dates) are not read aloud by screen readers",
-          rationale: "The card component on the In-Store default screen shows a full mock card number and CVC. A screen reader announced these digits as card credentials would be confusing (they\'re not real) and potentially alarming. They should carry aria-hidden='true' or a single descriptive label like 'Zip virtual card'.",
-          hypothesis: "Screen reader users navigate the In-Store default screen without encountering confusing mock card number announcements, passing a basic VoiceOver/TalkBack walkthrough.",
-          metrics: ["Accessibility audit pass rate for virtual card component", "Screen reader announcement test result (pass/fail)"],
-          type: "Refine",
-          signal: null,
-          screenIds: ["instore-location-disabled", "instore-location-enabled"],
           severity: "Medium", effort: "Low"
         }
         ],
