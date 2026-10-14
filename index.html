@@ -2827,7 +2827,7 @@ function renderJourneySnapshots(journey) {
 // Beneath it, journeys that carry data cards (insights / snapshots) split their supporting
 // material into two tabs: Opportunities (the default) and Data. Journeys without data stay a single page.
 let journeyTab = {};
-const JOURNEY_TABS = [["opps", "Opportunities"], ["data", "Data"]];
+const JOURNEY_TABS = [["opps", "Opportunities"], ["data", "Data/research"]]; // ids double as the deep-link slugs, so only the labels change
 function getJourneyTab(id) { return journeyTab[id] || JOURNEY_TABS[0][0]; }
 function journeyHasData(j) {
   return !!((j.insights && j.insights.themes && j.insights.themes.length) || (j.snapshots && j.snapshots.length));
