@@ -2561,6 +2561,34 @@ function renderJourneyInsights(journey, relevantOpps) {
     </div>`;
 }
 
+// In a multi-journey review, opportunities tied to the journey's own screens
+// (everything after the entry screen, e.g. Home) lead; flow-wide ones and ones
+// tied only to the entry screen are split out below so they don't crowd them.
+function splitJourneyOpportunities(journey, opps) {
+  const own = new Set(journey.screenIds.slice(1));
+  const primary = [], shared = [];
+  opps.forEach(o => ((o.screenIds || []).some(id => own.has(id)) ? primary : shared).push(o));
+  return { primary, shared };
+}
+
+function renderJourneyOpportunitySections(journey, relevantOpps) {
+  const countText = n => `${n} opportunit${n === 1 ? "y" : "ies"}`;
+  if (!isMultiJourney || journey.screenIds.length < 2) {
+    return `
+    <div class="section-label">Opportunities in this journey</div>
+    <p class="subtitle small">${countText(relevantOpps.length)} tied to these screens, quick wins (High/Medium impact, Low effort) first.</p>
+    ${relevantOpps.length ? relevantOpps.map(o => renderOppCard(o, true, o.id)).join("") : `<p class="empty-note">No opportunities tagged to this journey's screens yet.</p>`}`;
+  }
+  const { primary, shared } = splitJourneyOpportunities(journey, relevantOpps);
+  return `
+    <div class="section-label">Opportunities on this journey's screens</div>
+    <p class="subtitle small">${countText(primary.length)} tied to the screens after ${getJourneyScreens(journey)[0]?.name || "the entry screen"}, quick wins (High/Medium impact, Low effort) first.</p>
+    ${primary.length ? primary.map(o => renderOppCard(o, true, o.id)).join("") : `<p class="empty-note">No opportunities tagged to this journey's own screens yet.</p>`}
+    <div class="section-label">Flow-wide and Home opportunities</div>
+    <p class="subtitle small">${countText(shared.length)} that apply across the whole flow or only to the entry screen, so they show up in every journey.</p>
+    ${shared.length ? shared.map(o => renderOppCard(o, true, o.id)).join("") : `<p class="empty-note">None.</p>`}`;
+}
+
 function renderJourneyPanel() {
   const journey = getCurrentJourney();
   if (!journey || (!journey.flowDiagram && !(journey.steps && journey.steps.length))) {
@@ -2586,9 +2614,7 @@ function renderJourneyPanel() {
       ${screens.map(s => `<button class="screen-tab" onclick="selectScreen('${s.id}')">${s.name}</button>`).join("")}
     </div>` : ""}
     ${renderJourneyInsights(journey, relevantOpps)}
-    <div class="section-label">Opportunities in this journey</div>
-    <p class="subtitle small">${relevantOpps.length} opportunit${relevantOpps.length === 1 ? "y" : "ies"} tied to these screens, quick wins (High/Medium impact, Low effort) first.</p>
-    ${relevantOpps.length ? relevantOpps.map(o => renderOppCard(o, true, o.id)).join("") : `<p class="empty-note">No opportunities tagged to this journey's screens yet.</p>`}
+    ${renderJourneyOpportunitySections(journey, relevantOpps)}
     ${hasSteps && emotionPickerState && emotionPickerState.journeyId === journey.id ? renderEmotionPicker() : ""}
   `;
 }
