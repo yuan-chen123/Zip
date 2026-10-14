@@ -643,6 +643,8 @@
   .snap-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; align-self: center; }
   .snap-legend strong { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
   .snap-legend .snap-pct { margin-left: auto; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .insight-link { background: none; border: 0; padding: 0; font: inherit; font-weight: 600; color: var(--accent-dark); text-decoration: underline; cursor: pointer; }
+  .insight-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
   .insight-source-link { display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--accent-dark); }
   .insight-source-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
   .evidence-strength { font-size: 10px; font-weight: 600; letter-spacing: 0; text-transform: none; background: var(--accent-tint); color: var(--accent-dark); border-radius: 999px; padding: 1px 8px; margin-left: 6px; }
@@ -2734,7 +2736,7 @@ function renderJourneyInsights(journey, relevantOpps) {
       <ol class="insight-bars">${rows}</ol>
       ${renderInsightCrossCheck(ins)}
       <p class="insight-meta">${ins.base} written survey comments, ${ins.period}. A comment can count toward more than one theme, so shares do not add to 100%. Only customers who contacted support are included.</p>
-      ${evidenced ? `<p class="insight-meta">Customer evidence is attached to ${evidenced} opportunit${evidenced === 1 ? "y" : "ies"} below.</p>` : ""}
+      ${evidenced ? `<p class="insight-meta">Customer evidence is attached to ${evidenced} opportunit${evidenced === 1 ? "y" : "ies"}. <button type="button" class="insight-link" onclick="setJourneyTab('${journey.id}', 'opps')">View in the Opportunities tab</button></p>` : ""}
       <details class="insight-details">
         <summary>Table view and method</summary>
         <table>
@@ -2817,10 +2819,10 @@ function renderJourneySnapshots(journey) {
     </div>`).join("");
 }
 
-// Journeys that carry data cards (insights / snapshots) get two tabs: the diagram,
-// and the data plus opportunities. Journeys without data stay a single page.
+// Journeys that carry data cards (insights / snapshots) get three tabs: the diagram,
+// the data, and the opportunities. Journeys without data stay a single page.
 let journeyTab = {};
-const JOURNEY_TABS = [["journey", "Journey"], ["data", "Data and opportunities"]];
+const JOURNEY_TABS = [["journey", "Journey"], ["data", "Data"], ["opps", "Opportunities"]];
 function getJourneyTab(id) { return journeyTab[id] || "journey"; }
 function journeyHasData(j) {
   return !!((j.insights && j.insights.themes && j.insights.themes.length) || (j.snapshots && j.snapshots.length));
@@ -2845,7 +2847,7 @@ function renderJourneyTabs(journey, oppCount) {
   const cur = getJourneyTab(journey.id);
   return `<div class="journey-tabs" role="tablist" aria-label="${journey.name} views">${JOURNEY_TABS.map(([id, label]) => `
     <button type="button" role="tab" id="journeyTab-${id}" class="journey-tab${cur === id ? " active" : ""}" aria-selected="${cur === id}" aria-controls="journeyTabPanel" tabindex="${cur === id ? 0 : -1}"
-      onclick="setJourneyTab('${journey.id}', '${id}')" onkeydown="journeyTabKeydown(event, '${journey.id}')">${label}${id === "data" ? `<span class="count">${oppCount}</span>` : ""}</button>`).join("")}
+      onclick="setJourneyTab('${journey.id}', '${id}')" onkeydown="journeyTabKeydown(event, '${journey.id}')">${label}${id === "opps" ? `<span class="count">${oppCount}</span>` : ""}</button>`).join("")}
   </div>`;
 }
 
@@ -2874,15 +2876,15 @@ function renderJourneyPanel() {
     </div>` : ""}`;
   const dataPart = `
     ${renderJourneyInsights(journey, relevantOpps)}
-    ${renderJourneySnapshots(journey)}
-    ${renderJourneyOpportunitySections(journey, relevantOpps)}`;
+    ${renderJourneySnapshots(journey)}`;
+  const oppsPart = renderJourneyOpportunitySections(journey, relevantOpps);
   const tabbed = journeyHasData(journey);
   const cur = getJourneyTab(journey.id);
   return `
     <h1>${isMultiJourney ? journey.name : "Journey"}</h1>
     ${tabbed
-      ? `${renderJourneyTabs(journey, relevantOpps.length)}<div role="tabpanel" id="journeyTabPanel" aria-labelledby="journeyTab-${cur}">${cur === "data" ? dataPart : diagramPart}</div>`
-      : diagramPart + dataPart}
+      ? `${renderJourneyTabs(journey, relevantOpps.length)}<div role="tabpanel" id="journeyTabPanel" aria-labelledby="journeyTab-${cur}">${cur === "data" ? dataPart : cur === "opps" ? oppsPart : diagramPart}</div>`
+      : diagramPart + dataPart + oppsPart}
     ${hasSteps && (!tabbed || cur === "journey") && emotionPickerState && emotionPickerState.journeyId === journey.id ? renderEmotionPicker() : ""}
   `;
 }
