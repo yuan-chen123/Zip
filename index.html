@@ -3541,10 +3541,68 @@ function rerender() {
     const journeyMatch = !el.dataset.journeyId || el.dataset.journeyId === activeJourneyId;
     el.classList.toggle("active", panelMatch && journeyMatch);
   });
+  syncRoute();
 }
 
+// ---------- Deep links ----------
+// The current view is mirrored in the URL hash (static hosting, so no server routes), so any
+// journey, journey tab, lens or synthesis panel can be linked to directly:
+//   #/overview  #/journey/<journeyId>[/<tab>]  #/lens/<lensId>
+//   #/all-opportunities  #/quick-wins  #/decision-log  #/competitive-landscape  #/skill-info
+// Navigating pushes a history entry, so back/forward walk through the views.
+const PANEL_ROUTES = {
+  overview: "overview", allOpportunities: "all-opportunities", quickWins: "quick-wins",
+  decisionLog: "decision-log", competitive: "competitive-landscape", skillInfo: "skill-info"
+};
+let applyingRoute = false;
+
+function currentRoute() {
+  if (activePanel === "journey") {
+    const j = getCurrentJourney();
+    if (!j) return "#/overview";
+    return "#/journey/" + j.id + (isMultiJourney && journeyHasData(j) ? "/" + getJourneyTab(j.id) : "");
+  }
+  if (PANEL_ROUTES[activePanel]) return "#/" + PANEL_ROUTES[activePanel];
+  return "#/lens/" + activePanel; // lens ids double as panel ids
+}
+
+function syncRoute() {
+  const h = currentRoute();
+  if (location.hash === h) return;
+  // A route that came from the URL is normalised in place; a click adds a history entry.
+  history[applyingRoute ? "replaceState" : "pushState"](null, "", h);
+}
+
+function applyRoute(hash) {
+  const [kind, id, tab] = hash.replace(/^#\/?/, "").split("/").filter(Boolean).map(decodeURIComponent);
+  const panelRoute = Object.entries(PANEL_ROUTES).find(([, r]) => r === kind);
+  const journeys = getJourneys();
+  if (panelRoute) {
+    activePanel = panelRoute[0];
+  } else if (kind === "journey" && journeys.length) {
+    const j = journeys.find(x => x.id === id) || journeys[0];
+    activePanel = "journey"; activeJourneyId = j.id; selectedScreenId = null;
+    if (j.id === id && journeyHasData(j) && JOURNEY_TABS.some(t => t[0] === tab)) journeyTab[j.id] = tab;
+    else delete journeyTab[j.id];
+  } else if (kind === "lens" && REPORT.lenses.some(l => l.id === id)) {
+    activePanel = id;
+    // Lens groups start collapsed, so open the one holding the linked lens.
+    navGroupOpen[REPORT.lenses.find(l => l.id === id).tier === "secondary" ? "additionalLenses" : "primaryLenses"] = true;
+  } else {
+    activePanel = "overview";
+  }
+  applyingRoute = true;
+  try { rerender(); } finally { applyingRoute = false; }
+}
+
+function onRouteChange() {
+  if (location.hash !== currentRoute()) applyRoute(location.hash);
+}
+window.addEventListener("popstate", onRouteChange);
+window.addEventListener("hashchange", onRouteChange);
+
 buildScreenshotPane();
-rerender();
+applyRoute(location.hash);
 
 // Best-effort reminder for an actual tab close/reload/navigation-away.
 // Browsers deliberately don't allow custom buttons or wording here (a
