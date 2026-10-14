@@ -433,8 +433,8 @@
   .journey-diagram { width: 100%; overflow-x: auto; margin-bottom: 20px; }
   .journey-diagram svg { width: 100%; min-width: 700px; height: auto; display: block; }
   .journey-jump-row { display: flex; flex-wrap: wrap; gap: 8px; }
-  /* Two-tab bar on journeys that carry data cards: the diagram, then data + opportunities. */
-  .journey-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin: 0 0 18px; }
+  /* Two-tab bar under the journey diagram on journeys that carry data cards: Data and Opportunities. */
+  .journey-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin: 28px 0 18px; }
   .journey-tab {
     display: flex; align-items: center; gap: 8px; padding: 9px 14px; margin-bottom: -1px;
     background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 6px 6px 0 0;
@@ -2819,21 +2819,20 @@ function renderJourneySnapshots(journey) {
     </div>`).join("");
 }
 
-// Journeys that carry data cards (insights / snapshots) get three tabs: the diagram,
-// the data, and the opportunities. Journeys without data stay a single page.
+// The journey itself (description, diagram, screen jump row) is always the page content.
+// Beneath it, journeys that carry data cards (insights / snapshots) split their supporting
+// material into two tabs: Data and Opportunities. Journeys without data stay a single page.
 let journeyTab = {};
-const JOURNEY_TABS = [["journey", "Journey"], ["data", "Data"], ["opps", "Opportunities"]];
-function getJourneyTab(id) { return journeyTab[id] || "journey"; }
+const JOURNEY_TABS = [["data", "Data"], ["opps", "Opportunities"]];
+function getJourneyTab(id) { return journeyTab[id] || JOURNEY_TABS[0][0]; }
 function journeyHasData(j) {
   return !!((j.insights && j.insights.themes && j.insights.themes.length) || (j.snapshots && j.snapshots.length));
 }
 function setJourneyTab(id, tab) {
   journeyTab[id] = tab;
-  emotionPickerState = null;
   rerender();
-  window.scrollTo(0, 0);
   const el = document.getElementById("journeyTab-" + tab);
-  if (el) el.focus();
+  if (el) el.focus({ preventScroll: true }); // the tab bar sits below the diagram, so keep the scroll position
 }
 function journeyTabKeydown(e, journeyId) {
   const i = JOURNEY_TABS.findIndex(t => t[0] === getJourneyTab(journeyId));
@@ -2845,7 +2844,7 @@ function journeyTabKeydown(e, journeyId) {
 }
 function renderJourneyTabs(journey, oppCount) {
   const cur = getJourneyTab(journey.id);
-  return `<div class="journey-tabs" role="tablist" aria-label="${journey.name} views">${JOURNEY_TABS.map(([id, label]) => `
+  return `<div class="journey-tabs" role="tablist" aria-label="${journey.name} data and opportunities">${JOURNEY_TABS.map(([id, label]) => `
     <button type="button" role="tab" id="journeyTab-${id}" class="journey-tab${cur === id ? " active" : ""}" aria-selected="${cur === id}" aria-controls="journeyTabPanel" tabindex="${cur === id ? 0 : -1}"
       onclick="setJourneyTab('${journey.id}', '${id}')" onkeydown="journeyTabKeydown(event, '${journey.id}')">${label}${id === "opps" ? `<span class="count">${oppCount}</span>` : ""}</button>`).join("")}
   </div>`;
@@ -2882,10 +2881,11 @@ function renderJourneyPanel() {
   const cur = getJourneyTab(journey.id);
   return `
     <h1>${isMultiJourney ? journey.name : "Journey"}</h1>
+    ${diagramPart}
     ${tabbed
-      ? `${renderJourneyTabs(journey, relevantOpps.length)}<div role="tabpanel" id="journeyTabPanel" aria-labelledby="journeyTab-${cur}">${cur === "data" ? dataPart : cur === "opps" ? oppsPart : diagramPart}</div>`
-      : diagramPart + dataPart + oppsPart}
-    ${hasSteps && (!tabbed || cur === "journey") && emotionPickerState && emotionPickerState.journeyId === journey.id ? renderEmotionPicker() : ""}
+      ? `${renderJourneyTabs(journey, relevantOpps.length)}<div role="tabpanel" id="journeyTabPanel" aria-labelledby="journeyTab-${cur}">${cur === "opps" ? oppsPart : dataPart}</div>`
+      : dataPart + oppsPart}
+    ${hasSteps && emotionPickerState && emotionPickerState.journeyId === journey.id ? renderEmotionPicker() : ""}
   `;
 }
 
@@ -3306,7 +3306,7 @@ function buildNav() {
   });
   document.querySelectorAll(".nav-item").forEach(el => {
     el.addEventListener("click", () => {
-      if (el.dataset.journeyId) { activeJourneyId = el.dataset.journeyId; journeyTab[el.dataset.journeyId] = "journey"; selectedScreenId = null; }
+      if (el.dataset.journeyId) { activeJourneyId = el.dataset.journeyId; delete journeyTab[el.dataset.journeyId]; selectedScreenId = null; }
       activePanel = el.dataset.panel; rerender();
       document.getElementById("sidebar").classList.remove("open");
     });
@@ -3424,7 +3424,7 @@ function selectJourney(id) {
   const journeys = getJourneys();
   if (!journeys.find(j => j.id === id)) return;
   activeJourneyId = id;
-  journeyTab[id] = "journey";
+  delete journeyTab[id];
   selectedScreenId = null; // let buildScreenshotPane default to this journey's first screen
   rerender();
   window.scrollTo(0, 0);
