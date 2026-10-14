@@ -598,6 +598,7 @@
   .insight-bar { height: 10px; background: var(--accent); border-radius: 0 4px 4px 0; }
   .insight-meta { font-size: 12px; line-height: 17px; color: var(--text-muted); margin: 16px 0 0; padding-top: 12px; border-top: 1px solid var(--border); }
   .insight-meta + .insight-meta { border-top: 0; margin-top: 4px; padding-top: 0; }
+  .insight-notes { margin: 6px 0 0 16px; padding: 0; font-size: 12px; line-height: 17px; color: var(--text-muted); }
   .insight-details { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
   .insight-details summary { cursor: pointer; font-weight: 600; color: var(--accent-dark); }
   .insight-details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
@@ -605,6 +606,33 @@
   .insight-details th, .insight-details td { text-align: left; padding: 5px 8px 5px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
   .insight-details td.num, .insight-details th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .insight-details ul { margin: 6px 0 0 16px; padding: 0; line-height: 17px; }
+  .insight-cross { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .insight-cross-title { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); }
+  .insight-cross-caption { font-size: 12px; line-height: 17px; color: var(--text-muted); margin: 2px 0 12px; }
+  .insight-cross-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .insight-cross-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 2px; }
+  .insight-cross-line { font-size: 12px; line-height: 17px; color: var(--text-muted); display: grid; grid-template-columns: 62px 1fr; gap: 8px; }
+  .insight-cross-src { font-weight: 600; color: var(--text); }
+  .insight-read { font-size: 10px; font-weight: 600; border: 1px solid transparent; border-radius: 999px; padding: 1px 8px; background: var(--accent-tint); color: var(--accent-dark); white-space: nowrap; }
+  .insight-read.outline { background: transparent; border-color: var(--accent-light); }
+  /* Behavioural snapshot card on a journey (journey.snapshots): one stacked split bar, plus a zoom on its smaller slice. */
+  .snap-total { font-size: 13px; color: var(--text-muted); margin: 0 0 14px; }
+  .snap-total strong { font-size: 22px; line-height: 28px; font-weight: 600; color: var(--text); margin-right: 6px; }
+  .snap-bar-title { font-size: 12px; font-weight: 600; color: var(--text-muted); margin: 14px 0 6px; }
+  .snap-bar { display: flex; gap: 2px; height: 14px; }
+  .snap-seg { min-width: 3px; border: 1px solid transparent; box-sizing: border-box; }
+  .snap-seg:first-child { border-radius: 4px 0 0 4px; }
+  .snap-seg:last-child { border-radius: 0 4px 4px 0; }
+  .snap-c1 { background: var(--accent); }
+  .snap-c2 { background: var(--accent-light); }
+  .snap-c3 { background: var(--accent-tint-strong); border-color: var(--accent-light); }
+  .snap-legend { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 12px; line-height: 17px; color: var(--text-muted); }
+  .snap-legend li { display: flex; align-items: baseline; gap: 8px; }
+  .snap-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; align-self: center; }
+  .snap-legend strong { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .snap-legend .snap-pct { margin-left: auto; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .insight-source-link { display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--accent-dark); }
+  .insight-source-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
   .evidence-strength { font-size: 10px; font-weight: 600; letter-spacing: 0; text-transform: none; background: var(--accent-tint); color: var(--accent-dark); border-radius: 999px; padding: 1px 8px; margin-left: 6px; }
 
   /* Cards */
@@ -1046,12 +1074,164 @@ const REPORT = {
           "label": "Other / not actionable",
           "count": 27
         },
+        "crossCheck": {
+          "title": "Cross-check with public reviews",
+          "caption": "Different bases and themes, so compare the pattern, not the percentages.",
+          "internalLabel": "Vaultmate",
+          "rows": [
+            {
+              "theme": "In-app guidance and faster support",
+              "internal": "64 comments, 22.5% (#1)",
+              "external": "No comparable share. Zip's own guidance is inconsistent on the amount step, the $35 physical-card minimum and wallet steps.",
+              "read": "Consistent"
+            },
+            {
+              "theme": "Declines at the register",
+              "internal": "28 comments, 9.8% (#2)",
+              "external": "Unexplained declines and shifting limits: 19% of 1-3 star complaints across five BNPL apps.",
+              "read": "Agrees"
+            },
+            {
+              "theme": "Unclear spending limit",
+              "internal": "18 comments, 6.3% (#3)",
+              "external": "Part of the 19% above. Affirm: 27 of 384 negative reviews (about 7%) were declines on a limit the app had shown.",
+              "read": "Agrees"
+            },
+            {
+              "theme": "Returns and refunds",
+              "internal": "Not in the top three. Its in-store filter may exclude refund contacts.",
+              "external": "Installments still charging after a refund: 24% of 1-3 star complaints, the top public theme.",
+              "read": "Public only"
+            }
+          ]
+        },
         "method": [
           "About 130 further comments were not matched to any theme; these are likely general praise or comments about the agent.",
           "Themes are AI-tagged with Cortex AI on the PUBLIC_ANALYST semantic view.",
-          "Filtered to the In-Store Card and pre-fill in-store purchase request contact reasons."
+          "Filtered to the In-Store Card and pre-fill in-store purchase request contact reasons.",
+          "Public figures come from a competitive assessment of Zip's in-store tab. The cross-app shares are of 1-3 star app reviews across Klarna, Afterpay, Affirm, Sezzle and Zip, from one article that does not state its review count and carries sponsored placements, so use them to rank themes, not as rates.",
+          "In-store was 28% of Zip's US orders over BFCM 2025, up from 22%, so failures at this surface carry real weight."
         ]
       },
+      snapshots: [
+        {
+          "title": "In-Store CTAs: Pay in-store button vs the amount card",
+          "source": "Snowflake: in-app button-tap events and in-store orders",
+          "headline": "In the last 90 days the Pay in-store button converts nearly twice as well as the amount card (66.8% vs 36.8%) and brings in about 86% of the revenue attributed to the two CTAs.",
+          "intro": "Last 90 days, iOS + Android. Converted means an in-store order after the tap; the earlier all-time pull used a 2-hour window and this one does not restate it.",
+          "blocks": [
+            {
+              "type": "rows",
+              "title": "Tap-to-order conversion",
+              "rows": [
+                {
+                  "label": "Pay in-store button",
+                  "value": "66.8%",
+                  "pct": 66.8,
+                  "cls": "snap-c1",
+                  "detail": "Event: current label, Pay in-store¹. 6.4M taps, 946K users, 632K ordered."
+                },
+                {
+                  "label": "Amount card ($0.00 +)",
+                  "value": "36.8%",
+                  "pct": 36.8,
+                  "cls": "snap-c2",
+                  "detail": "Event: Pay in-store - card component. 1.9M taps, 604K users, 222K ordered."
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "title": "Average spend per ordering customer",
+              "rows": [
+                {
+                  "label": "Pay in-store button",
+                  "value": "$784.21",
+                  "pct": 100,
+                  "cls": "snap-c1",
+                  "detail": "$106.87 average order, 4.6M orders, $495.4M revenue."
+                },
+                {
+                  "label": "Amount card ($0.00 +)",
+                  "value": "$367.47",
+                  "pct": 46.9,
+                  "cls": "snap-c2",
+                  "detail": "$119.54 average order, 684K orders, $81.7M revenue."
+                }
+              ]
+            }
+          ],
+          "context": "Amount-card orders are larger on average, but its customers transact less often, so spend per customer is about half. The earlier all-time pull compared the old label only (50.5% vs 38.4%); the primary CTA has been logged as Pay in-store¹ since about April 2026, so the 90-day figures use the current label and the gap is wider. The chat proposed testing removal of the card on 10-20% of users for 2-4 weeks, with overall in-store conversion as the primary metric.",
+          "notes": [
+            "Orders and revenue are attributed to the CTA a customer tapped, so a customer who tapped both could be counted twice. Read 86% as a share of revenue attributed to these two CTAs, not of all in-store revenue.",
+            "The conversion gap is correlation, not proof. The chat's read is that amount-card users may be more exploratory, such as checking their balance.",
+            "The chat does not restate the dates for this pull. The earlier 90-day pull covered Jun 12 to Sep 9, 2026.",
+            "An earlier iOS overlap (31% of amount-card users never tapped the main button) counted the old label only, so it is likely overstated and is not shown. It needs a rerun with the current label before sizing the risk of removing the card."
+          ],
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required). The shared snapshot predates these 90-day conversion figures.",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/e5045f55-aa64-45ec-ad95-713721286863"
+        },
+        {
+          "title": "Location sharing on the In-Store tab",
+          "source": "Snowflake: in-app button-tap events",
+          "headline": "Most active in-store tab users already have location on (95.4%). Only 4.6% hit the location prompt, and about 4 in 5 of those turned it on.",
+          "period": "last 90 days (Jun 12 to Sep 9, 2026), iOS + Android",
+          "total": {
+            "value": "1.20M",
+            "label": " in-store tab users"
+          },
+          "blocks": [
+            {
+              "type": "split",
+              "title": "All in-store tab users",
+              "classes": [
+                "snap-c1",
+                "snap-c2"
+              ],
+              "parts": [
+                {
+                  "label": "Location already on",
+                  "value": "1.14M",
+                  "pct": 95.4
+                },
+                {
+                  "label": "Prompted to turn on location",
+                  "value": "55K",
+                  "pct": 4.6
+                }
+              ]
+            },
+            {
+              "type": "split",
+              "title": "Of the 55K prompted",
+              "classes": [
+                "snap-c2",
+                "snap-c3"
+              ],
+              "parts": [
+                {
+                  "label": "Enabled after the prompt",
+                  "value": "44K",
+                  "pct": 80.3
+                },
+                {
+                  "label": "Declined or ignored",
+                  "value": "11K",
+                  "pct": 19.7
+                }
+              ]
+            }
+          ],
+          "context": "All-time (Oct 2021 to Sep 9, 2026) only 87.4% of 4.50M users were already on, so recent users are more likely to have location on. In the journey above, most people land on 2c (location on); about 1 in 20 reach 3.",
+          "notes": [
+            "Built from button taps, so it only covers users who tapped something on the In-Store tab.",
+            "Already on means the user never tapped Turn on location. It is inferred, not a measured permission state, so treat 95.4% as an upper bound.",
+            "Prompted means the user tapped Turn on location. Enabled means they then selected a location preference."
+          ],
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/e5045f55-aa64-45ec-ad95-713721286863"
+        }
+      ],
       viewBox: "0 0 1400 860",
       connectors: '<defs><marker id="arrowhead4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#6542BE"/></marker><marker id="arrowhead4g" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#999"/></marker></defs><rect x="0" y="0" width="1400" height="860" rx="0" fill="#FAFAFC" stroke="none" stroke-width="1.5"/><circle cx="265" cy="405" r="4" fill="#6542BE"/><line x1="210" y1="405" x2="261" y2="405" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><circle cx="645" cy="405" r="4" fill="#6542BE"/><path d="M 265 405 Q 380 130 420 125" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="286.0" y="81.0" width="158.0" height="18" rx="9" fill="#F4F4F4"/><text x="365.0" y="94.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">First use, 2+ purchases</text><path d="M 265 405 Q 455.0 480 641 405" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="355.0" y="481.0" width="200.0" height="18" rx="9" fill="#F4F4F4"/><text x="455.0" y="494.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Returning / already seen modal</text><path d="M 590 155 Q 700 200 645 401" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="629.0" y="171.0" width="62.0" height="18" rx="9" fill="#F4F4F4"/><text x="660.0" y="184.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Dismiss</text><path d="M 645 405 Q 760 130 800 125" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="699.0" y="81.0" width="92.0" height="18" rx="9" fill="#F4F4F4"/><text x="745.0" y="94.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Location off</text><line x1="649" y1="405" x2="800" y2="405" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="679.5" y="380.0" width="86.0" height="18" rx="9" fill="#F4F4F4"/><text x="722.5" y="393.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Location on</text><line x1="970" y1="125" x2="1180" y2="125" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="1005.0" y="89.0" width="140.0" height="18" rx="9" fill="#F4F4F4"/><text x="1075.0" y="102.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">"Show nearby stores"</text><path d="M 1265 190 Q 1265 405 974 405" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowhead4g)"/><rect x="1212.5" y="346.0" width="125.0" height="18" rx="9" fill="#F4F4F4"/><text x="1275.0" y="359.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Grants permission</text><path d="M 840 190 Q 660 550 789 566" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><path d="M 840 470 Q 780 600 795 574" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><rect x="635.0" y="516.0" width="130.0" height="18" rx="9" fill="#F4F4F4"/><text x="700.0" y="529.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Need help? links</text><circle cx="795" cy="570" r="4" fill="#999"/><path d="M 795 570 Q 520 610 510 640" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><line x1="795" y1="570" x2="885" y2="640" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/>',
       steps: [
@@ -1251,20 +1431,10 @@ const REPORT = {
           hypothesis: "Removing or converting the card into a purely informational element and making the button the sole CTA produces a clearer visual hierarchy that matches the single action this screen exists to drive.",
           metrics: ["Tap rate on card vs. button (pre-change baseline)", "Task-completion time in usability testing"],
           type: "Replace",
+          evidence: { strength: "Supporting", text: "In the last 90 days the amount card converted at 36.8% against 66.8% for the Pay in-store button and drew 1.9M taps against 6.4M, which supports demoting it. Its orders are larger ($119.54 vs $106.87 on average), and the overlap still needs a rerun with the current label to size how many customers use only the card, so removal is a risk to test (the chat suggested 10-20% of users for 2-4 weeks), not a safe default." },
           signal: null,
           screenIds: ["instore-location-disabled", "instore-location-enabled"],
           severity: "Medium", effort: "Low"
-        },
-        {
-          title: "Remove or replace '[Apple Pay]' placeholder and apply consistent wallet-method labeling across the flow",
-          rationale: "The literal bracket text in the How to Pay screen indicates a content variable that was never resolved \u2014 potentially because iOS vs. Android or wallet type was not accounted for in the component. If this is intentionally dynamic, the component needs a fallback; if it was just missed, it needs to ship fixed.",
-          hypothesis: "The how-to-pay guide reads as a completed, production-ready screen rather than a spec artifact, removing a trust-damaging signal for users who consult it at the point of sale.",
-          metrics: ["Design-QA coverage of dynamic content slots across In-Store flow", "User-reported confusion rate on How to Pay screen"],
-          type: "Refine",
-          evidence: { strength: "Supporting", text: "How-to guidance for paying in store sits inside the largest support theme (22.5% of comments). This screen is that guidance, so an unresolved [Apple Pay] placeholder lands on the content customers are asking for." },
-          signal: null,
-          screenIds: ["instore-how-to-pay"],
-          severity: "High", effort: "Low"
         }
         ],
       painPoints: [
@@ -1385,7 +1555,7 @@ const REPORT = {
           hypothesis: "Users understand whether switching between Pay in 2/4/8 changes what they can spend, because the relationship between the top figure and the products listed below it is stated rather than left to be inferred.",
           metrics: ["Support contacts referencing a mismatch between the shown spending power and what's offered at checkout for a specific Pay-in-X plan"],
           type: "Refine",
-          evidence: { strength: "Supporting", text: "18 of 285 in-store support comments (6.3%) were about an unclear spending limit or available funds. The suggested response is to show the exact in-store amount on the In-Store tab." },
+          evidence: { strength: "Supporting", text: "18 of 285 in-store support comments (6.3%) were about an unclear spending limit or available funds. The suggested response is to show the exact in-store amount on the In-Store tab. Public reviews echo it: Zip's Play listing describes spending power as an estimate rather than an open line of credit, in a footnote, the same ambiguity behind Affirm's decline complaints (27 of 384 negative reviews)." },
           signal: null,
           screenIds: ["spending-power"],
           severity: "Medium", effort: "Medium"
@@ -1438,6 +1608,7 @@ const REPORT = {
           hypothesis: "Once distinct event tracking exists for card-tap vs. button-tap, the team can make a data-informed decision to consolidate, re-sequence, or differentiate the two entry points, improving PR initiation rate without guessing.",
           metrics: ["Card-tap to PR-open conversion rate", "Button-tap to PR-open conversion rate", "Net PR initiation rate after consolidation"],
           type: "Add",
+          evidence: { strength: "Strong", text: "The two entry points are already logged as separate button-tap events. In the last 90 days (iOS + Android), tap-to-order conversion is 66.8% for the Pay in-store button versus 36.8% for the amount card, and average spend per ordering customer is $784.21 versus $367.47. The gap is correlation, so consolidating needs an A/B test rather than a rule drawn from this data alone." },
           signal: null,
           screenIds: ["instore-location-disabled", "instore-location-enabled"],
           severity: "High", effort: "Low"
@@ -1448,7 +1619,7 @@ const REPORT = {
           hypothesis: "Identifying the top 3 support ticket categories for in-store purchases reveals at least one high-leverage fix that can be shipped in under a sprint and measurably reduces in-store support volume.",
           metrics: ["In-store support ticket volume (weekly)", "Top 3 ticket categories by volume", "Support ticket resolution time for in-store issues"],
           type: "Add",
-          evidence: { strength: "Strong", text: "Vaultmate's 285 in-store support comments give this audit a first answer. Top themes: in-app guidance or faster support (64, 22.5%), card declined at the register (28, 9.8%), and unclear spending limit or available funds (18, 6.3%). The audit step is largely done; the open work is acting on the top three." },
+          evidence: { strength: "Strong", text: "Vaultmate's 285 in-store support comments give this audit a first answer. Top themes: in-app guidance or faster support (64, 22.5%), card declined at the register (28, 9.8%), and unclear spending limit or available funds (18, 6.3%). Public reviews point the same way on declines and limit clarity, and add returns and refunds as a theme Vaultmate's in-store filter may not capture. The audit step is largely done; the open work is acting on the top three." },
           signal: null,
           screenIds: [],
           severity: "High", effort: "Low"
@@ -1459,7 +1630,7 @@ const REPORT = {
           hypothesis: "Pursuing Apple Pay native installment integration would remove the multi-app context-switching friction from Zip\'s in-store flow, putting it on equal ground with the three direct competitors already listed.",
           metrics: ["In-store purchase conversion rate vs. direct-competitor benchmarks", "User drop-off rate in current pre-activation flow"],
           type: "Add",
-          signal: "Apple Pay in-store installments launched 2025-2026 with Affirm, Klarna, and Cash App Afterpay \u2014 Zip is absent from this list at launch.",
+          signal: "Apple Pay in-store installments launched 2025-2026 with Affirm, Klarna, and Cash App Afterpay \u2014 Zip is absent from this list at launch. A public competitive assessment of Zip's in-store tab agrees on Affirm and Klarna (plan chosen at the terminal through Apple Wallet, iOS 26+) and found no evidence that Zip is listed. Zip's counter-advantages are any-Visa acceptance, Android coverage and a physical-card fallback, which a wallet-first path would need to preserve.",
           screenIds: [],
           severity: "High", effort: "High"
         }
@@ -1549,17 +1720,7 @@ const REPORT = {
           screenIds: ["search-empty"],
           severity: "Medium", effort: "Low"
         },
-      ,
-        {
-          title: "Instrument card-tap and Pay in-store button as distinct events",
-          rationale: "Both CTAs trigger the same action today but are fired by different UI components. Without separate event IDs, the data team cannot distinguish between them \u2014 this is a one-line instrumentation fix that unblocks the PM and data team from answering the most basic usage question about this screen.",
-          hypothesis: "Separate event tracking lets the team see the actual usage split within one sprint of shipping, so the design decision about whether to consolidate has real data behind it.",
-          metrics: ["card_tap_pr_initiation event coverage", "pay_instore_btn_pr_initiation event coverage"],
-          type: "Add",
-          signal: null,
-          screenIds: ["instore-location-disabled", "instore-location-enabled"],
-          severity: "High", effort: "Low"
-        }
+      
         ],
       painPoints: [],
       questions: []
@@ -1594,6 +1755,7 @@ const REPORT = {
           hypothesis: "A promoted merchant slot in the 'Popular near you' section drives measurable uplift in that partner\'s in-store transaction volume via Zip, creating a proof point for merchant co-marketing deals.",
           metrics: ["Tap rate on promoted merchant slot vs. organic slots", "Partner-attributed in-store transactions (monthly)"],
           type: "Add",
+          evidence: { strength: "Supporting", text: "95.4% of the 1.20M active in-store tab users (last 90 days, Jun 12 to Sep 9, 2026) have location on, so the location-on default with nearby merchant tiles is the surface almost everyone sees, which makes it the right place to merchandise. That share is inferred from users who never tapped Turn on location, so treat it as an upper bound." },
           signal: null,
           screenIds: ["instore-location-disabled", "instore-location-enabled"],
           severity: "Medium", effort: "Medium"
@@ -1689,6 +1851,7 @@ const REPORT = {
           hypothesis: "Reordering the location prompt to lead with a specific, concrete user benefit ('see which Zip-accepted stores are open near you right now') before the data disclosure increases location permission grant rate.",
           metrics: ["Location permission grant rate", "Conversion from In-Store tab to PR initiation (location-granted vs. denied cohorts)"],
           type: "Refine",
+          evidence: { strength: "Weak", text: "In the last 90 days (Jun 12 to Sep 9, 2026), only 4.6% of the 1.20M active in-store tab users hit the Turn on location prompt, and 80% of those went on to select a location preference. The headroom is about 11K users (under 1%), so reworking the prompt has little volume upside; the case rests on trust and consent clarity. Users who never tapped the prompt are counted as already on, so the true off-share may be higher." },
           signal: null,
           screenIds: ["instore-location-prompt"],
           severity: "Medium", effort: "Low"
@@ -1819,7 +1982,7 @@ const REPORT = {
           hypothesis: "A complete, step-by-step in-store funnel reveals the single highest-drop-off point within one week of instrumentation, enabling the team to prioritize the highest-ROI fix.",
           metrics: ["In-store funnel step completion rate by step", "PR modal-open-to-completion rate", "Location permission grant rate"],
           type: "Add",
-          evidence: { strength: "Supporting", text: "Card declined at the register is the second-largest theme (28 comments, 9.8%) and happens after the purchase request, so the funnel should include a decline step with its reason rather than ending at purchase complete." },
+          evidence: { strength: "Supporting", text: "Card declined at the register is the second-largest theme (28 comments, 9.8%) and happens after the purchase request, so the funnel should include a decline step with its reason rather than ending at purchase complete. Public reviews rank unexplained declines at 19% of cross-app complaints, and the public assessment's PM recommendation is the same: track first-attempt success rate and in-store contact rate. The premise that card-taps and button-taps are collapsed into one event does not hold: they already log as separate button-tap events (Pay in-store and Pay in-store - card component), so the funnel can split by entry point now. The primary button's label changed to Pay in-store¹ around April 2026, so the funnel needs to map both labels." },
           signal: null,
           screenIds: [],
           severity: "High", effort: "Medium"
@@ -1874,7 +2037,7 @@ const REPORT = {
           hypothesis: "Support has a documented, consistent answer ready for this exact question before it becomes a recurring contact reason, rather than reactively explaining it case by case.",
           metrics: ["Support contacts mentioning a mismatch between Spending Power and a specific Pay-in-X plan's limit"],
           type: "Add",
-          evidence: { strength: "Supporting", text: "Unclear spending limit or available funds is already the third-largest in-store support theme (18 of 285, 6.3%), so these contacts are not hypothetical. The comments do not say which pay plan the limit relates to." },
+          evidence: { strength: "Supporting", text: "Unclear spending limit or available funds is already the third-largest in-store support theme (18 of 285, 6.3%), so these contacts are not hypothetical. The comments do not say which pay plan the limit relates to. Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a purchasing-power number the app had shown), and Zip's own Play listing says spending power is an estimate, not an open line of credit, in a footnote." },
           signal: null,
           screenIds: ["spending-power"],
           severity: "Low", effort: "Low"
@@ -1896,7 +2059,7 @@ const REPORT = {
           hypothesis: "Updating Common Questions copy with precise timing, clear definitions, and edge-case coverage measurably reduces in-store-related support contacts within 30 days of shipping.",
           metrics: ["In-store support ticket volume (pre/post copy update)", "Resolution rate for refund-related in-store tickets"],
           type: "Refine",
-          evidence: { strength: "Supporting", text: "In-app guidance or faster support is the largest theme (64 of 285, 22.5%), which backs investing in self-service help. The comments do not isolate refund-timing questions, so the specific copy fixes proposed here are still untested." },
+          evidence: { strength: "Supporting", text: "In-app guidance or faster support is the largest theme (64 of 285, 22.5%), which backs investing in self-service help. The comments do not isolate refund-timing questions, but public reviews do: installments that keep charging after a refund are the top complaint theme across BNPL apps (24% of 1-3 star complaints, cross-app rather than Zip-only), which supports the refund-timing precision proposed here. Vaultmate's in-store filter may exclude refund contacts, so check refund contact reasons before sizing it." },
           signal: null,
           screenIds: ["instore-common-questions"],
           severity: "Medium", effort: "Low"
@@ -1940,17 +2103,7 @@ const REPORT = {
           screenIds: ["deals", "all-deals", "deals-category-travel"],
           severity: "Medium", effort: "Low"
         },
-      ,
-        {
-          title: "Ensure truncated merchant names ('Party C...', 'GameS...') have full accessible labels",
-          rationale: "The location-enabled default screen shows merchant logos with labels truncated by ellipsis. A screen reader will read 'Party C...' instead of 'Party City', breaking the experience for VoiceOver/TalkBack users who rely on text labels when brand logos aren\'t described.",
-          hypothesis: "Every merchant logo in the 'Popular near you' section is accessible to screen reader users with its complete, untruncated name, passing basic accessibility audit for the In-Store tab.",
-          metrics: ["Accessibility audit pass rate for In-Store tab", "VoiceOver test coverage of merchant logo row"],
-          type: "Refine",
-          signal: null,
-          screenIds: ["instore-location-enabled"],
-          severity: "Medium", effort: "Low"
-        }
+      
         ],
       painPoints: [],
       questions: [
@@ -2525,6 +2678,25 @@ function renderJourneyDiagramModeToggle(journeyId) {
 // Optional per-journey voice-of-customer card (journey.insights): a ranked bar
 // list of support-comment themes, with the method and a table view tucked
 // behind a disclosure so the headline stays quick to read.
+// Side-by-side read of the first-party chart against public feedback. The two
+// use different bases, so this is text with a labelled verdict, never bars on a shared scale.
+function renderInsightCrossCheck(ins) {
+  const cc = ins.crossCheck;
+  if (!cc || !cc.rows || !cc.rows.length) return "";
+  return `
+      <div class="insight-cross">
+        <div class="insight-cross-title">${cc.title}</div>
+        <p class="insight-cross-caption">${cc.caption}</p>
+        <ul class="insight-cross-list">${cc.rows.map(r => `
+          <li>
+            <div class="insight-cross-head"><span class="insight-label">${r.theme}</span><span class="insight-read${r.read === "Public only" ? " outline" : ""}">${r.read}</span></div>
+            <div class="insight-cross-line"><span class="insight-cross-src">${cc.internalLabel}</span><span>${r.internal}</span></div>
+            <div class="insight-cross-line"><span class="insight-cross-src">Public</span><span>${r.external}</span></div>
+          </li>`).join("")}
+        </ul>
+      </div>`;
+}
+
 function renderJourneyInsights(journey, relevantOpps) {
   const ins = journey.insights;
   if (!ins || !ins.themes || !ins.themes.length) return "";
@@ -2548,6 +2720,7 @@ function renderJourneyInsights(journey, relevantOpps) {
       <div class="insight-source">${ins.source}</div>
       <p class="insight-headline">${ins.headline}</p>
       <ol class="insight-bars">${rows}</ol>
+      ${renderInsightCrossCheck(ins)}
       <p class="insight-meta">${ins.base} written survey comments, ${ins.period}. A comment can count toward more than one theme, so shares do not add to 100%. Only customers who contacted support are included.</p>
       ${evidenced ? `<p class="insight-meta">Customer evidence is attached to ${evidenced} opportunit${evidenced === 1 ? "y" : "ies"} below.</p>` : ""}
       <details class="insight-details">
@@ -2589,6 +2762,49 @@ function renderJourneyOpportunitySections(journey, relevantOpps) {
     ${shared.length ? shared.map(o => renderOppCard(o, true, o.id)).join("") : `<p class="empty-note">None.</p>`}`;
 }
 
+// Optional per-journey behavioural snapshots (journey.snapshots). Each is a card of
+// blocks: "rows" (ranked single-metric bars) or "split" (a stacked bar), direct-labelled
+// through a legend, followed by caveats and the source link.
+function renderSnapshotBar(parts, label) {
+  const segs = parts.map(p => `<div class="snap-seg ${p.cls}" style="flex:${p.pct} 1 0"></div>`).join("");
+  const desc = parts.map(p => `${p.label} ${p.value}, ${p.pct}%`).join("; ");
+  return `
+      <div class="snap-bar-title">${label}</div>
+      <div class="snap-bar" role="img" aria-label="${label}: ${desc}">${segs}</div>
+      <ul class="snap-legend">${parts.map(p => `
+        <li><span class="snap-swatch ${p.cls}"></span><span>${p.label}</span><strong>${p.value}</strong><span class="snap-pct">${p.pct}%</span></li>`).join("")}
+      </ul>`;
+}
+
+function renderSnapshotRows(block) {
+  return `
+      <div class="snap-bar-title">${block.title}</div>
+      <ol class="insight-bars">${block.rows.map(r => `
+        <li class="insight-row" title="${r.label}: ${r.value}">
+          <div class="insight-row-head"><span class="insight-label">${r.label}</span><span class="insight-value"><strong>${r.value}</strong></span></div>
+          <div class="insight-ask">${r.detail}</div>
+          <div class="insight-track" aria-hidden="true"><div class="insight-bar ${r.cls}" style="width:${r.pct}%"></div></div>
+        </li>`).join("")}
+      </ol>`;
+}
+
+function renderJourneySnapshots(journey) {
+  return (journey.snapshots || []).map(sn => `
+    <div class="section-label">${sn.title}</div>
+    <div class="insight-card">
+      <div class="insight-source">${sn.source}</div>
+      <p class="insight-headline">${sn.headline}</p>
+      ${sn.total ? `<p class="snap-total"><strong>${sn.total.value}</strong>${sn.total.label}, ${sn.period}</p>` : ""}
+      ${sn.intro ? `<p class="snap-total">${sn.intro}</p>` : ""}
+      ${sn.blocks.map(bl => bl.type === "rows"
+        ? renderSnapshotRows(bl)
+        : renderSnapshotBar(bl.parts.map((p, i) => ({ ...p, cls: bl.classes[i] })), bl.title)).join("")}
+      <p class="insight-meta">${sn.context}</p>
+      <ul class="insight-notes">${(sn.notes || []).map(n => `<li>${n}</li>`).join("")}</ul>
+      <a class="insight-source-link" href="${sn.sourceUrl}" target="_blank" rel="noopener">Source: ${sn.sourceLabel} &#8599;</a>
+    </div>`).join("");
+}
+
 function renderJourneyPanel() {
   const journey = getCurrentJourney();
   if (!journey || (!journey.flowDiagram && !(journey.steps && journey.steps.length))) {
@@ -2614,6 +2830,7 @@ function renderJourneyPanel() {
       ${screens.map(s => `<button class="screen-tab" onclick="selectScreen('${s.id}')">${s.name}</button>`).join("")}
     </div>` : ""}
     ${renderJourneyInsights(journey, relevantOpps)}
+    ${renderJourneySnapshots(journey)}
     ${renderJourneyOpportunitySections(journey, relevantOpps)}
     ${hasSteps && emotionPickerState && emotionPickerState.journeyId === journey.id ? renderEmotionPicker() : ""}
   `;
