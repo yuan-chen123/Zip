@@ -580,6 +580,33 @@
   .context-card .context-goal { font-size: 12px; line-height: 17px; color: var(--text-muted); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
   .context-card .context-goal-label { font-weight: 600; color: var(--accent-dark); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 3px; }
 
+  /* Voice-of-customer card on a journey (journey.insights): ranked single-series bars. */
+  .insight-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px 20px; margin-bottom: 8px; box-shadow: var(--shadow-card);
+  }
+  .insight-source { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 6px; }
+  .insight-headline { font-size: 16px; line-height: 22px; font-weight: 600; color: var(--text); margin: 0 0 18px; }
+  .insight-bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+  .insight-row-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .insight-label { font-size: 14px; line-height: 19px; font-weight: 600; color: var(--text); }
+  .insight-value { font-size: 13px; color: var(--text-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .insight-value strong { color: var(--text); font-weight: 600; }
+  .insight-ask { font-size: 12px; line-height: 17px; color: var(--text-muted); margin: 1px 0 6px; }
+  .insight-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border); border-radius: 999px; padding: 0 6px; margin-left: 6px; white-space: nowrap; vertical-align: 1px; }
+  .insight-track { height: 10px; background: var(--bg); border-radius: 0 4px 4px 0; }
+  .insight-bar { height: 10px; background: var(--accent); border-radius: 0 4px 4px 0; }
+  .insight-meta { font-size: 12px; line-height: 17px; color: var(--text-muted); margin: 16px 0 0; padding-top: 12px; border-top: 1px solid var(--border); }
+  .insight-meta + .insight-meta { border-top: 0; margin-top: 4px; padding-top: 0; }
+  .insight-details { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
+  .insight-details summary { cursor: pointer; font-weight: 600; color: var(--accent-dark); }
+  .insight-details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  .insight-details table { border-collapse: collapse; margin: 10px 0 8px; width: 100%; }
+  .insight-details th, .insight-details td { text-align: left; padding: 5px 8px 5px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .insight-details td.num, .insight-details th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .insight-details ul { margin: 6px 0 0 16px; padding: 0; line-height: 17px; }
+  .evidence-strength { font-size: 10px; font-weight: 600; letter-spacing: 0; text-transform: none; background: var(--accent-tint); color: var(--accent-dark); border-radius: 999px; padding: 1px 8px; margin-left: 6px; }
+
   /* Cards */
   .opp-card {
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
@@ -992,6 +1019,50 @@ const REPORT = {
       id: "instore-flow", name: "Home \u2192 In-Store",
       description: "When a Zip user wants to pay at a physical retail location, they navigate to the In-Store tab. First-time in-store users (after 2 purchases, before using pre-fill) see an education modal explaining they can activate without knowing the total. All other users land on one of two default states depending on whether device location is enabled: a map-with-discovery layout or a logo-grid layout. From either default, they can tap to start a purchase request, enable location services, or access help content (How to Pay, Common Questions).",
       screenIds: ["home", "instore-default-modal", "instore-location-disabled", "instore-location-enabled", "instore-location-prompt", "instore-how-to-pay", "instore-common-questions"],
+      insights: {
+        "title": "What customers contact support about",
+        "source": "Vaultmate: in-store support survey comments",
+        "headline": "In-app guidance and faster support is the biggest in-store support theme, more than twice as common as card declines.",
+        "base": 285,
+        "period": "last ~12 months (Kustomer data starts around Nov 2025)",
+        "themes": [
+          {
+            "label": "Need in-app guidance or faster support",
+            "count": 64,
+            "ask": "Add how-to guidance for paying in store and an easy way to get help at checkout."
+          },
+          {
+            "label": "Card declined at the register",
+            "count": 28,
+            "ask": "Show the reason for the decline and what to do next."
+          },
+          {
+            "label": "Unclear spending limit or available funds",
+            "count": 18,
+            "ask": "Show the exact in-store amount on the In-Store tab."
+          },
+          {
+            "label": "App glitches or trouble adding the card to Apple Pay or Google Pay",
+            "count": 8,
+            "ask": "Investigate wallet add-card failures."
+          },
+          {
+            "label": "Virtual card management",
+            "count": 7,
+            "ask": "Expired cards, wrong details, cancelling or reissuing."
+          }
+        ],
+        "other": {
+          "label": "Other / not actionable",
+          "count": 27
+        },
+        "method": [
+          "About 130 further comments were not matched to any theme; these are likely general praise or comments about the agent.",
+          "Themes 4 and 5 have fewer than 10 comments each, so treat them as directional only.",
+          "Themes are AI-tagged with Cortex AI on the PUBLIC_ANALYST semantic view.",
+          "Filtered to the In-Store Card and pre-fill in-store purchase request contact reasons."
+        ]
+      },
       viewBox: "0 0 1400 860",
       connectors: '<defs><marker id="arrowhead4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#6542BE"/></marker><marker id="arrowhead4g" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#999"/></marker></defs><rect x="0" y="0" width="1400" height="860" rx="0" fill="#FAFAFC" stroke="none" stroke-width="1.5"/><circle cx="265" cy="405" r="4" fill="#6542BE"/><line x1="210" y1="405" x2="261" y2="405" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><circle cx="645" cy="405" r="4" fill="#6542BE"/><path d="M 265 405 Q 380 130 420 125" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="286.0" y="81.0" width="158.0" height="18" rx="9" fill="#F4F4F4"/><text x="365.0" y="94.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">First use, 2+ purchases</text><path d="M 265 405 Q 455.0 480 641 405" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="355.0" y="481.0" width="200.0" height="18" rx="9" fill="#F4F4F4"/><text x="455.0" y="494.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Returning / already seen modal</text><path d="M 590 155 Q 700 200 645 401" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="629.0" y="171.0" width="62.0" height="18" rx="9" fill="#F4F4F4"/><text x="660.0" y="184.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Dismiss</text><path d="M 645 405 Q 760 130 800 125" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="699.0" y="81.0" width="92.0" height="18" rx="9" fill="#F4F4F4"/><text x="745.0" y="94.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Location off</text><line x1="649" y1="405" x2="800" y2="405" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="679.5" y="380.0" width="86.0" height="18" rx="9" fill="#F4F4F4"/><text x="722.5" y="393.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Location on</text><line x1="970" y1="125" x2="1180" y2="125" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="1005.0" y="89.0" width="140.0" height="18" rx="9" fill="#F4F4F4"/><text x="1075.0" y="102.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">"Show nearby stores"</text><path d="M 1265 190 Q 1265 405 974 405" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowhead4g)"/><rect x="1212.5" y="346.0" width="125.0" height="18" rx="9" fill="#F4F4F4"/><text x="1275.0" y="359.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Grants permission</text><path d="M 840 190 Q 660 550 789 566" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><path d="M 840 470 Q 780 600 795 574" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><rect x="635.0" y="516.0" width="130.0" height="18" rx="9" fill="#F4F4F4"/><text x="700.0" y="529.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Need help? links</text><circle cx="795" cy="570" r="4" fill="#999"/><path d="M 795 570 Q 520 610 510 640" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><line x1="795" y1="570" x2="885" y2="640" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/>',
       steps: [
@@ -1211,6 +1282,7 @@ const REPORT = {
           hypothesis: "The how-to-pay guide reads as a completed, production-ready screen rather than a spec artifact, removing a trust-damaging signal for users who consult it at the point of sale.",
           metrics: ["Design-QA coverage of dynamic content slots across In-Store flow", "User-reported confusion rate on How to Pay screen"],
           type: "Refine",
+          evidence: { strength: "Supporting", text: "How-to guidance for paying in store sits inside the largest support theme (22.5% of comments). This screen is that guidance, so an unresolved [Apple Pay] placeholder lands on the content customers are asking for." },
           signal: null,
           screenIds: ["instore-how-to-pay"],
           severity: "High", effort: "Low"
@@ -1344,6 +1416,7 @@ const REPORT = {
           hypothesis: "Users understand whether switching between Pay in 2/4/8 changes what they can spend, because the relationship between the top figure and the products listed below it is stated rather than left to be inferred.",
           metrics: ["Support contacts referencing a mismatch between the shown spending power and what's offered at checkout for a specific Pay-in-X plan"],
           type: "Refine",
+          evidence: { strength: "Supporting", text: "18 of 285 in-store support comments (6.3%) were about an unclear spending limit or available funds. The suggested response is to show the exact in-store amount on the In-Store tab." },
           signal: null,
           screenIds: ["spending-power"],
           severity: "Medium", effort: "Medium"
@@ -1406,6 +1479,7 @@ const REPORT = {
           hypothesis: "Identifying the top 3 support ticket categories for in-store purchases reveals at least one high-leverage fix that can be shipped in under a sprint and measurably reduces in-store support volume.",
           metrics: ["In-store support ticket volume (weekly)", "Top 3 ticket categories by volume", "Support ticket resolution time for in-store issues"],
           type: "Add",
+          evidence: { strength: "Strong", text: "Vaultmate's 285 in-store support comments give this audit a first answer. Top themes: in-app guidance or faster support (64, 22.5%), card declined at the register (28, 9.8%), and unclear spending limit or available funds (18, 6.3%). Apple Pay pairing and app glitches are small (8, 2.8%). The audit step is largely done; the open work is acting on the top three." },
           signal: null,
           screenIds: [],
           severity: "High", effort: "Low"
@@ -1416,6 +1490,7 @@ const REPORT = {
           hypothesis: "Pursuing Apple Pay native installment integration would remove the multi-app context-switching friction from Zip\'s in-store flow, putting it on equal ground with the three direct competitors already listed.",
           metrics: ["In-store purchase conversion rate vs. direct-competitor benchmarks", "User drop-off rate in current pre-activation flow"],
           type: "Add",
+          evidence: { strength: "Weak", text: "Directional only: trouble adding the card to Apple Pay or Google Pay, or app glitches, is 8 of 285 comments (2.8%). That is too few to justify a High-effort integration on its own." },
           signal: "Apple Pay in-store installments launched 2025-2026 with Affirm, Klarna, and Cash App Afterpay \u2014 Zip is absent from this list at launch.",
           screenIds: [],
           severity: "High", effort: "High"
@@ -1523,6 +1598,7 @@ const REPORT = {
           hypothesis: "The How to Pay screen shows the correct wallet label for 100% of users on both platforms, removing a visible bug that currently damages trust at a key educational moment.",
           metrics: ["Error rate for wallet label rendering on iOS vs. Android", "How-to-pay screen QA pass rate post-fix"],
           type: "Refine",
+          evidence: { strength: "Supporting", text: "Same surface as the How to Pay placeholder: guidance for paying in store is part of the largest support theme (22.5% of comments)." },
           signal: null,
           screenIds: ["instore-how-to-pay"],
           severity: "High", effort: "Low"
@@ -1796,6 +1872,7 @@ const REPORT = {
           hypothesis: "A complete, step-by-step in-store funnel reveals the single highest-drop-off point within one week of instrumentation, enabling the team to prioritize the highest-ROI fix.",
           metrics: ["In-store funnel step completion rate by step", "PR modal-open-to-completion rate", "Location permission grant rate"],
           type: "Add",
+          evidence: { strength: "Supporting", text: "Card declined at the register is the second-largest theme (28 comments, 9.8%) and happens after the purchase request, so the funnel should include a decline step with its reason rather than ending at purchase complete." },
           signal: null,
           screenIds: [],
           severity: "High", effort: "Medium"
@@ -1806,6 +1883,7 @@ const REPORT = {
           hypothesis: "Scroll depth and exit data reveals whether users who finish Common Questions are more or less likely to attempt a purchase, informing whether a conversion CTA at the bottom would actually be reached.",
           metrics: ["Common Questions scroll depth (% reaching bottom)", "Session exit rate from Common Questions page", "PR initiation rate in sessions that included Common Questions view"],
           type: "Add",
+          evidence: { strength: "Supporting", text: "Guidance is the top support theme (22.5%), so whether Common Questions resolves it matters. The survey only covers people who already contacted support, so scroll depth and exit data are still needed to see who it helps before they reach support." },
           signal: null,
           screenIds: ["instore-common-questions"],
           severity: "Medium", effort: "Low"
@@ -1849,6 +1927,7 @@ const REPORT = {
           hypothesis: "Support has a documented, consistent answer ready for this exact question before it becomes a recurring contact reason, rather than reactively explaining it case by case.",
           metrics: ["Support contacts mentioning a mismatch between Spending Power and a specific Pay-in-X plan's limit"],
           type: "Add",
+          evidence: { strength: "Supporting", text: "Unclear spending limit or available funds is already the third-largest in-store support theme (18 of 285, 6.3%), so these contacts are not hypothetical. The comments do not say which pay plan the limit relates to." },
           signal: null,
           screenIds: ["spending-power"],
           severity: "Low", effort: "Low"
@@ -1870,6 +1949,7 @@ const REPORT = {
           hypothesis: "Updating Common Questions copy with precise timing, clear definitions, and edge-case coverage measurably reduces in-store-related support contacts within 30 days of shipping.",
           metrics: ["In-store support ticket volume (pre/post copy update)", "Resolution rate for refund-related in-store tickets"],
           type: "Refine",
+          evidence: { strength: "Supporting", text: "In-app guidance or faster support is the largest theme (64 of 285, 22.5%), which backs investing in self-service help. The comments do not isolate refund-timing questions, so the specific copy fixes proposed here are still untested." },
           signal: null,
           screenIds: ["instore-common-questions"],
           severity: "Medium", effort: "Low"
@@ -2311,6 +2391,11 @@ function renderOppCard(opp, showLens, id) {
           ${opp.metrics.map((m, i) => renderMetric(m, id, i)).join("")}
         </div>
       </div>` : ""}
+      ${opp.evidence ? `
+      <div class="opp-field">
+        <div class="field-label">Customer evidence<span class="evidence-strength">${opp.evidence.strength}</span></div>
+        <div class="field-value muted">${opp.evidence.text}</div>
+      </div>` : ""}
       ${opp.signal ? `
       <div class="opp-field">
         <div class="field-label">Seen elsewhere</div>
@@ -2500,6 +2585,45 @@ function renderJourneyDiagramModeToggle(journeyId) {
   </div>`;
 }
 
+// Optional per-journey voice-of-customer card (journey.insights): a ranked bar
+// list of support-comment themes, with the method and a table view tucked
+// behind a disclosure so the headline stays quick to read.
+function renderJourneyInsights(journey, relevantOpps) {
+  const ins = journey.insights;
+  if (!ins || !ins.themes || !ins.themes.length) return "";
+  const pct = n => (n / ins.base * 100).toFixed(1);
+  const max = Math.max(...ins.themes.map(t => t.count));
+  const evidenced = relevantOpps.filter(o => o.evidence).length;
+  const rows = ins.themes.map((t, i) => `
+    <li class="insight-row" title="${t.label}: ${t.count} of ${ins.base} comments (${pct(t.count)}%)">
+      <div class="insight-row-head">
+        <span class="insight-label">${i + 1}. ${t.label}${t.count < 10 ? `<span class="insight-tag">Directional, under 10</span>` : ""}</span>
+        <span class="insight-value"><strong>${t.count}</strong> &middot; ${pct(t.count)}%</span>
+      </div>
+      <div class="insight-ask">&rarr; ${t.ask}</div>
+      <div class="insight-track" aria-hidden="true"><div class="insight-bar" style="width:${(t.count / max * 100).toFixed(1)}%"></div></div>
+    </li>`).join("");
+  const tableRows = ins.themes.map(t => `<tr><td>${t.label}</td><td class="num">${t.count}</td><td class="num">${pct(t.count)}%</td><td>${t.ask}</td></tr>`).join("")
+    + (ins.other ? `<tr><td>${ins.other.label}</td><td class="num">${ins.other.count}</td><td class="num">${pct(ins.other.count)}%</td><td></td></tr>` : "");
+  return `
+    <div class="section-label">${ins.title}</div>
+    <div class="insight-card">
+      <div class="insight-source">${ins.source}</div>
+      <p class="insight-headline">${ins.headline}</p>
+      <ol class="insight-bars">${rows}</ol>
+      <p class="insight-meta">${ins.base} written survey comments, ${ins.period}. A comment can count toward more than one theme, so shares do not add to 100%. Only customers who contacted support are included.</p>
+      ${evidenced ? `<p class="insight-meta">Customer evidence is attached to ${evidenced} opportunit${evidenced === 1 ? "y" : "ies"} below.</p>` : ""}
+      <details class="insight-details">
+        <summary>Table view and method</summary>
+        <table>
+          <thead><tr><th scope="col">Theme</th><th scope="col" class="num">Comments</th><th scope="col" class="num">Share of ${ins.base}</th><th scope="col">Suggested response</th></tr></thead>
+          <tbody>${tableRows}</tbody>
+        </table>
+        <ul>${(ins.method || []).map(m => `<li>${m}</li>`).join("")}</ul>
+      </details>
+    </div>`;
+}
+
 function renderJourneyPanel() {
   const journey = getCurrentJourney();
   if (!journey || (!journey.flowDiagram && !(journey.steps && journey.steps.length))) {
@@ -2524,6 +2648,7 @@ function renderJourneyPanel() {
     <div class="journey-jump-row">
       ${screens.map(s => `<button class="screen-tab" onclick="selectScreen('${s.id}')">${s.name}</button>`).join("")}
     </div>` : ""}
+    ${renderJourneyInsights(journey, relevantOpps)}
     <div class="section-label">Opportunities in this journey</div>
     <p class="subtitle small">${relevantOpps.length} opportunit${relevantOpps.length === 1 ? "y" : "ies"} tied to these screens, quick wins (High/Medium impact, Low effort) first.</p>
     ${relevantOpps.length ? relevantOpps.map(o => renderOppCard(o, true, o.id)).join("") : `<p class="empty-note">No opportunities tagged to this journey's screens yet.</p>`}
