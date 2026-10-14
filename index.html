@@ -433,6 +433,18 @@
   .journey-diagram { width: 100%; overflow-x: auto; margin-bottom: 20px; }
   .journey-diagram svg { width: 100%; min-width: 700px; height: auto; display: block; }
   .journey-jump-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  /* Two-tab bar on journeys that carry data cards: the diagram, then data + opportunities. */
+  .journey-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin: 0 0 18px; }
+  .journey-tab {
+    display: flex; align-items: center; gap: 8px; padding: 9px 14px; margin-bottom: -1px;
+    background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 6px 6px 0 0;
+    font: inherit; font-size: 14px; font-weight: 600; color: var(--text-muted); cursor: pointer;
+  }
+  .journey-tab:hover { color: var(--text); background: var(--accent-tint); }
+  .journey-tab.active { color: var(--accent-dark); border-bottom-color: var(--accent); }
+  .journey-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .journey-tab .count { font-size: 11px; font-weight: 600; background: var(--border); color: var(--text-muted); padding: 1px 7px; border-radius: 999px; }
+  .journey-tab.active .count { background: var(--accent-tint); color: var(--accent-dark); }
 
   .journey-mode-toggle { display: flex; gap: 8px; margin-bottom: 14px; }
   .journey-mode-toggle .mode-btn {
@@ -1222,7 +1234,7 @@ const REPORT = {
               ]
             }
           ],
-          "context": "All-time (Oct 2021 to Sep 9, 2026) only 87.4% of 4.50M users were already on, so recent users are more likely to have location on. In the journey above, most people land on 2c (location on); about 1 in 20 reach 3.",
+          "context": "All-time (Oct 2021 to Sep 9, 2026) only 87.4% of 4.50M users were already on, so recent users are more likely to have location on. In the journey diagram, most people land on 2c (location on); about 1 in 20 reach 3.",
           "notes": [
             "Built from button taps, so it only covers users who tapped something on the In-Store tab.",
             "Already on means the user never tapped Turn on location. It is inferred, not a measured permission state, so treat 95.4% as an upper bound.",
@@ -2675,9 +2687,6 @@ function renderJourneyDiagramModeToggle(journeyId) {
   </div>`;
 }
 
-// Optional per-journey voice-of-customer card (journey.insights): a ranked bar
-// list of support-comment themes, with the method and a table view tucked
-// behind a disclosure so the headline stays quick to read.
 // Side-by-side read of the first-party chart against public feedback. The two
 // use different bases, so this is text with a labelled verdict, never bars on a shared scale.
 function renderInsightCrossCheck(ins) {
@@ -2697,6 +2706,9 @@ function renderInsightCrossCheck(ins) {
       </div>`;
 }
 
+// Optional per-journey voice-of-customer card (journey.insights): a ranked bar
+// list of support-comment themes, with the method and a table view tucked
+// behind a disclosure so the headline stays quick to read.
 function renderJourneyInsights(journey, relevantOpps) {
   const ins = journey.insights;
   if (!ins || !ins.themes || !ins.themes.length) return "";
@@ -2805,6 +2817,38 @@ function renderJourneySnapshots(journey) {
     </div>`).join("");
 }
 
+// Journeys that carry data cards (insights / snapshots) get two tabs: the diagram,
+// and the data plus opportunities. Journeys without data stay a single page.
+let journeyTab = {};
+const JOURNEY_TABS = [["journey", "Journey"], ["data", "Data and opportunities"]];
+function getJourneyTab(id) { return journeyTab[id] || "journey"; }
+function journeyHasData(j) {
+  return !!((j.insights && j.insights.themes && j.insights.themes.length) || (j.snapshots && j.snapshots.length));
+}
+function setJourneyTab(id, tab) {
+  journeyTab[id] = tab;
+  emotionPickerState = null;
+  rerender();
+  window.scrollTo(0, 0);
+  const el = document.getElementById("journeyTab-" + tab);
+  if (el) el.focus();
+}
+function journeyTabKeydown(e, journeyId) {
+  const i = JOURNEY_TABS.findIndex(t => t[0] === getJourneyTab(journeyId));
+  const last = JOURNEY_TABS.length - 1;
+  const next = { ArrowRight: i === last ? 0 : i + 1, ArrowLeft: i === 0 ? last : i - 1, Home: 0, End: last }[e.key];
+  if (next === undefined) return;
+  e.preventDefault();
+  setJourneyTab(journeyId, JOURNEY_TABS[next][0]);
+}
+function renderJourneyTabs(journey, oppCount) {
+  const cur = getJourneyTab(journey.id);
+  return `<div class="journey-tabs" role="tablist" aria-label="${journey.name} views">${JOURNEY_TABS.map(([id, label]) => `
+    <button type="button" role="tab" id="journeyTab-${id}" class="journey-tab${cur === id ? " active" : ""}" aria-selected="${cur === id}" aria-controls="journeyTabPanel" tabindex="${cur === id ? 0 : -1}"
+      onclick="setJourneyTab('${journey.id}', '${id}')" onkeydown="journeyTabKeydown(event, '${journey.id}')">${label}${id === "data" ? `<span class="count">${oppCount}</span>` : ""}</button>`).join("")}
+  </div>`;
+}
+
 function renderJourneyPanel() {
   const journey = getCurrentJourney();
   if (!journey || (!journey.flowDiagram && !(journey.steps && journey.steps.length))) {
@@ -2819,8 +2863,7 @@ function renderJourneyPanel() {
   const diagramBody = hasSteps
     ? (mode === "list" ? `<div class="journey-steps-list-wrap">${renderJourneyStepsList(journey)}</div>` : `<div class="journey-diagram">${buildJourneyDiagramSVG(journey)}</div>`)
     : `<div class="journey-diagram">${journey.flowDiagram}</div>`;
-  return `
-    <h1>${isMultiJourney ? journey.name : "Journey"}</h1>
+  const diagramPart = `
     <p class="subtitle">${journey.description || "The whole flow in one view, including where it branches. Click a screen name below to jump the reference pane there."}</p>
     ${hasSteps ? renderJourneyDiagramModeToggle(journey.id) : ""}
     ${hasSteps ? `<p class="subtitle small">Click any emotion badge (🙂/➕) to set how the user feels at that step.</p>` : ""}
@@ -2828,11 +2871,19 @@ function renderJourneyPanel() {
     ${isMultiScreen ? `
     <div class="journey-jump-row">
       ${screens.map(s => `<button class="screen-tab" onclick="selectScreen('${s.id}')">${s.name}</button>`).join("")}
-    </div>` : ""}
+    </div>` : ""}`;
+  const dataPart = `
     ${renderJourneyInsights(journey, relevantOpps)}
     ${renderJourneySnapshots(journey)}
-    ${renderJourneyOpportunitySections(journey, relevantOpps)}
-    ${hasSteps && emotionPickerState && emotionPickerState.journeyId === journey.id ? renderEmotionPicker() : ""}
+    ${renderJourneyOpportunitySections(journey, relevantOpps)}`;
+  const tabbed = journeyHasData(journey);
+  const cur = getJourneyTab(journey.id);
+  return `
+    <h1>${isMultiJourney ? journey.name : "Journey"}</h1>
+    ${tabbed
+      ? `${renderJourneyTabs(journey, relevantOpps.length)}<div role="tabpanel" id="journeyTabPanel" aria-labelledby="journeyTab-${cur}">${cur === "data" ? dataPart : diagramPart}</div>`
+      : diagramPart + dataPart}
+    ${hasSteps && (!tabbed || cur === "journey") && emotionPickerState && emotionPickerState.journeyId === journey.id ? renderEmotionPicker() : ""}
   `;
 }
 
@@ -3253,7 +3304,7 @@ function buildNav() {
   });
   document.querySelectorAll(".nav-item").forEach(el => {
     el.addEventListener("click", () => {
-      if (el.dataset.journeyId) { activeJourneyId = el.dataset.journeyId; selectedScreenId = null; }
+      if (el.dataset.journeyId) { activeJourneyId = el.dataset.journeyId; journeyTab[el.dataset.journeyId] = "journey"; selectedScreenId = null; }
       activePanel = el.dataset.panel; rerender();
       document.getElementById("sidebar").classList.remove("open");
     });
@@ -3371,6 +3422,7 @@ function selectJourney(id) {
   const journeys = getJourneys();
   if (!journeys.find(j => j.id === id)) return;
   activeJourneyId = id;
+  journeyTab[id] = "journey";
   selectedScreenId = null; // let buildScreenshotPane default to this journey's first screen
   rerender();
   window.scrollTo(0, 0);
