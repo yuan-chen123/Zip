@@ -1040,16 +1040,6 @@ const REPORT = {
             "label": "Unclear spending limit or available funds",
             "count": 18,
             "ask": "Show the exact in-store amount on the In-Store tab."
-          },
-          {
-            "label": "App glitches or trouble adding the card to Apple Pay or Google Pay",
-            "count": 8,
-            "ask": "Investigate wallet add-card failures."
-          },
-          {
-            "label": "Virtual card management",
-            "count": 7,
-            "ask": "Expired cards, wrong details, cancelling or reissuing."
           }
         ],
         "other": {
@@ -1058,7 +1048,6 @@ const REPORT = {
         },
         "method": [
           "About 130 further comments were not matched to any theme; these are likely general praise or comments about the agent.",
-          "Themes 4 and 5 have fewer than 10 comments each, so treat them as directional only.",
           "Themes are AI-tagged with Cortex AI on the PUBLIC_ANALYST semantic view.",
           "Filtered to the In-Store Card and pre-fill in-store purchase request contact reasons."
         ]
@@ -1479,7 +1468,7 @@ const REPORT = {
           hypothesis: "Identifying the top 3 support ticket categories for in-store purchases reveals at least one high-leverage fix that can be shipped in under a sprint and measurably reduces in-store support volume.",
           metrics: ["In-store support ticket volume (weekly)", "Top 3 ticket categories by volume", "Support ticket resolution time for in-store issues"],
           type: "Add",
-          evidence: { strength: "Strong", text: "Vaultmate's 285 in-store support comments give this audit a first answer. Top themes: in-app guidance or faster support (64, 22.5%), card declined at the register (28, 9.8%), and unclear spending limit or available funds (18, 6.3%). Apple Pay pairing and app glitches are small (8, 2.8%). The audit step is largely done; the open work is acting on the top three." },
+          evidence: { strength: "Strong", text: "Vaultmate's 285 in-store support comments give this audit a first answer. Top themes: in-app guidance or faster support (64, 22.5%), card declined at the register (28, 9.8%), and unclear spending limit or available funds (18, 6.3%). The audit step is largely done; the open work is acting on the top three." },
           signal: null,
           screenIds: [],
           severity: "High", effort: "Low"
@@ -1490,7 +1479,6 @@ const REPORT = {
           hypothesis: "Pursuing Apple Pay native installment integration would remove the multi-app context-switching friction from Zip\'s in-store flow, putting it on equal ground with the three direct competitors already listed.",
           metrics: ["In-store purchase conversion rate vs. direct-competitor benchmarks", "User drop-off rate in current pre-activation flow"],
           type: "Add",
-          evidence: { strength: "Weak", text: "Directional only: trouble adding the card to Apple Pay or Google Pay, or app glitches, is 8 of 285 comments (2.8%). That is too few to justify a High-effort integration on its own." },
           signal: "Apple Pay in-store installments launched 2025-2026 with Affirm, Klarna, and Cash App Afterpay \u2014 Zip is absent from this list at launch.",
           screenIds: [],
           severity: "High", effort: "High"
