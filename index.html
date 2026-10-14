@@ -296,6 +296,38 @@
     color: var(--text-muted);
     margin: 18px 8px 6px;
   }
+  /* Collapsible nav groups (Primary / Additional lenses). The header is a
+     real <button> so it's keyboard-focusable and announces expanded/collapsed. */
+  #sidebar .nav-group-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 16px);
+    margin: 18px 8px 6px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 4px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-align: left;
+  }
+  #sidebar .nav-group-toggle:hover { color: var(--text); }
+  #sidebar .nav-group-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #sidebar .nav-group-toggle .chevron {
+    width: 14px; height: 14px; flex-shrink: 0;
+    transition: transform 0.15s ease;
+  }
+  #sidebar .nav-group-toggle[aria-expanded="true"] .chevron { transform: rotate(90deg); }
+  @media (prefers-reduced-motion: reduce) {
+    #sidebar .nav-group-toggle .chevron { transition: none; }
+  }
+  .nav-group-body[hidden] { display: none; }
   .nav-item {
     display: flex;
     align-items: center;
@@ -957,17 +989,19 @@ const REPORT = {
   ],
   journeys: [
     {
-      id: "search-flow", name: "Home \u2192 Search",
-      description: "When a Zip user wants to find a specific place to shop or discover where they can use Zip, they move from the home screen into search. High-intent users search directly for a merchant they already have in mind; both new and returning users may instead browse via popular searches, featured placements, or (for returning users) their own recent search history to discover where Zip can be used. Throughout, the flow\u2019s job is to get the user to a merchant as efficiently as possible while reinforcing \u2014 even when a search comes up empty \u2014 that Zip can be used anywhere Visa is accepted, not just at the merchants shown.",
-      screenIds: ["home", "search-default", "search-recent", "search-results", "search-empty"],
-      viewBox: "0 0 1180 560",
-      connectors: '<defs><marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#6542BE"/></marker></defs><line x1="210" y1="270.0" x2="261" y2="270.0" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><circle cx="265" cy="270.0" r="4" fill="#6542BE"/><path d="M 265 270.0 Q 345 115.0 420 125.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><path d="M 265 270.0 Q 345 415.0 420 405.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><rect x="171.5" y="242.0" width="132" height="18" rx="9" fill="#F4F4F4"/><text x="237.5" y="255.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Tap search bar</text><rect x="280.0" y="85.0" width="100" height="18" rx="9" fill="#F4F4F4"/><text x="330" y="98.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">no history</text><rect x="276.0" y="421.0" width="108" height="18" rx="9" fill="#F4F4F4"/><text x="330" y="434.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">has history</text><path d="M 590 125.0 Q 650 165.0 641 270.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><path d="M 590 405.0 Q 650 365.0 641 270.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><circle cx="645" cy="270.0" r="4" fill="#6542BE"/><rect x="583.0" y="213.0" width="124" height="18" rx="9" fill="#F4F4F4"/><text x="645" y="226.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Types a query</text><path d="M 645 270.0 Q 725 115.0 800 125.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><path d="M 645 270.0 Q 725 415.0 800 405.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><rect x="680.0" y="85.0" width="60" height="18" rx="9" fill="#F4F4F4"/><text x="710" y="98.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">match</text><rect x="668.0" y="421.0" width="84" height="18" rx="9" fill="#F4F4F4"/><text x="710" y="434.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">no match</text>',
+      id: "instore-flow", name: "Home \u2192 In-Store",
+      description: "When a Zip user wants to pay at a physical retail location, they navigate to the In-Store tab. First-time in-store users (after 2 purchases, before using pre-fill) see an education modal explaining they can activate without knowing the total. All other users land on one of two default states depending on whether device location is enabled: a map-with-discovery layout or a logo-grid layout. From either default, they can tap to start a purchase request, enable location services, or access help content (How to Pay, Common Questions).",
+      screenIds: ["home", "instore-default-modal", "instore-location-disabled", "instore-location-enabled", "instore-location-prompt", "instore-how-to-pay", "instore-common-questions"],
+      viewBox: "0 0 1400 860",
+      connectors: '<defs><marker id="arrowhead4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#6542BE"/></marker><marker id="arrowhead4g" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#999"/></marker></defs><rect x="0" y="0" width="1400" height="860" rx="0" fill="#FAFAFC" stroke="none" stroke-width="1.5"/><circle cx="265" cy="405" r="4" fill="#6542BE"/><line x1="210" y1="405" x2="261" y2="405" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><circle cx="645" cy="405" r="4" fill="#6542BE"/><path d="M 265 405 Q 380 130 420 125" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="286.0" y="81.0" width="158.0" height="18" rx="9" fill="#F4F4F4"/><text x="365.0" y="94.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">First use, 2+ purchases</text><path d="M 265 405 Q 455.0 480 641 405" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="355.0" y="481.0" width="200.0" height="18" rx="9" fill="#F4F4F4"/><text x="455.0" y="494.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Returning / already seen modal</text><path d="M 590 155 Q 700 200 645 401" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="629.0" y="171.0" width="62.0" height="18" rx="9" fill="#F4F4F4"/><text x="660.0" y="184.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Dismiss</text><path d="M 645 405 Q 760 130 800 125" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="699.0" y="81.0" width="92.0" height="18" rx="9" fill="#F4F4F4"/><text x="745.0" y="94.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Location off</text><line x1="649" y1="405" x2="800" y2="405" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="679.5" y="380.0" width="86.0" height="18" rx="9" fill="#F4F4F4"/><text x="722.5" y="393.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Location on</text><line x1="970" y1="125" x2="1180" y2="125" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="1005.0" y="89.0" width="140.0" height="18" rx="9" fill="#F4F4F4"/><text x="1075.0" y="102.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">"Show nearby stores"</text><path d="M 1265 190 Q 1265 405 974 405" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowhead4g)"/><rect x="1212.5" y="346.0" width="125.0" height="18" rx="9" fill="#F4F4F4"/><text x="1275.0" y="359.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Grants permission</text><path d="M 840 190 Q 660 550 789 566" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><path d="M 840 470 Q 780 600 795 574" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><rect x="635.0" y="516.0" width="130.0" height="18" rx="9" fill="#F4F4F4"/><text x="700.0" y="529.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Need help? links</text><circle cx="795" cy="570" r="4" fill="#999"/><path d="M 795 570 Q 520 610 510 640" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><line x1="795" y1="570" x2="885" y2="640" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/>',
       steps: [
-        { id: "1", screenId: "home", label: "1. Home", caption: "user opens the app", x: 40, y: 205, w: 170, h: 130, emotion: "🙂", emotionLabel: "Comfortable", entryLabel: null, highlight: false },
-        { id: "2a", screenId: "search-default", label: "2a. Search \u2014 Default", caption: "no search history yet", x: 420, y: 60, w: 170, h: 130, emotion: "\ud83e\udd14", emotionLabel: "Curious", entryLabel: "Tap search bar", highlight: false },
-        { id: "2b", screenId: "search-recent", label: "2b. Search \u2014 Recent", caption: "has search history", x: 420, y: 340, w: 170, h: 130, emotion: "🙂", emotionLabel: "Comfortable", entryLabel: "Tap search bar", highlight: false },
-        { id: "3a", screenId: "search-results", label: "3a. Results", caption: "query matches a merchant", x: 800, y: 60, w: 170, h: 130, emotion: "😊", emotionLabel: "Satisfied", entryLabel: "Types a query", highlight: true },
-        { id: "3b", screenId: "search-empty", label: "3b. No results", caption: "no match found", x: 800, y: 340, w: 170, h: 130, emotion: "😕", emotionLabel: "Uneasy", entryLabel: "Types a query", highlight: true }
+        { id: "1", screenId: "home", label: "1. Home", caption: "taps the In-Store tab", x: 40, y: 340, w: 170, h: 130, emotion: "🙂", emotionLabel: "Comfortable", entryLabel: null },
+        { id: "2a", screenId: "instore-default-modal", label: "2a. Pre-fill Education Modal", caption: "first-time, 2+ purchases, dismiss only", x: 420, y: 60, w: 170, h: 130, emotion: "\ud83e\udd13", emotionLabel: "Learning", entryLabel: "First use, 2+ purchases" },
+        { id: "2b", screenId: "instore-location-disabled", label: "2b. Default \u2014 Location Off", caption: "map unavailable, logo grid shown", x: 800, y: 60, w: 170, h: 130, emotion: "\ud83d\ude10", emotionLabel: "Neutral", entryLabel: "Location off", highlight: true },
+        { id: "2c", screenId: "instore-location-enabled", label: "2c. Default \u2014 Location On", caption: "map + nearby stores shown", x: 800, y: 340, w: 170, h: 130, emotion: "😊", emotionLabel: "Satisfied", entryLabel: "Location on", highlight: true },
+        { id: "3", screenId: "instore-location-prompt", label: "3. Location Permission Sheet", caption: "OS dialog to grant access", x: 1180, y: 60, w: 170, h: 130, emotion: "\ud83e\udd14", emotionLabel: "Uncertain", entryLabel: "Show nearby stores" },
+        { id: "4a", screenId: "instore-how-to-pay", label: "How to Pay", caption: "collapsed step-by-step guide", x: 420, y: 640, w: 170, h: 130, emotion: "\ud83e\uddd0", emotionLabel: "Attentive", entryLabel: "Need help? links" },
+        { id: "4b", screenId: "instore-common-questions", label: "Common Questions", caption: "expanded Q&A content", x: 800, y: 640, w: 170, h: 130, emotion: "\ud83e\uddd0", emotionLabel: "Attentive", entryLabel: "Need help? links" }
       ]
     },
     {
@@ -979,6 +1013,20 @@ const REPORT = {
       steps: [
         { id: "1", screenId: "home", label: "1. Home", caption: "user opens the app", x: 40, y: 40, w: 170, h: 130, emotion: "🙂", emotionLabel: "Comfortable", entryLabel: null },
         { id: "2", screenId: "spending-power", label: "2. Spending Power", caption: "user checks/grows their limit", x: 420, y: 40, w: 170, h: 130, emotion: "\ud83e\uddd0", emotionLabel: "Attentive", entryLabel: "Taps Spending power card", highlight: true }
+      ]
+    },
+    {
+      id: "search-flow", name: "Home \u2192 Search",
+      description: "When a Zip user wants to find a specific place to shop or discover where they can use Zip, they move from the home screen into search. High-intent users search directly for a merchant they already have in mind; both new and returning users may instead browse via popular searches, featured placements, or (for returning users) their own recent search history to discover where Zip can be used. Throughout, the flow\u2019s job is to get the user to a merchant as efficiently as possible while reinforcing \u2014 even when a search comes up empty \u2014 that Zip can be used anywhere Visa is accepted, not just at the merchants shown.",
+      screenIds: ["home", "search-default", "search-recent", "search-results", "search-empty"],
+      viewBox: "0 0 1180 560",
+      connectors: '<defs><marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#6542BE"/></marker></defs><line x1="210" y1="270.0" x2="261" y2="270.0" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><circle cx="265" cy="270.0" r="4" fill="#6542BE"/><path d="M 265 270.0 Q 345 115.0 420 125.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><path d="M 265 270.0 Q 345 415.0 420 405.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><rect x="171.5" y="242.0" width="132" height="18" rx="9" fill="#F4F4F4"/><text x="237.5" y="255.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Tap search bar</text><rect x="280.0" y="85.0" width="100" height="18" rx="9" fill="#F4F4F4"/><text x="330" y="98.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">no history</text><rect x="276.0" y="421.0" width="108" height="18" rx="9" fill="#F4F4F4"/><text x="330" y="434.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">has history</text><path d="M 590 125.0 Q 650 165.0 641 270.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><path d="M 590 405.0 Q 650 365.0 641 270.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><circle cx="645" cy="270.0" r="4" fill="#6542BE"/><rect x="583.0" y="213.0" width="124" height="18" rx="9" fill="#F4F4F4"/><text x="645" y="226.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Types a query</text><path d="M 645 270.0 Q 725 115.0 800 125.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><path d="M 645 270.0 Q 725 415.0 800 405.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead)"/><rect x="680.0" y="85.0" width="60" height="18" rx="9" fill="#F4F4F4"/><text x="710" y="98.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">match</text><rect x="668.0" y="421.0" width="84" height="18" rx="9" fill="#F4F4F4"/><text x="710" y="434.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">no match</text>',
+      steps: [
+        { id: "1", screenId: "home", label: "1. Home", caption: "user opens the app", x: 40, y: 205, w: 170, h: 130, emotion: "🙂", emotionLabel: "Comfortable", entryLabel: null, highlight: false },
+        { id: "2a", screenId: "search-default", label: "2a. Search \u2014 Default", caption: "no search history yet", x: 420, y: 60, w: 170, h: 130, emotion: "\ud83e\udd14", emotionLabel: "Curious", entryLabel: "Tap search bar", highlight: false },
+        { id: "2b", screenId: "search-recent", label: "2b. Search \u2014 Recent", caption: "has search history", x: 420, y: 340, w: 170, h: 130, emotion: "🙂", emotionLabel: "Comfortable", entryLabel: "Tap search bar", highlight: false },
+        { id: "3a", screenId: "search-results", label: "3a. Results", caption: "query matches a merchant", x: 800, y: 60, w: 170, h: 130, emotion: "😊", emotionLabel: "Satisfied", entryLabel: "Types a query", highlight: true },
+        { id: "3b", screenId: "search-empty", label: "3b. No results", caption: "no match found", x: 800, y: 340, w: 170, h: 130, emotion: "😕", emotionLabel: "Uneasy", entryLabel: "Types a query", highlight: true }
       ]
     },
     {
@@ -998,23 +1046,6 @@ const REPORT = {
         { id: "s-psc", screenId: "payments-streak-card", label: "Streak Card Popup", caption: "Sees progress and learns more", x: 380, y: 360, w: 170, h: 130, emotion: "\ud83e\udd14", emotionLabel: "Motivated to hit next milestone" },
         { id: "s-ref", screenId: "streak-refund-modal", label: "Refund Notification", caption: "Streak disrupted by order refund", x: 720, y: 360, w: 170, h: 130, emotion: "\ud83d\ude15", emotionLabel: "Confused about impact on streak" },
         { id: "s-cut", screenId: "streak-cut-short-modal", label: "Streak Cut Short", caption: "Streak lost due to missed payment", x: 1000, y: 360, w: 170, h: 130, emotion: "\ud83d\ude1f", emotionLabel: "Discouraged, may churn" }
-      ]
-    }
-,
-    {
-      id: "instore-flow", name: "Home \u2192 In-Store",
-      description: "When a Zip user wants to pay at a physical retail location, they navigate to the In-Store tab. First-time in-store users (after 2 purchases, before using pre-fill) see an education modal explaining they can activate without knowing the total. All other users land on one of two default states depending on whether device location is enabled: a map-with-discovery layout or a logo-grid layout. From either default, they can tap to start a purchase request, enable location services, or access help content (How to Pay, Common Questions).",
-      screenIds: ["home", "instore-default-modal", "instore-location-disabled", "instore-location-enabled", "instore-location-prompt", "instore-how-to-pay", "instore-common-questions"],
-      viewBox: "0 0 1400 860",
-      connectors: '<defs><marker id="arrowhead4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#6542BE"/></marker><marker id="arrowhead4g" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#999"/></marker></defs><rect x="0" y="0" width="1400" height="860" rx="0" fill="#FAFAFC" stroke="none" stroke-width="1.5"/><circle cx="265" cy="405" r="4" fill="#6542BE"/><line x1="210" y1="405" x2="261" y2="405" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><circle cx="645" cy="405" r="4" fill="#6542BE"/><path d="M 265 405 Q 380 130 420 125" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="286.0" y="81.0" width="158.0" height="18" rx="9" fill="#F4F4F4"/><text x="365.0" y="94.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">First use, 2+ purchases</text><path d="M 265 405 Q 455.0 480 641 405" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="355.0" y="481.0" width="200.0" height="18" rx="9" fill="#F4F4F4"/><text x="455.0" y="494.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Returning / already seen modal</text><path d="M 590 155 Q 700 200 645 401" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="629.0" y="171.0" width="62.0" height="18" rx="9" fill="#F4F4F4"/><text x="660.0" y="184.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Dismiss</text><path d="M 645 405 Q 760 130 800 125" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="699.0" y="81.0" width="92.0" height="18" rx="9" fill="#F4F4F4"/><text x="745.0" y="94.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Location off</text><line x1="649" y1="405" x2="800" y2="405" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="679.5" y="380.0" width="86.0" height="18" rx="9" fill="#F4F4F4"/><text x="722.5" y="393.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Location on</text><line x1="970" y1="125" x2="1180" y2="125" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="1005.0" y="89.0" width="140.0" height="18" rx="9" fill="#F4F4F4"/><text x="1075.0" y="102.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">"Show nearby stores"</text><path d="M 1265 190 Q 1265 405 974 405" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowhead4g)"/><rect x="1212.5" y="346.0" width="125.0" height="18" rx="9" fill="#F4F4F4"/><text x="1275.0" y="359.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Grants permission</text><path d="M 840 190 Q 660 550 789 566" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><path d="M 840 470 Q 780 600 795 574" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><rect x="635.0" y="516.0" width="130.0" height="18" rx="9" fill="#F4F4F4"/><text x="700.0" y="529.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Need help? links</text><circle cx="795" cy="570" r="4" fill="#999"/><path d="M 795 570 Q 520 610 510 640" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><line x1="795" y1="570" x2="885" y2="640" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/>',
-      steps: [
-        { id: "1", screenId: "home", label: "1. Home", caption: "taps the In-Store tab", x: 40, y: 340, w: 170, h: 130, emotion: "🙂", emotionLabel: "Comfortable", entryLabel: null },
-        { id: "2a", screenId: "instore-default-modal", label: "2a. Pre-fill Education Modal", caption: "first-time, 2+ purchases, dismiss only", x: 420, y: 60, w: 170, h: 130, emotion: "\ud83e\udd13", emotionLabel: "Learning", entryLabel: "First use, 2+ purchases" },
-        { id: "2b", screenId: "instore-location-disabled", label: "2b. Default \u2014 Location Off", caption: "map unavailable, logo grid shown", x: 800, y: 60, w: 170, h: 130, emotion: "\ud83d\ude10", emotionLabel: "Neutral", entryLabel: "Location off", highlight: true },
-        { id: "2c", screenId: "instore-location-enabled", label: "2c. Default \u2014 Location On", caption: "map + nearby stores shown", x: 800, y: 340, w: 170, h: 130, emotion: "😊", emotionLabel: "Satisfied", entryLabel: "Location on", highlight: true },
-        { id: "3", screenId: "instore-location-prompt", label: "3. Location Permission Sheet", caption: "OS dialog to grant access", x: 1180, y: 60, w: 170, h: 130, emotion: "\ud83e\udd14", emotionLabel: "Uncertain", entryLabel: "Show nearby stores" },
-        { id: "4a", screenId: "instore-how-to-pay", label: "How to Pay", caption: "collapsed step-by-step guide", x: 420, y: 640, w: 170, h: 130, emotion: "\ud83e\uddd0", emotionLabel: "Attentive", entryLabel: "Need help? links" },
-        { id: "4b", screenId: "instore-common-questions", label: "Common Questions", caption: "expanded Q&A content", x: 800, y: 640, w: 170, h: 130, emotion: "\ud83e\uddd0", emotionLabel: "Attentive", entryLabel: "Need help? links" }
       ]
     },
     {
@@ -2852,6 +2883,19 @@ REPORT.lenses.forEach(lens => { PANELS[lens.id] = () => renderLensPanel(lens); }
 
 let activePanel = "overview";
 
+// Which collapsible nav groups are open. Both start collapsed; buildNav runs
+// on every rerender, so the state has to live here rather than in the DOM.
+const navGroupOpen = { primaryLenses: false, additionalLenses: false };
+
+function navGroupHtml(key, label, itemsHtml) {
+  const open = navGroupOpen[key];
+  return `<button type="button" class="nav-group-toggle" data-nav-group="${key}" aria-expanded="${open}" aria-controls="navGroup-${key}">
+      <span>${label}</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+    </button>
+    <div class="nav-group-body" id="navGroup-${key}" ${open ? "" : "hidden"}>${itemsHtml}</div>`;
+}
+
 function buildNav() {
   const opps = flattenOpportunities();
   const qwCount = opps.filter(isQuickWin).length;
@@ -2874,18 +2918,13 @@ function buildNav() {
   html += `<div class="nav-item" data-panel="quickWins"><span class="icon">⚡</span> Quick wins<span class="count">${qwCount}</span></div>`;
   html += `<div class="nav-item" data-panel="decisionLog"><span class="icon">✅</span> Decision log<span class="count">${decidedCount}/${opps.length}</span></div>`;
 
-  html += `<div class="nav-group-label">Primary lenses</div>`;
-  primaryLenses.forEach(lens => {
+  const lensItemHtml = lens => {
     const count = (lens.opportunities || []).length;
-    html += `<div class="nav-item" data-panel="${lens.id}"><span class="icon">${lens.icon}</span> ${lens.name}<span class="count">${count}</span></div>`;
-  });
-
+    return `<div class="nav-item" data-panel="${lens.id}"><span class="icon">${lens.icon}</span> ${lens.name}<span class="count">${count}</span></div>`;
+  };
+  html += navGroupHtml("primaryLenses", "Primary lenses", primaryLenses.map(lensItemHtml).join(""));
   if (secondaryLenses.length) {
-    html += `<div class="nav-group-label">Additional lenses</div>`;
-    secondaryLenses.forEach(lens => {
-      const count = (lens.opportunities || []).length;
-      html += `<div class="nav-item" data-panel="${lens.id}"><span class="icon">${lens.icon}</span> ${lens.name}<span class="count">${count}</span></div>`;
-    });
+    html += navGroupHtml("additionalLenses", "Additional lenses", secondaryLenses.map(lensItemHtml).join(""));
   }
 
   if (REPORT.competitive && REPORT.competitive.apps && REPORT.competitive.apps.length) {
@@ -2897,6 +2936,16 @@ function buildNav() {
   html += `<div class="nav-item" data-panel="skillInfo"><span class="icon">🧩</span> Skill info</div>`;
 
   document.getElementById("navList").innerHTML = html;
+  document.querySelectorAll(".nav-group-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.navGroup;
+      const open = !navGroupOpen[key];
+      navGroupOpen[key] = open;
+      // Toggle in place instead of rerendering, so keyboard focus stays on the header.
+      btn.setAttribute("aria-expanded", String(open));
+      document.getElementById("navGroup-" + key).hidden = !open;
+    });
+  });
   document.querySelectorAll(".nav-item").forEach(el => {
     el.addEventListener("click", () => {
       if (el.dataset.journeyId) { activeJourneyId = el.dataset.journeyId; selectedScreenId = null; }
