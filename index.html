@@ -1774,33 +1774,29 @@ const REPORT = {
           title: "Unify the streak-tracker component across Payments and the Streaks hub",
           rationale: "The Payments tab popup shows streak progress as numbered open circles (1\u20135), while the Streaks hub uses filled coin icons. A user who sees the popup first then navigates to the hub encounters a different visual language for the same concept. This inconsistency suggests two teams built these screens independently. A single reusable \u2018StreakTracker\u2019 component should render identically across all surfaces.",
           hypothesis: "Unifying the streak-tracker component will eliminate the visual discontinuity that causes users to question whether the two representations refer to the same program.",
-          priority: "high",
-          screens: ["payments-streak-card", "streaks-main"],
-          effort: "medium"
+          screenIds: ["payments-streak-card", "streaks-main"],
+          severity: "High", effort: "Medium"
         },
         {
           title: "Add a page indicator or clear next-step affordance to the completion modal",
           rationale: "The \u201cYou\u2019ve got more spending power!\u201d modal appears to be one of several post-streak celebration screens but provides no indicator of how many screens follow or how to advance. Users may miss subsequent content (or mistake it for a full-screen takeover with no exit). Pagination dots, a \u2018Continue\u2019 CTA, or a visible dismiss handle would resolve the ambiguity.",
           hypothesis: "Adding a clear CTA or page indicator to the completion modal will reduce the number of users who abandon the post-completion flow prematurely, increasing the share who see the updated home screen with the sparkle animation.",
-          priority: "high",
-          screens: ["streak-completion-modal"],
-          effort: "low"
+          screenIds: ["streak-completion-modal"],
+          severity: "High", effort: "Low"
         },
         {
           title: "Persist a post-streak achievement callout beyond the sparkle animation",
           rationale: "The home screen shows sparkle animations around the spending power card after streak completion \u2014 but only transiently. Once dismissed or after the user navigates away, the home screen is visually identical to pre-completion. A persistent \u2018New\u2019 badge or brief callout (\u201cSpending power increased!\u201d) on the spending power card for 48\u201372 hours reinforces the reward and gives the user something to show others.",
           hypothesis: "A persistent post-completion state on the home spending power card will increase the share of completers who tap through to the Spending Power screen to see their new limit.",
-          priority: "medium",
-          screens: ["home-post-completion"],
-          effort: "low"
+          screenIds: ["home-post-completion"],
+          severity: "Medium", effort: "Low"
         },
         {
           title: "Increase the tap target size and visual affordance of the Payments streak chip",
           rationale: "The 2/5 badge in the top-right of the Payments header is approximately 30px tall \u2014 below the 44px minimum recommended tap target for mobile. Users who discover the badge and try to tap it may fail on first attempt. Enlarging the target to 44\u00d7 44px minimum and adding a subtle \u2018caret\u2019 or ripple to signal interactivity prevents frustration and improves discoverability.",
           hypothesis: "Enlarging the streak chip tap target to 44px minimum will reduce first-tap failure rate and increase the share of Payments-tab users who discover the streak card popup.",
-          priority: "medium",
-          screens: ["payments"],
-          effort: "low"
+          screenIds: ["payments"],
+          severity: "Medium", effort: "Low"
         }
       ]
     },
@@ -3034,8 +3030,10 @@ function renderOverviewPanel() {
 function renderLensPanel(lens) {
   const opps = lens.opportunities || [];
   const strengths = lens.strengths || [];
-  const pains = lens.painPoints || [];
-  const questions = lens.questions || [];
+  // Only strings belong in these two lists. Some lenses also hold opportunity-shaped objects
+  // here (an old authoring slip) that used to print "[object Object]", so they are skipped.
+  const pains = (lens.painPoints || []).filter(p => typeof p === "string");
+  const questions = (lens.questions || []).filter(q => typeof q === "string");
   return `
     <h1>${lens.icon} ${lens.name}</h1>
     ${strengths.length ? `
