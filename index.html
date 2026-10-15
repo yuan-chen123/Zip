@@ -677,6 +677,14 @@
   .badge.sev-Low { background: var(--sev-low-bg); color: var(--sev-low); }
   .badge.eff { background: var(--accent-tint); color: var(--accent-dark); }
   .badge.type { background: var(--type-bg); color: var(--type-color); }
+  .badge.top-opp { background: var(--accent); color: #FFFFFF; }
+  .opp-card.is-top { border-left: 3px solid var(--accent); }
+  .field-value.hmw { font-weight: 600; color: var(--accent-dark); }
+  .opp-problems { margin: 0; padding-left: 18px; font-size: 13px; line-height: 18px; color: var(--text); }
+  .opp-problems li { margin-bottom: 8px; }
+  .opp-problems li:last-child { margin-bottom: 0; }
+  .opp-behind, .opp-note { display: block; color: var(--text-muted); }
+  .opp-note { font-style: italic; }
   .badge.lens-tag { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
 
   .field-value.signal { font-style: italic; }
@@ -1651,6 +1659,77 @@ const REPORT = {
           signal: "Apple Pay in-store installments launched 2025-2026 with Affirm, Klarna, and Cash App Afterpay \u2014 Zip is absent from this list at launch. A public competitive assessment of Zip's in-store tab agrees on Affirm and Klarna (plan chosen at the terminal through Apple Wallet, iOS 26+) and found no evidence that Zip is listed. Zip's counter-advantages are any-Visa acceptance, Android coverage and a physical-card fallback, which a wallet-first path would need to preserve.",
           screenIds: [],
           severity: "High", effort: "High"
+        },
+        {
+          "title": "Help customers get the right amount to the register, and tell them exactly why when a payment still declines",
+          "hmw": "How might we make the amount a customer requests match what the register will actually charge, and tell them exactly why when it doesn't?",
+          "problems": [
+            {
+              "problem": "Customers get declined at the register and don't know why.",
+              "behind": "The request amount doesn't match the final total after tax or tip, or gas stations pre-authorize more than the customer intended. Pre-fill helps but doesn't solve every case. Grocery and gas are hit hardest."
+            }
+          ],
+          "rationale": "A decline at the register is the moment Zip is most exposed: it blocks the sale, it happens in public, and today the customer gets no reason. Two sources point at the same gap. Vaultmate's in-store comments rank declines second (28 of 285, 9.8%) and suggest showing the reason and what to do next, and public reviews rank unexplained declines at 19% of cross-app complaints. The causes named here, tax or tip pushing the total past the request and fuel pre-authorization above what the customer intended, are known mechanisms rather than measured shares, so the first job is sizing them from decline data by merchant category.",
+          "hypothesis": "Sizing the request to the likely final total (an allowance for tax and tip, a fuel-specific default for gas) and showing a plain-language decline reason cuts declines at grocery and gas, and the support contacts they generate.",
+          "metrics": [
+            "In-store decline rate by merchant category (grocery, gas, other)",
+            "First-attempt success rate",
+            "Share of declines shown with a plain-language reason",
+            "In-store support contacts about declines (Vaultmate baseline: 28 comments, 9.8%)"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Strong",
+            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). No source here splits declines by cause, so the grocery and gas weighting is still an assumption to check against decline-code data."
+          },
+          "signal": "Afterpay keeps a persistent card with a visible pre-approved amount, so customers see their headroom before the register. Affirm shows the risk: purchasing power that reads as a limit when it is only an estimate.",
+          "screenIds": [
+            "instore-default-modal",
+            "instore-location-disabled",
+            "instore-location-enabled"
+          ],
+          "top": 1,
+          "severity": "High",
+          "effort": "High"
+        },
+        {
+          "title": "Make a failed payment feel safe to try and easy to recover from",
+          "hmw": "How might we make a failed payment feel safe to try, so customers aren't afraid to use Zip with a line behind them and know exactly what to do if it fails?",
+          "problems": [
+            {
+              "problem": "Customers are afraid of being embarrassed at the register, so they don't risk trying in-store.",
+              "behind": "A decline is public, and customers won't test an unfamiliar method with a line behind them. It affects first-time in-store users and anyone who has had a decline.",
+              "note": "Hypothesis: nothing collected so far measures this fear. It needs first-time user research."
+            },
+            {
+              "problem": "Customers whose payment fails don't know what to do next, so they stop trying.",
+              "behind": "The recovery experience after a decline is unknown.",
+              "note": "The recovery gap is corroborated by two sources. The part about customers who stop trying is not yet measured."
+            }
+          ],
+          "rationale": "These two problems share a fix: a safety net the customer knows about before the register and can use the moment a payment fails. The recovery gap is corroborated. Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. The fear of a public decline and the drop-off after one are both plausible, but nothing collected so far measures either.",
+          "hypothesis": "A visible, calm recovery path (what happened, what to try now, how to get help) that customers can see before they reach the register, and that appears immediately after a failure, raises the rate at which first-time and previously declined users try again.",
+          "metrics": [
+            "Repeat in-store attempt within 7 and 30 days after a decline, against matched users who were not declined",
+            "First in-store purchase rate among eligible users who have not yet tried it",
+            "Declined users who complete an order within 24 hours",
+            "In-store support contacts after a decline"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Weak",
+            "text": "Indirect only. Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. Nothing measured here shows that customers avoid in-store because they fear a public decline, or that they stop after a failed payment. To test it, compare repeat in-store orders in the 30 days after a declined attempt with matched users who were not declined (this needs decline events), and run first-time in-store user research on what they worry about at the register."
+          },
+          "signal": null,
+          "screenIds": [
+            "instore-how-to-pay",
+            "instore-common-questions",
+            "instore-location-disabled",
+            "instore-location-enabled"
+          ],
+          "top": 2,
+          "severity": "High",
+          "effort": "Medium"
         }
         ],
       painPoints: [
@@ -2290,6 +2369,9 @@ function isQuickWin(opp) {
 // come before anything else, then the remainder is ordered by severity
 // (most severe first) and, as a tiebreaker, by effort (least effort first).
 function journeyOpportunityPriority(a, b) {
+  // Opportunities with a numeric `top` rank lead the list, in rank order.
+  const aTop = a.top || Infinity, bTop = b.top || Infinity;
+  if (aTop !== bTop) return aTop - bTop;
   const aQW = isQuickWin(a) ? 0 : 1;
   const bQW = isQuickWin(b) ? 0 : 1;
   if (aQW !== bQW) return aQW - bQW;
@@ -2479,11 +2561,21 @@ function renderDecisionControls(id) {
 function renderOppCard(opp, showLens, id) {
   const d = getDecision(id);
   return `
-    <div class="opp-card ${d.status ? `decision-${d.status}` : ""}">
+    <div class="opp-card ${d.status ? `decision-${d.status}` : ""}${opp.top ? " is-top" : ""}">
       <div class="opp-field">
         <div class="field-label">Opportunity</div>
         <div class="field-value opp-title">${opp.title}</div>
       </div>
+      ${opp.hmw ? `
+      <div class="opp-field">
+        <div class="field-label">How might we</div>
+        <div class="field-value hmw">${opp.hmw}</div>
+      </div>` : ""}
+      ${opp.problems && opp.problems.length ? `
+      <div class="opp-field">
+        <div class="field-label">User problems</div>
+        <ul class="opp-problems">${opp.problems.map(p => `<li><strong>${p.problem}</strong><span class="opp-behind">Behind it: ${p.behind}</span>${p.note ? `<span class="opp-note">${p.note}</span>` : ""}</li>`).join("")}</ul>
+      </div>` : ""}
       <div class="opp-field">
         <div class="field-label">Rationale</div>
         <div class="field-value muted">${opp.rationale}</div>
@@ -2510,6 +2602,7 @@ function renderOppCard(opp, showLens, id) {
         <div class="field-value muted signal">${opp.signal}</div>
       </div>` : ""}
       <div class="badge-row">
+        ${opp.top ? badge("Top opportunity", "top-opp") : ""}
         ${isMultiScreen ? screenTag(opp.screenIds) : ""}
         ${opp.type ? typeBadge(opp.type) : ""}
         ${severityBadge(opp.severity)}
