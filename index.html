@@ -677,6 +677,22 @@
   .badge.sev-Low { background: var(--sev-low-bg); color: var(--sev-low); }
   .badge.eff { background: var(--accent-tint); color: var(--accent-dark); }
   .badge.type { background: var(--type-bg); color: var(--type-color); }
+  /* How-might-we framing block at the top of a journey's Opportunities tab (journey.hmwQuestions). */
+  .hmw-frame { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin: 0 0 20px; box-shadow: var(--shadow-card); }
+  .hmw-frame-title { font-size: 16px; line-height: 22px; font-weight: 600; color: var(--accent-dark); }
+  .hmw-frame-caption { font-size: 12px; line-height: 17px; color: var(--text-muted); margin: 2px 0 12px; }
+  .hmw-list { display: flex; flex-direction: column; gap: 6px; }
+  .hmw-item { display: flex; align-items: flex-start; gap: 10px; width: 100%; text-align: left; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font: inherit; font-size: 13px; line-height: 18px; color: var(--text); cursor: pointer; }
+  .hmw-item:hover { border-color: var(--accent); }
+  .hmw-item[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #FFFFFF; }
+  .hmw-item:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 2px; }
+  .hmw-num { flex-shrink: 0; width: 20px; height: 20px; border-radius: 999px; background: var(--accent-tint); color: var(--accent-dark); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  .hmw-text { flex: 1; }
+  .hmw-count { flex-shrink: 0; font-size: 11px; font-weight: 600; background: var(--surface); color: var(--accent-dark); border-radius: 999px; padding: 1px 8px; }
+  .hmw-item[aria-pressed="true"] .hmw-num, .hmw-item[aria-pressed="true"] .hmw-count { background: rgba(255,255,255,0.25); color: #FFFFFF; }
+  .hmw-frame-clear { margin-top: 10px; font-size: 12px; }
+  .badge.hmw-chip { background: var(--accent-tint); color: var(--accent-dark); border: 0; font-family: inherit; cursor: pointer; }
+  .badge.hmw-chip:hover { background: var(--accent-tint-strong); }
   .badge.top-opp { background: var(--accent); color: #FFFFFF; }
   .opp-card.is-top { border-left: 3px solid var(--accent); }
   .field-value.hmw { font-weight: 600; color: var(--accent-dark); }
@@ -1258,6 +1274,33 @@ const REPORT = {
           "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/e5045f55-aa64-45ec-ad95-713721286863"
         }
       ],
+      hmwQuestions: [
+        {
+          "id": "understand",
+          "short": "Understand in-store",
+          "text": "…help customers understand that in-store is an option and how it works, before they’re at the register?"
+        },
+        {
+          "id": "declines",
+          "short": "Fewer declines",
+          "text": "…reduce declines caused by tax, tips, and pre-authorizations?"
+        },
+        {
+          "id": "low-risk",
+          "short": "Low-risk first try",
+          "text": "…make a first in-store attempt feel low-risk, so customers aren’t afraid to try it?"
+        },
+        {
+          "id": "reason",
+          "short": "A reason to try or return",
+          "text": "…give customers a clear reason to try in-store, or to come back to it?"
+        },
+        {
+          "id": "recover",
+          "short": "Recover after a decline",
+          "text": "…help a customer recover quickly after a decline so they try again?"
+        }
+      ],
       viewBox: "0 0 1400 860",
       connectors: '<defs><marker id="arrowhead4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#6542BE"/></marker><marker id="arrowhead4g" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#999"/></marker></defs><rect x="0" y="0" width="1400" height="860" rx="0" fill="#FAFAFC" stroke="none" stroke-width="1.5"/><circle cx="265" cy="405" r="4" fill="#6542BE"/><line x1="210" y1="405" x2="261" y2="405" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><circle cx="645" cy="405" r="4" fill="#6542BE"/><path d="M 265 405 Q 380 130 420 125" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="286.0" y="81.0" width="158.0" height="18" rx="9" fill="#F4F4F4"/><text x="365.0" y="94.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">First use, 2+ purchases</text><path d="M 265 405 Q 455.0 480 641 405" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="355.0" y="481.0" width="200.0" height="18" rx="9" fill="#F4F4F4"/><text x="455.0" y="494.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Returning / already seen modal</text><path d="M 590 155 Q 700 200 645 401" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="629.0" y="171.0" width="62.0" height="18" rx="9" fill="#F4F4F4"/><text x="660.0" y="184.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Dismiss</text><path d="M 645 405 Q 760 130 800 125" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="699.0" y="81.0" width="92.0" height="18" rx="9" fill="#F4F4F4"/><text x="745.0" y="94.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Location off</text><line x1="649" y1="405" x2="800" y2="405" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="679.5" y="380.0" width="86.0" height="18" rx="9" fill="#F4F4F4"/><text x="722.5" y="393.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Location on</text><line x1="970" y1="125" x2="1180" y2="125" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead4)"/><rect x="1005.0" y="89.0" width="140.0" height="18" rx="9" fill="#F4F4F4"/><text x="1075.0" y="102.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">"Show nearby stores"</text><path d="M 1265 190 Q 1265 405 974 405" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowhead4g)"/><rect x="1212.5" y="346.0" width="125.0" height="18" rx="9" fill="#F4F4F4"/><text x="1275.0" y="359.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Grants permission</text><path d="M 840 190 Q 660 550 789 566" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><path d="M 840 470 Q 780 600 795 574" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><rect x="635.0" y="516.0" width="130.0" height="18" rx="9" fill="#F4F4F4"/><text x="700.0" y="529.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Need help? links</text><circle cx="795" cy="570" r="4" fill="#999"/><path d="M 795 570 Q 520 610 510 640" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/><line x1="795" y1="570" x2="885" y2="640" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead4g)"/>',
       steps: [
@@ -1447,6 +1490,7 @@ const REPORT = {
           hypothesis: "Both help screens feel like they belong to the same design system, increasing user confidence that the app is polished and trustworthy.",
           metrics: ["QA/design-review pass rate on help content screens", "User trust score on in-store help content (survey)"],
           type: "Refine",
+          hmwIds: ["understand"],
           signal: null,
           screenIds: ["instore-how-to-pay", "instore-common-questions"],
           severity: "Medium", effort: "Low"
@@ -1458,6 +1502,7 @@ const REPORT = {
           metrics: ["Tap rate on card vs. button (pre-change baseline)", "Task-completion time in usability testing"],
           type: "Replace",
           evidence: { strength: "Supporting", text: "In the last 90 days the amount card converted at 36.8% against 66.8% for the Pay in-store button and drew 1.9M taps against 6.4M, which supports demoting it. Its orders are larger ($119.54 vs $106.87 on average), and the overlap still needs a rerun with the current label to size how many customers use only the card, so removal is a risk to test (the chat suggested 10-20% of users for 2-4 weeks), not a safe default." },
+          hmwIds: ["understand"],
           signal: null,
           screenIds: ["instore-location-disabled", "instore-location-enabled"],
           severity: "Medium", effort: "Low"
@@ -1635,6 +1680,7 @@ const REPORT = {
           metrics: ["Card-tap to PR-open conversion rate", "Button-tap to PR-open conversion rate", "Net PR initiation rate after consolidation"],
           type: "Add",
           evidence: { strength: "Strong", text: "The two entry points are already logged as separate button-tap events. In the last 90 days (iOS + Android), tap-to-order conversion is 66.8% for the Pay in-store button versus 36.8% for the amount card, and average spend per ordering customer is $784.21 versus $367.47. The gap is correlation, so consolidating needs an A/B test rather than a rule drawn from this data alone." },
+          hmwIds: ["understand"],
           signal: null,
           screenIds: ["instore-location-disabled", "instore-location-enabled"],
           severity: "High", effort: "Low"
@@ -1646,6 +1692,7 @@ const REPORT = {
           metrics: ["In-store support ticket volume (weekly)", "Top 3 ticket categories by volume", "Support ticket resolution time for in-store issues"],
           type: "Add",
           evidence: { strength: "Strong", text: "Vaultmate's 285 in-store support comments give this audit a first answer. Top themes: in-app guidance or faster support (64, 22.5%), card declined at the register (28, 9.8%), and unclear spending limit or available funds (18, 6.3%). Public reviews point the same way on declines and limit clarity, and add returns and refunds as a theme Vaultmate's in-store filter may not capture. The audit step is largely done; the open work is acting on the top three." },
+          hmwIds: ["understand", "declines"],
           signal: null,
           screenIds: [],
           severity: "High", effort: "Low"
@@ -1656,6 +1703,7 @@ const REPORT = {
           hypothesis: "Pursuing Apple Pay native installment integration would remove the multi-app context-switching friction from Zip\'s in-store flow, putting it on equal ground with the three direct competitors already listed.",
           metrics: ["In-store purchase conversion rate vs. direct-competitor benchmarks", "User drop-off rate in current pre-activation flow"],
           type: "Add",
+          hmwIds: ["understand", "low-risk"],
           signal: "Apple Pay in-store installments launched 2025-2026 with Affirm, Klarna, and Cash App Afterpay \u2014 Zip is absent from this list at launch. A public competitive assessment of Zip's in-store tab agrees on Affirm and Klarna (plan chosen at the terminal through Apple Wallet, iOS 26+) and found no evidence that Zip is listed. Zip's counter-advantages are any-Visa acceptance, Android coverage and a physical-card fallback, which a wallet-first path would need to preserve.",
           screenIds: [],
           severity: "High", effort: "High"
@@ -1682,6 +1730,7 @@ const REPORT = {
             "strength": "Strong",
             "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). No source here splits declines by cause, so the grocery and gas weighting is still an assumption to check against decline-code data."
           },
+          hmwIds: ["declines", "recover"],
           "signal": "Afterpay keeps a persistent card with a visible pre-approved amount, so customers see their headroom before the register. Affirm shows the risk: purchasing power that reads as a limit when it is only an estimate.",
           "screenIds": [
             "instore-default-modal",
@@ -1720,6 +1769,7 @@ const REPORT = {
             "strength": "Weak",
             "text": "Indirect only. Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. Nothing measured here shows that customers avoid in-store because they fear a public decline, or that they stop after a failed payment. To test it, compare repeat in-store orders in the 30 days after a declined attempt with matched users who were not declined (this needs decline events), and run first-time in-store user research on what they worry about at the register."
           },
+          hmwIds: ["low-risk", "recover"],
           "signal": null,
           "screenIds": [
             "instore-how-to-pay",
@@ -1849,6 +1899,7 @@ const REPORT = {
           metrics: ["Tap rate on promoted merchant slot vs. organic slots", "Partner-attributed in-store transactions (monthly)"],
           type: "Add",
           evidence: { strength: "Supporting", text: "95.4% of the 1.20M active in-store tab users (last 90 days, Jun 12 to Sep 9, 2026) have location on, so the location-on default with nearby merchant tiles is the surface almost everyone sees, which makes it the right place to merchandise. That share is inferred from users who never tapped Turn on location, so treat it as an upper bound." },
+          hmwIds: ["reason"],
           signal: null,
           screenIds: ["instore-location-disabled", "instore-location-enabled"],
           severity: "Medium", effort: "Medium"
@@ -1859,6 +1910,7 @@ const REPORT = {
           hypothesis: "Users who read Common Questions come away feeling more confident about how the in-store flow works, reducing the proportion who then contact support for clarification.",
           metrics: ["Support ticket rate from sessions that included Common Questions view", "Brand tone audit score (internal review)"],
           type: "Refine",
+          hmwIds: ["understand"],
           signal: null,
           screenIds: ["instore-common-questions"],
           severity: "Low", effort: "Low"
@@ -1945,6 +1997,7 @@ const REPORT = {
           metrics: ["Location permission grant rate", "Conversion from In-Store tab to PR initiation (location-granted vs. denied cohorts)"],
           type: "Refine",
           evidence: { strength: "Weak", text: "In the last 90 days (Jun 12 to Sep 9, 2026), only 4.6% of the 1.20M active in-store tab users hit the Turn on location prompt, and 80% of those went on to select a location preference. The headroom is about 11K users (under 1%), so reworking the prompt has little volume upside; the case rests on trust and consent clarity. Users who never tapped the prompt are counted as already on, so the true off-share may be higher." },
+          hmwIds: ["understand", "reason"],
           signal: null,
           screenIds: ["instore-location-prompt"],
           severity: "Medium", effort: "Low"
@@ -2076,6 +2129,7 @@ const REPORT = {
           metrics: ["In-store funnel step completion rate by step", "PR modal-open-to-completion rate", "Location permission grant rate"],
           type: "Add",
           evidence: { strength: "Supporting", text: "Card declined at the register is the second-largest theme (28 comments, 9.8%) and happens after the purchase request, so the funnel should include a decline step with its reason rather than ending at purchase complete. Public reviews rank unexplained declines at 19% of cross-app complaints, and the public assessment's PM recommendation is the same: track first-attempt success rate and in-store contact rate. The premise that card-taps and button-taps are collapsed into one event does not hold: they already log as separate button-tap events (Pay in-store and Pay in-store - card component), so the funnel can split by entry point now. The primary button's label changed to Pay in-store¹ around April 2026, so the funnel needs to map both labels." },
+          hmwIds: ["declines", "recover"],
           signal: null,
           screenIds: [],
           severity: "High", effort: "Medium"
@@ -2087,6 +2141,7 @@ const REPORT = {
           metrics: ["Common Questions scroll depth (% reaching bottom)", "Session exit rate from Common Questions page", "PR initiation rate in sessions that included Common Questions view"],
           type: "Add",
           evidence: { strength: "Supporting", text: "Guidance is the top support theme (22.5%), so whether Common Questions resolves it matters. The survey only covers people who already contacted support, so scroll depth and exit data are still needed to see who it helps before they reach support." },
+          hmwIds: ["understand"],
           signal: null,
           screenIds: ["instore-common-questions"],
           severity: "Medium", effort: "Low"
@@ -2153,6 +2208,7 @@ const REPORT = {
           metrics: ["In-store support ticket volume (pre/post copy update)", "Resolution rate for refund-related in-store tickets"],
           type: "Refine",
           evidence: { strength: "Supporting", text: "In-app guidance or faster support is the largest theme (64 of 285, 22.5%), which backs investing in self-service help. The comments do not isolate refund-timing questions, but public reviews do: installments that keep charging after a refund are the top complaint theme across BNPL apps (24% of 1-3 star complaints, cross-app rather than Zip-only), which supports the refund-timing precision proposed here. Vaultmate's in-store filter may exclude refund contacts, so check refund contact reasons before sizing it." },
+          hmwIds: ["understand", "recover"],
           signal: null,
           screenIds: ["instore-common-questions"],
           severity: "Medium", effort: "Low"
@@ -2554,7 +2610,7 @@ function renderDecisionControls(id) {
     </div>`;
 }
 
-function renderOppCard(opp, showLens, id) {
+function renderOppCard(opp, showLens, id, hmwCtx) {
   const d = getDecision(id);
   return `
     <div class="opp-card ${d.status ? `decision-${d.status}` : ""}${opp.top ? " is-top" : ""}">
@@ -2599,6 +2655,10 @@ function renderOppCard(opp, showLens, id) {
       </div>` : ""}
       <div class="badge-row">
         ${opp.top ? badge("Top opportunity", "top-opp") : ""}
+        ${hmwCtx && opp.hmwIds ? opp.hmwIds.map(h => {
+          const n = hmwCtx.questions.findIndex(q => q.id === h);
+          return n < 0 ? "" : `<button type="button" class="badge hmw-chip" title="Show the opportunities that answer this question" onclick="setJourneyHmw('${hmwCtx.journeyId}', '${h}')">HMW ${n + 1} · ${hmwCtx.questions[n].short}</button>`;
+        }).join("") : ""}
         ${isMultiScreen ? screenTag(opp.screenIds) : ""}
         ${opp.type ? typeBadge(opp.type) : ""}
         ${severityBadge(opp.severity)}
@@ -2851,22 +2911,60 @@ function splitJourneyOpportunities(journey, opps) {
   return { primary, shared };
 }
 
+// How-might-we framing: journey.hmwQuestions lists the questions, each opportunity lists the ones it
+// answers in opp.hmwIds. Picking a question filters the Opportunities tab to the ones that answer it.
+let journeyHmw = {};
+function getJourneyHmw(id) { return journeyHmw[id] || null; }
+function setJourneyHmw(id, hmwId) {
+  if (hmwId && journeyHmw[id] === hmwId) hmwId = null; // pressing the active question again clears it
+  if (hmwId) journeyHmw[id] = hmwId; else delete journeyHmw[id];
+  journeyTab[id] = "opps"; // chips on a card can be pressed from any tab
+  rerender();
+}
+function renderJourneyHmw(journey, relevantOpps) {
+  const qs = journey.hmwQuestions;
+  if (!qs || !qs.length) return "";
+  const cur = getJourneyHmw(journey.id);
+  const count = q => relevantOpps.filter(o => (o.hmwIds || []).includes(q.id)).length;
+  return `
+    <div class="hmw-frame">
+      <div class="hmw-frame-title">How might we&hellip;</div>
+      <p class="hmw-frame-caption">Five ways to frame the in-store problem. Pick one to see the opportunities that answer it.</p>
+      <div class="hmw-list" role="group" aria-label="Filter opportunities by how-might-we question">${qs.map((q, i) => `
+        <button type="button" class="hmw-item" aria-pressed="${cur === q.id}" onclick="setJourneyHmw('${journey.id}', '${q.id}')">
+          <span class="hmw-num">${i + 1}</span><span class="hmw-text">${q.text}</span><span class="hmw-count" title="Opportunities that answer this question">${count(q)}</span>
+        </button>`).join("")}
+      </div>
+      ${cur ? `<button type="button" class="insight-link hmw-frame-clear" onclick="setJourneyHmw('${journey.id}', null)">Show all opportunities</button>` : ""}
+    </div>`;
+}
+
 function renderJourneyOpportunitySections(journey, relevantOpps) {
   const countText = n => `${n} opportunit${n === 1 ? "y" : "ies"}`;
+  const hmwCtx = journey.hmwQuestions ? { journeyId: journey.id, questions: journey.hmwQuestions } : null;
+  const frame = renderJourneyHmw(journey, relevantOpps);
+  const picked = hmwCtx && journey.hmwQuestions.find(q => q.id === getJourneyHmw(journey.id));
+  if (picked) {
+    const matches = relevantOpps.filter(o => (o.hmwIds || []).includes(picked.id));
+    return frame + `
+    <div class="section-label">Opportunities that answer: ${picked.short}</div>
+    <p class="subtitle small">${countText(matches.length)}, top opportunities and quick wins (High/Medium impact, Low effort) first.</p>
+    ${matches.length ? matches.map(o => renderOppCard(o, true, o.id, hmwCtx)).join("") : `<p class="empty-note">No opportunities answer this question yet.</p>`}`;
+  }
   if (!isMultiJourney || journey.screenIds.length < 2) {
-    return `
+    return frame + `
     <div class="section-label">Opportunities in this journey</div>
     <p class="subtitle small">${countText(relevantOpps.length)} tied to these screens, quick wins (High/Medium impact, Low effort) first.</p>
     ${relevantOpps.length ? relevantOpps.map(o => renderOppCard(o, true, o.id)).join("") : `<p class="empty-note">No opportunities tagged to this journey's screens yet.</p>`}`;
   }
   const { primary, shared } = splitJourneyOpportunities(journey, relevantOpps);
-  return `
+  return frame + `
     <div class="section-label">Opportunities on this journey's screens</div>
     <p class="subtitle small">${countText(primary.length)} tied to the screens after ${getJourneyScreens(journey)[0]?.name || "the entry screen"}, quick wins (High/Medium impact, Low effort) first.</p>
-    ${primary.length ? primary.map(o => renderOppCard(o, true, o.id)).join("") : `<p class="empty-note">No opportunities tagged to this journey's own screens yet.</p>`}
+    ${primary.length ? primary.map(o => renderOppCard(o, true, o.id, hmwCtx)).join("") : `<p class="empty-note">No opportunities tagged to this journey's own screens yet.</p>`}
     <div class="section-label">Flow-wide and Home opportunities</div>
     <p class="subtitle small">${countText(shared.length)} that apply across the whole flow or only to the entry screen, so they show up in every journey.</p>
-    ${shared.length ? shared.map(o => renderOppCard(o, true, o.id)).join("") : `<p class="empty-note">None.</p>`}`;
+    ${shared.length ? shared.map(o => renderOppCard(o, true, o.id, hmwCtx)).join("") : `<p class="empty-note">None.</p>`}`;
 }
 
 // Optional per-journey behavioural snapshots (journey.snapshots). Each is a card of
@@ -3401,7 +3499,7 @@ function buildNav() {
   });
   document.querySelectorAll(".nav-item").forEach(el => {
     el.addEventListener("click", () => {
-      if (el.dataset.journeyId) { activeJourneyId = el.dataset.journeyId; delete journeyTab[el.dataset.journeyId]; selectedScreenId = null; }
+      if (el.dataset.journeyId) { activeJourneyId = el.dataset.journeyId; delete journeyTab[el.dataset.journeyId]; delete journeyHmw[el.dataset.journeyId]; selectedScreenId = null; }
       activePanel = el.dataset.panel; rerender();
       document.getElementById("sidebar").classList.remove("open");
     });
@@ -3519,7 +3617,7 @@ function selectJourney(id) {
   const journeys = getJourneys();
   if (!journeys.find(j => j.id === id)) return;
   activeJourneyId = id;
-  delete journeyTab[id];
+  delete journeyTab[id]; delete journeyHmw[id];
   selectedScreenId = null; // let buildScreenshotPane default to this journey's first screen
   rerender();
   window.scrollTo(0, 0);
@@ -3651,7 +3749,8 @@ function currentRoute() {
   if (activePanel === "journey") {
     const j = getCurrentJourney();
     if (!j) return "#/overview";
-    return "#/journey/" + j.id + (isMultiJourney && journeyHasData(j) ? "/" + getJourneyTab(j.id) : "");
+    const tab = isMultiJourney && journeyHasData(j) ? getJourneyTab(j.id) : null;
+    return "#/journey/" + j.id + (tab ? "/" + tab : "") + (tab === "opps" && getJourneyHmw(j.id) ? "/" + getJourneyHmw(j.id) : "");
   }
   if (PANEL_ROUTES[activePanel]) return "#/" + PANEL_ROUTES[activePanel];
   return "#/lens/" + activePanel; // lens ids double as panel ids
@@ -3665,7 +3764,7 @@ function syncRoute() {
 }
 
 function applyRoute(hash) {
-  const [kind, id, tab] = hash.replace(/^#\/?/, "").split("/").filter(Boolean).map(decodeURIComponent);
+  const [kind, id, tab, sub] = hash.replace(/^#\/?/, "").split("/").filter(Boolean).map(decodeURIComponent);
   const panelRoute = Object.entries(PANEL_ROUTES).find(([, r]) => r === kind);
   const journeys = getJourneys();
   if (panelRoute) {
@@ -3675,6 +3774,8 @@ function applyRoute(hash) {
     activePanel = "journey"; activeJourneyId = j.id; selectedScreenId = null;
     if (j.id === id && journeyHasData(j) && JOURNEY_TABS.some(t => t[0] === tab)) journeyTab[j.id] = tab;
     else delete journeyTab[j.id];
+    if (tab === "opps" && (j.hmwQuestions || []).some(q => q.id === sub)) journeyHmw[j.id] = sub;
+    else delete journeyHmw[j.id];
   } else if (kind === "lens" && REPORT.lenses.some(l => l.id === id)) {
     activePanel = id;
     // Lens groups start collapsed, so open the one holding the linked lens.
