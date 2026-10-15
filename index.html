@@ -614,6 +614,17 @@
   .insight-bar { height: 10px; background: var(--accent); border-radius: 0 4px 4px 0; }
   .insight-meta { font-size: 12px; line-height: 17px; color: var(--text-muted); margin: 16px 0 0; padding-top: 12px; border-top: 1px solid var(--border); }
   .insight-meta + .insight-meta { border-top: 0; margin-top: 4px; padding-top: 0; }
+  /* Theme grouping in the Data/research tab (journey.dataThemes). */
+  .theme-jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+  .theme-jump-btn { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--accent-dark); cursor: pointer; }
+  .theme-jump-btn:hover { border-color: var(--accent); background: var(--accent-tint); }
+  .theme-jump-btn:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 2px; }
+  .theme-jump-btn .count { font-size: 11px; background: var(--accent-tint); color: var(--accent-dark); border-radius: 999px; padding: 0 7px; }
+  .data-theme + .data-theme { margin-top: 40px; }
+  .theme-head { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 20px; line-height: 26px; font-weight: 700; color: var(--text); }
+  .theme-count { font-size: 12px; font-weight: 600; background: var(--accent-tint); color: var(--accent-dark); border-radius: 999px; padding: 1px 9px; }
+  .theme-desc { margin: 2px 0 6px; padding-bottom: 10px; border-bottom: 2px solid var(--accent-tint-strong); font-size: 13px; line-height: 18px; color: var(--text-muted); }
+  .theme-desc + .section-label { margin-top: 18px; }
   .insight-notes { margin: 6px 0 0 16px; padding: 0; font-size: 12px; line-height: 17px; color: var(--text-muted); }
   .insight-details { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
   .insight-details summary { cursor: pointer; font-weight: 600; color: var(--accent-dark); }
@@ -1091,6 +1102,7 @@ const REPORT = {
       screenIds: ["home", "instore-default-modal", "instore-location-disabled", "instore-location-enabled", "instore-location-prompt", "instore-how-to-pay", "instore-common-questions"],
       insights: {
         "title": "What customers contact support about",
+        "theme": "voice",
         "source": "Vaultmate: in-store support survey comments",
         "headline": "In-app guidance and faster support is the biggest in-store support theme, more than twice as common as card declines.",
         "base": 285,
@@ -1155,6 +1167,23 @@ const REPORT = {
           "In-store was 28% of Zip's US orders over BFCM 2025, up from 22%, so failures at this surface carry real weight."
         ]
       },
+      dataThemes: [
+        {
+          "id": "declines",
+          "title": "Decline-related",
+          "description": "Why in-store payments decline, what the declines cost, where they happen and what customers do next."
+        },
+        {
+          "id": "voice",
+          "title": "Customer voice",
+          "description": "What customers contact support about, checked against public reviews."
+        },
+        {
+          "id": "entry",
+          "title": "Entry points and discovery",
+          "description": "How customers find and start an in-store purchase: the two payment buttons and location sharing."
+        }
+      ],
       snapshots: [
         {
           "title": "Why in-store payments decline",
@@ -1232,17 +1261,40 @@ const REPORT = {
                   "pct": 14.6
                 }
               ]
+            },
+            {
+              "type": "split",
+              "title": "Balance left when a used-up card is declined (the 44.5% bucket)",
+              "classes": [
+                "snap-c1",
+                "snap-c2"
+              ],
+              "parts": [
+                {
+                  "label": "$0.00 left on the purchase",
+                  "value": "e.g. $62.37 vs $0.00",
+                  "pct": 90.0
+                },
+                {
+                  "label": "A small balance left, below the amount",
+                  "value": "e.g. $38.89 vs $0.96",
+                  "pct": 10.0
+                }
+              ]
             }
           ],
-          "context": "The 30-day and 90-day figures sit within a point of the six-month ones (pre-authorization / already settled 45.2% and 44.1%, payment source failed 28.8% and 29.5%, insufficient spending power 19.0% and 19.6%). In the other 10% of the biggest cause a small balance remains, but less than the amount requested. By dollars the order changes: payment source failed is the biggest cause (49.1% of lost transaction value), then pre-authorization / already settled (28.8%).",
+          "context": "The 30-day and 90-day figures sit within a point of the six-month ones (pre-authorization / already settled 45.2% and 44.1%, payment source failed 28.8% and 29.5%, insufficient spending power 19.0% and 19.6%). By dollars the order changes: payment source failed is the biggest cause (49.1% of lost transaction value), then pre-authorization / already settled (28.8%).",
           "notes": [
             "In-store means contactless, chip, keyed-in and swipe authorizations by active users. The data ends on Sep 9, 2026, so every window ends there.",
-            "How a purchase reaches $0.00 before the customer pays is not visible: none of these purchases had an earlier in-store approval, so the chat infers the balance was used by a separate settlement. Treat that as unconfirmed.",
-            "Payment source failed: 82% are virtual cards in Apple Pay (68.0%) or Google Pay (14.3%), but the wallet share of all in-store purchases isn't shown, so this may only reflect how most customers pay.",
+            "What 'already used' means: the chat checked every channel, online included, and none of these purchases had an earlier approval in the authorization table. So the balance was not used up by another purchase through this path, and the chat infers that a separate settlement or capture consumed it. Treat that as unconfirmed.",
+            "What the customer is experiencing: they are tapping a card tied to one purchase that is marked settled with nothing left on it, so every retry meets the same closed balance. The decline text pairs 'the authorization amount (62.37) is superior to the purchase available balance ($0.00)' with 'the purchase has already been settled.'",
+            "What the chat says a customer with a used-up card can do: use a different payment method at the register, or contact support to find out why the purchase was depleted before they expected. Retrying does not help.",
+            "Payment source failed: 82% are virtual cards in Apple Pay (68.0%) or Google Pay (14.3%), but the wallet share of all in-store purchases isn't shown, so this may only reflect how most customers pay. The chat suggests the customer re-add the card to the wallet, try a different card or contact the issuer, and lists possible causes (a card reported lost or frozen, fraud checks, a card deactivated in the wallet, a temporary outage). None of that is shown in the data.",
             "The attempt counts are the average attempt number at which the decline happened."
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
-          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
+          "theme": "declines"
         },
         {
           "title": "What declines cost in transaction value (TTV)",
@@ -1383,7 +1435,8 @@ const REPORT = {
             "The chat notes gas has a small average declined amount ($37), which it reads as consistent with small initial holds at the pump."
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
-          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
+          "theme": "declines"
         },
         {
           "title": "In-store declines by merchant type, and what happens next",
@@ -1475,7 +1528,8 @@ const REPORT = {
             "Government services at 100% points to a blocked-merchant rule. The chat inferred that rather than confirming it."
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
-          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
+          "theme": "declines"
         },
         {
           "title": "Largest grocery merchants by declines",
@@ -1569,7 +1623,8 @@ const REPORT = {
             "Walmart is included because it is the largest grocery merchant by declines. This is merchant data, not a Walmart-specific opportunity."
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
-          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
+          "theme": "declines"
         },
         {
           "title": "In-Store CTAs: Pay in-store button vs the amount card",
@@ -1626,7 +1681,8 @@ const REPORT = {
             "An earlier iOS overlap (31% of amount-card users never tapped the main button) counted the old label only, so it is likely overstated and is not shown. It needs a rerun with the current label before sizing the risk of removing the card."
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
-          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/e5045f55-aa64-45ec-ad95-713721286863"
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/e5045f55-aa64-45ec-ad95-713721286863",
+          "theme": "entry"
         },
         {
           "title": "Location sharing on the In-Store tab",
@@ -1686,7 +1742,8 @@ const REPORT = {
             "Prompted means the user tapped Turn on location. Enabled means they then selected a location preference."
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
-          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/e5045f55-aa64-45ec-ad95-713721286863"
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/e5045f55-aa64-45ec-ad95-713721286863",
+          "theme": "entry"
         }
       ],
       hmwQuestions: [
@@ -2207,12 +2264,13 @@ const REPORT = {
             "Retries per declined purchase (baseline: about 3 for the 72% who retry)",
             "Share of used-up-card declines followed by a new in-store purchase within 24 hours",
             "Pre-authorization / already-settled declines as a share of all in-store declines (baseline 44.5%)",
+            "Share of used-up-card declines with $0.00 left on the purchase (baseline 90%)",
             "In-store support contacts about declines"
           ],
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data. In dollars it is $36.0M of lost transaction value over six months (28.8%, second to payment source failed) because the average declined purchase is small ($78)."
+            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data, though the chat checked every channel and found no earlier approval on any of these purchases. At the moment of decline the customer holds a card with nothing on it: $0.00 left in 90% of cases (the decline text pairs 'the authorization amount (62.37) is superior to the purchase available balance ($0.00)' with 'the purchase has already been settled'), and a small balance below the amount in the other 10% (for example $38.89 against $0.96). The chat's advice for the customer is to use a different payment method or contact support; a new one-tap purchase request is this opportunity's proposal, not something the chat tested. In dollars it is $36.0M of lost transaction value over six months (28.8%, second to payment source failed) because the average declined purchase is small ($78)."
           },
           "signal": null,
           "hmwIds": [
@@ -2266,7 +2324,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "28.8% of in-store declines over six months (29.5% over 90 days, 28.8% over 30), 82% of them on virtual cards in Apple Pay (68.0%) or Google Pay (14.3%). The decline reason is generic and the chat lists possible causes without data. Without the wallet share of all in-store authorizations, the 82% could simply reflect how customers pay. In dollars this is the biggest cause: $61.4M of lost transaction value over six months, 49.1% of the total (46.5% over 30 days, 50.4% over 90), at a $132 average declined transaction, well above the $78 average for used-up cards."
+            "text": "28.8% of in-store declines over six months (29.5% over 90 days, 28.8% over 30), 82% of them on virtual cards in Apple Pay (68.0%) or Google Pay (14.3%). The decline reason is generic and the chat lists possible causes without data. Without the wallet share of all in-store authorizations, the 82% could simply reflect how customers pay. In dollars this is the biggest cause: $61.4M of lost transaction value over six months, 49.1% of the total (46.5% over 30 days, 50.4% over 90), at a $132 average declined transaction, well above the $78 average for used-up cards. The chat's advice for the customer is to re-add the card to the wallet, try a different card or contact the issuer; none of that is tested."
           },
           "signal": null,
           "hmwIds": [
@@ -2733,7 +2791,7 @@ const REPORT = {
           hypothesis: "Updating Common Questions copy with precise timing, clear definitions, and edge-case coverage measurably reduces in-store-related support contacts within 30 days of shipping.",
           metrics: ["In-store support ticket volume (pre/post copy update)", "Resolution rate for refund-related in-store tickets"],
           type: "Refine",
-          evidence: { strength: "Supporting", text: "In-app guidance or faster support is the largest theme (64 of 285, 22.5%), which backs investing in self-service help. The comments do not isolate refund-timing questions, but public reviews do: installments that keep charging after a refund are the top complaint theme across BNPL apps (24% of 1-3 star complaints, cross-app rather than Zip-only), which supports the refund-timing precision proposed here. Vaultmate's in-store filter may exclude refund contacts, so check refund contact reasons before sizing it. For declines, the top three causes cover about 93% of them (already used or settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%), so those are the three answers the page needs, and for a used-up card the answer is not to retry." },
+          evidence: { strength: "Supporting", text: "In-app guidance or faster support is the largest theme (64 of 285, 22.5%), which backs investing in self-service help. The comments do not isolate refund-timing questions, but public reviews do: installments that keep charging after a refund are the top complaint theme across BNPL apps (24% of 1-3 star complaints, cross-app rather than Zip-only), which supports the refund-timing precision proposed here. Vaultmate's in-store filter may exclude refund contacts, so check refund contact reasons before sizing it. For declines, the top three causes cover about 93% of them (already used or settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%), so those are the three answers the page needs, and for a used-up card the answer is not to retry: the chat's advice is to use a different payment method or contact support." },
           hmwIds: ["understand", "recover"],
           signal: null,
           screenIds: ["instore-common-questions"],
@@ -3519,8 +3577,8 @@ function renderSnapshotRows(block) {
       </ol>`;
 }
 
-function renderJourneySnapshots(journey) {
-  return (journey.snapshots || []).map(sn => `
+function renderSnapshotCard(sn) {
+  return `
     <div class="section-label">${sn.title}</div>
     <div class="insight-card">
       <div class="insight-source">${sn.source}</div>
@@ -3533,7 +3591,43 @@ function renderJourneySnapshots(journey) {
       <p class="insight-meta">${sn.context}</p>
       <ul class="insight-notes">${(sn.notes || []).map(n => `<li>${n}</li>`).join("")}</ul>
       <a class="insight-source-link" href="${sn.sourceUrl}" target="_blank" rel="noopener">Source: ${sn.sourceLabel} &#8599;</a>
-    </div>`).join("");
+    </div>`;
+}
+
+function renderJourneySnapshots(journey) {
+  return (journey.snapshots || []).map(renderSnapshotCard).join("");
+}
+
+// The Data/research tab: when a journey defines journey.dataThemes, its data cards (the support
+// contacts card plus every snapshot, each tagged with a `theme` id) are grouped under theme
+// headings, with a chip row to jump between themes. Without themes the cards just stack.
+function scrollToDataTheme(id) {
+  const el = document.getElementById("dataTheme-" + id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "auto", block: "start" }); // an instant jump: smooth scrolling can stall where animations are throttled
+}
+
+function renderJourneyData(journey, relevantOpps) {
+  const cards = [];
+  if (journey.insights && journey.insights.themes && journey.insights.themes.length) {
+    cards.push({ theme: journey.insights.theme, html: renderJourneyInsights(journey, relevantOpps) });
+  }
+  (journey.snapshots || []).forEach(sn => cards.push({ theme: sn.theme, html: renderSnapshotCard(sn) }));
+  const themes = journey.dataThemes;
+  if (!themes || !themes.length) return cards.map(c => c.html).join("");
+  const groups = themes.map(t => ({ t, cards: cards.filter(c => c.theme === t.id) })).filter(g => g.cards.length);
+  const loose = cards.filter(c => !themes.some(t => t.id === c.theme));
+  return `
+    <nav class="theme-jump" aria-label="Jump to a theme">${groups.map(g => `
+      <button type="button" class="theme-jump-btn" onclick="scrollToDataTheme('${g.t.id}')">${g.t.title}<span class="count">${g.cards.length}</span></button>`).join("")}
+    </nav>
+    ${groups.map(g => `
+    <section class="data-theme" id="dataTheme-${g.t.id}" aria-labelledby="dataThemeHead-${g.t.id}">
+      <h2 class="theme-head" id="dataThemeHead-${g.t.id}">${g.t.title}<span class="theme-count">${g.cards.length} ${g.cards.length === 1 ? "card" : "cards"}</span></h2>
+      <p class="theme-desc">${g.t.description}</p>
+      ${g.cards.map(c => c.html).join("")}
+    </section>`).join("")}
+    ${loose.map(c => c.html).join("")}`;
 }
 
 // The journey itself (description, diagram, screen jump row) is always the page content.
@@ -3590,9 +3684,7 @@ function renderJourneyPanel() {
     <div class="journey-jump-row">
       ${screens.map(s => `<button class="screen-tab" onclick="selectScreen('${s.id}')">${s.name}</button>`).join("")}
     </div>` : ""}`;
-  const dataPart = `
-    ${renderJourneyInsights(journey, relevantOpps)}
-    ${renderJourneySnapshots(journey)}`;
+  const dataPart = renderJourneyData(journey, relevantOpps);
   const oppsPart = renderJourneyOpportunitySections(journey, relevantOpps);
   const tabbed = journeyHasData(journey);
   const cur = getJourneyTab(journey.id);
