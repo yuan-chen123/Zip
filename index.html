@@ -1337,6 +1337,100 @@ const REPORT = {
           "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
         },
         {
+          "title": "Largest grocery merchants by declines",
+          "source": "Snowflake: card authorization data (in-store grocery)",
+          "headline": "Walmart has the most grocery declines (25K, about 12% of the category), then Kroger (15K) and H-E-B (13K). Decline rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi.",
+          "intro": "Last 6 months, in-store grocery category (204K declines in total, 7.5% rate). Bars scale to the largest row (Walmart, 25,045).",
+          "blocks": [
+            {
+              "type": "rows",
+              "title": "Top 10 grocery merchants by number of declines",
+              "rows": [
+                {
+                  "label": "Walmart",
+                  "value": "25.0K",
+                  "pct": 100.0,
+                  "cls": "snap-c1",
+                  "detail": "6.95% decline rate. $123 average declined amount. 360,581 authorizations."
+                },
+                {
+                  "label": "Kroger",
+                  "value": "14.9K",
+                  "pct": 59.6,
+                  "cls": "snap-c1",
+                  "detail": "8.79% decline rate. $97 average declined amount. 169,922 authorizations."
+                },
+                {
+                  "label": "H-E-B",
+                  "value": "13.0K",
+                  "pct": 51.9,
+                  "cls": "snap-c1",
+                  "detail": "8.33% decline rate. $102 average declined amount. 155,863 authorizations."
+                },
+                {
+                  "label": "Publix",
+                  "value": "9.6K",
+                  "pct": 38.2,
+                  "cls": "snap-c1",
+                  "detail": "7.38% decline rate. $78 average declined amount. 129,538 authorizations."
+                },
+                {
+                  "label": "Aldi",
+                  "value": "9.2K",
+                  "pct": 36.9,
+                  "cls": "snap-c1",
+                  "detail": "8.78% decline rate. $86 average declined amount. 105,192 authorizations."
+                },
+                {
+                  "label": "Food Lion",
+                  "value": "7.4K",
+                  "pct": 29.4,
+                  "cls": "snap-c1",
+                  "detail": "8.40% decline rate. $110 average declined amount. 87,685 authorizations."
+                },
+                {
+                  "label": "Target (grocery category code)",
+                  "value": "5.6K",
+                  "pct": 22.5,
+                  "cls": "snap-c1",
+                  "detail": "7.76% decline rate. $110 average declined amount. 72,772 authorizations."
+                },
+                {
+                  "label": "Meijer",
+                  "value": "4.5K",
+                  "pct": 18.1,
+                  "cls": "snap-c1",
+                  "detail": "7.11% decline rate. $112 average declined amount. 63,718 authorizations."
+                },
+                {
+                  "label": "Safeway",
+                  "value": "2.9K",
+                  "pct": 11.8,
+                  "cls": "snap-c1",
+                  "detail": "7.31% decline rate. $78 average declined amount. 40,329 authorizations."
+                },
+                {
+                  "label": "Giant",
+                  "value": "2.9K",
+                  "pct": 11.7,
+                  "cls": "snap-c1",
+                  "detail": "7.53% decline rate. $91 average declined amount. 39,044 authorizations."
+                }
+              ]
+            }
+          ],
+          "context": "The top five (Walmart, Kroger, H-E-B, Publix, Aldi) account for about 72K declines, roughly 35% of the grocery category. Smaller chains in the chat's table: Trader Joe's 2,023 declines at 4.70% (the lowest rate), Stop & Shop 1,678 at 8.50%, and Albertsons 1,452 at 7.23%.",
+          "notes": [
+            "The 13 merchants in the chat's table add up to about 100K declines, roughly half of the 204K grocery declines (calculated from the chat's figures).",
+            "Merchant type comes from the card-network category code at the terminal, so a chain can appear under more than one type. Target shows up here for locations coded as grocery and under discount stores for others.",
+            "The chat suggests larger baskets are more likely to exceed the available balance, which would fit Walmart's $123 average declined amount. The data doesn't test that.",
+            "Outside its table, the chat flags two outliers: Luxor Market (small volume, 35.5% decline rate, $345 average declined amount) and Restaurant Depot (wholesale, $247 average declined amount).",
+            "Walmart is included because it is the largest grocery merchant by declines. This is merchant data, not a Walmart-specific opportunity."
+          ],
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required). The shared snapshot predates this grocery breakdown.",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+        },
+        {
           "title": "In-Store CTAs: Pay in-store button vs the amount card",
           "source": "Snowflake: in-app button-tap events and in-store orders",
           "headline": "In the last 90 days the Pay in-store button converts nearly twice as well as the amount card (66.8% vs 36.8%) and brings in about 86% of the revenue attributed to the two CTAs.",
@@ -1901,6 +1995,7 @@ const REPORT = {
           "hypothesis": "Sizing the request to the likely final total (an allowance for tax and tip, a fuel-specific default for gas) and showing a plain-language decline reason cuts the declines where the amount is the cause (insufficient spending power is 20.3% of declines), and a plain-language decline reason covers the rest and cuts the support contacts they generate.",
           "metrics": [
             "In-store declines by merchant category (baseline, last six months: 204K grocery, 160K gas, 707K other; rates 7.5%, 10.3%, 10.3%; 9.6% overall)",
+            "Decline rate by grocery merchant (baseline: 4.7% at Trader Joe's to 8.8% at Kroger and Aldi)",
             "First-attempt success rate",
             "Share of declines shown with a plain-language reason",
             "In-store support contacts about declines (Vaultmate baseline: 28 comments, 9.8%)"
@@ -1908,7 +2003,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used."
+            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used."
           },
           hmwIds: ["declines", "recover"],
           "signal": "Afterpay keeps a persistent card with a visible pre-approved amount, so customers see their headroom before the register. Affirm shows the risk: purchasing power that reads as a limit when it is only an estimate.",
@@ -1995,7 +2090,7 @@ const REPORT = {
           "rationale": "The single-authorization limit appears in 85% of the largest decline bucket (55.4% together with already settled, 30.0% on its own), which is roughly 38% of all in-store declines. Declines on it happen on the second to third attempt on average (2.3 attempts), which fits merchants that authorize more than once, as gas stations (pre-authorization, then completion) and restaurants (tips) do. Gas (160K declines, 10.3% rate) and fast food (54K, 13.7%) are the merchant types most likely to fit, against 9.6% overall. The data does not yet show which merchants trigger the limit, so this is a hypothesis to test before it is a fix, and the limit may exist for risk reasons.",
           "hypothesis": "If the declines on the single-authorization limit are concentrated in gas, fast food and restaurants, allowing a bounded second authorization (within the original amount plus a tolerance for tip or fuel) removes a large share of them without raising risk exposure.",
           "metrics": [
-            "Single-authorization-limit declines by merchant category (needs a cross-tab)",
+            "Single-authorization-limit declines by merchant category and by merchant (needs a cross-tab; grocery rates alone range from 4.7% to 8.8% by chain)",
             "In-store decline rate at gas and fast food (baseline 10.3% and 13.7%)",
             "Loss rate on purchases that received a second authorization (risk guardrail)"
           ],
