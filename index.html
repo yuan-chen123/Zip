@@ -625,6 +625,13 @@
   .theme-count { font-size: 12px; font-weight: 600; background: var(--accent-tint); color: var(--accent-dark); border-radius: 999px; padding: 1px 9px; }
   .theme-desc { margin: 2px 0 6px; padding-bottom: 10px; border-bottom: 2px solid var(--accent-tint-strong); font-size: 13px; line-height: 18px; color: var(--text-muted); }
   .theme-desc + .section-label { margin-top: 18px; }
+  .snap-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .snap-list-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .snap-list-head strong { font-size: 14px; line-height: 19px; color: var(--text); }
+  .snap-list-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; color: var(--accent-dark); background: var(--accent-tint); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+  .snap-list-detail { margin: 3px 0 0; font-size: 12.5px; line-height: 18px; color: var(--text-muted); }
+  .snap-list-idea { margin: 5px 0 0; padding-left: 10px; border-left: 3px solid var(--accent-tint-strong); font-size: 12px; line-height: 17px; color: var(--text); }
+  .snap-list-idea span { font-weight: 600; color: var(--accent-dark); margin-right: 4px; }
   .insight-notes { margin: 6px 0 0 16px; padding: 0; font-size: 12px; line-height: 17px; color: var(--text-muted); }
   .insight-details { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
   .insight-details summary { cursor: pointer; font-weight: 600; color: var(--accent-dark); }
@@ -1176,7 +1183,7 @@ const REPORT = {
         {
           "id": "voice",
           "title": "Customer voice",
-          "description": "What customers contact support about, checked against public reviews."
+          "description": "What customers contact support about, what they say in surveys, and how that compares with public reviews."
         },
         {
           "id": "entry",
@@ -1744,6 +1751,106 @@ const REPORT = {
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
           "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/e5045f55-aa64-45ec-ad95-713721286863",
           "theme": "entry"
+        },
+        {
+          "title": "What customers say in the 2025 improvement-areas survey: pain points",
+          "theme": "voice",
+          "source": "Google Slides: Customer Improvement Areas & New Features report, Jul'24 to Jun'25",
+          "headline": "Survey comments tie in-store declines to embarrassment and pressure to pay another way, and describe spending power that is low, slow to grow and prone to unexplained drops.",
+          "intro": "About 100,000 responses from Zip app customers (CSAT and NPS), including 10,000+ written verbatims. Mostly qualitative: the deck gives a count only where noted below.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "Pain points that touch in-store payments and spending power",
+              "items": [
+                {
+                  "tag": "Pain point 5",
+                  "title": "A decline at the register leaves customers embarrassed and under pressure to pay another way",
+                  "detail": "Customers can't tell whether a failed payment is a technical problem, a store problem or their own approval status, so they are unsure whether to try again and often pay full price to avoid further embarrassment.",
+                  "idea": "How instantly could a push notification follow an in-store failure? Could a decline be followed by a $5 goodwill credit in select situations?"
+                },
+                {
+                  "tag": "Pain point 4",
+                  "title": "Customers are left in the dark when they are not approved at checkout",
+                  "detail": "They don't know why a purchase wasn't approved or how to improve their chances. Some see spending power in the app yet are declined, and can't plan purchases ahead."
+                },
+                {
+                  "tag": "Pain point 3",
+                  "title": "An unexpected loss of spending power",
+                  "detail": "Spending power can fall sharply with no explanation (one customer reports $900 to $50 in under a month). Customers read it as losing something they rely on, and don't know whether or when it comes back."
+                },
+                {
+                  "tag": "Pain points 1 and 2",
+                  "title": "Spending power feels low next to other BNPL apps and slow to grow",
+                  "detail": "An estimated 35% to 50% of customers have used another BNPL brand. Newer customers find the starting limit too low, and frequent on-time payers feel increases are too small.",
+                  "idea": "Tell customers most start at $250 to $400 and grow within 60 days of good use. Test faster increases for in-store users (hypothesis: more engaged because they buy groceries regularly), or a $25 to $50 increase after 2 to 3 completed purchases."
+                },
+                {
+                  "tag": "Pain point 6",
+                  "title": "Customers are caught off guard when delaying a payment pauses spending power",
+                  "detail": "They value the option to delay but say it doesn't warn that it stops spending power.",
+                  "idea": "A heads-up before the delay is confirmed: delaying this payment pauses spending power until the next repayment."
+                },
+                {
+                  "tag": "Pain point 7",
+                  "title": "Slow refunds with little feedback",
+                  "detail": "Customers report waiting two weeks or more for refunds. The deck notes 30,462 support tickets in Mar'25.",
+                  "idea": "Test auto or next-day refunds for high-trust customers, and add a pending-refund tracker in the app."
+                }
+              ]
+            }
+          ],
+          "context": "The deck also covers account restrictions with no warning (pain point 8) and the difficulty of changing a phone number (pain point 9).",
+          "notes": [
+            "The report is Zip app customers only, covers Jul'24 to Jun'25 and is marked internal distribution only.",
+            "The ideas and questions in each item are the deck's suggestions, not tested or approved changes.",
+            "The deck numbers its pain points but, in the slides used here, does not say how many customers raised each one."
+          ],
+          "sourceLabel": "Google Slides deck (Zip sign-in required, internal distribution only)",
+          "sourceUrl": "https://docs.google.com/presentation/d/1SGeMEHaQIjzfn-_RjKoAdwucJHu978HVwin9erJxYA8/edit"
+        },
+        {
+          "title": "What customers ask for in the 2025 improvement-areas survey: feature requests",
+          "theme": "voice",
+          "source": "Google Slides: Customer Improvement Areas & New Features report, Jul'24 to Jun'25",
+          "headline": "Customers ask for a physical card to use in stores, faster and bigger spending power increases, rewards for loyalty, and a way to see how spending power will change.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "Feature requests that bear on in-store use",
+              "items": [
+                {
+                  "tag": "Request 7",
+                  "title": "A physical card for in-store payments",
+                  "detail": "Many customers weren't aware the Zip physical card exists and said it would help in stores that don't accept contactless. Others knew about it but couldn't get one.",
+                  "idea": "Offer the card to anyone who completes 5 orders, with a $20 handling charge to recover shipping."
+                },
+                {
+                  "tag": "Request 1",
+                  "title": "Faster and larger spending power increases",
+                  "detail": "Frequent users who pay on time or early want increases bigger than the current $25 to $100 and want to feel responsible use is rewarded."
+                },
+                {
+                  "tag": "Request 5",
+                  "title": "Smarter ways to see Zip usage and spending power",
+                  "detail": "Customers want to track orders and payments, and to see how much spending power will rise after purchases are paid in full."
+                },
+                {
+                  "tag": "Request 6",
+                  "title": "Loyalty rewarded with tangible benefits",
+                  "detail": "Loyal customers want points for on-time payments, gift cards, and more flexibility on dates and extensions.",
+                  "idea": "Anniversary rewards (year 1, year 2) and customer birthday rewards."
+                }
+              ]
+            }
+          ],
+          "context": "The deck's other requests are payment controls that adapt to changing lives, monthly repayments (about 10% of customers are paid monthly), paying nothing upfront, long-term financing for larger purchases and consolidated payments.",
+          "notes": [
+            "Requests are the deck's synthesis of survey verbatims. The deck cautions that customers can describe problems better than they can design the fix.",
+            "The ideas are the deck's suggestions, not tested or approved changes."
+          ],
+          "sourceLabel": "Google Slides deck (Zip sign-in required, internal distribution only)",
+          "sourceUrl": "https://docs.google.com/presentation/d/1SGeMEHaQIjzfn-_RjKoAdwucJHu978HVwin9erJxYA8/edit"
         }
       ],
       hmwQuestions: [
@@ -2098,7 +2205,7 @@ const REPORT = {
           hypothesis: "Users understand whether switching between Pay in 2/4/8 changes what they can spend, because the relationship between the top figure and the products listed below it is stated rather than left to be inferred.",
           metrics: ["Support contacts referencing a mismatch between the shown spending power and what's offered at checkout for a specific Pay-in-X plan"],
           type: "Refine",
-          evidence: { strength: "Supporting", text: "18 of 285 in-store support comments (6.3%) were about an unclear spending limit or available funds. The suggested response is to show the exact in-store amount on the In-Store tab. Public reviews echo it: Zip's Play listing describes spending power as an estimate rather than an open line of credit, in a footnote, the same ambiguity behind Affirm's decline complaints (27 of 384 negative reviews)." },
+          evidence: { strength: "Supporting", text: "18 of 285 in-store support comments (6.3%) were about an unclear spending limit or available funds. The suggested response is to show the exact in-store amount on the In-Store tab. Public reviews echo it: Zip's Play listing describes spending power as an estimate rather than an open line of credit, in a footnote, the same ambiguity behind Affirm's decline complaints (27 of 384 negative reviews). The 2025 customer survey report points the same way: customers see spending power in the app yet are declined, and are blindsided by unexplained drops (one reports $900 to $50 in under a month). The deck gives no count." },
           signal: null,
           screenIds: ["spending-power"],
           severity: "Medium", effort: "Medium"
@@ -2202,7 +2309,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. In dollars, declines put $125.0M of transaction value at risk over six months (10.5% of attempted): grocery is $21.5M and gas $5.8M, together about 22%, while Other merchants carry 78%. Insufficient spending power is $11.5M (9.2%) but the largest tickets ($243 average declined), the cases right-sizing addresses. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used."
+            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. In dollars, declines put $125.0M of transaction value at risk over six months (10.5% of attempted): grocery is $21.5M and gas $5.8M, together about 22%, while Other merchants carry 78%. Insufficient spending power is $11.5M (9.2%) but the largest tickets ($243 average declined), the cases right-sizing addresses. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used. The 2025 customer survey report also records customers declined with no explanation, some while the app showed spending power (one reports being approved for $250 yet declined every time), and unable to plan purchases ahead. The deck gives no count."
           },
           hmwIds: ["declines", "recover"],
           "signal": "Afterpay keeps a persistent card with a visible pre-approved amount, so customers see their headroom before the register. Affirm shows the risk: purchasing power that reads as a limit when it is only an estimate.",
@@ -2222,7 +2329,7 @@ const REPORT = {
             {
               "problem": "Customers are afraid of being embarrassed at the register, so they don't risk trying in-store.",
               "behind": "A decline is public, and customers won't test an unfamiliar method with a line behind them. It affects first-time in-store users and anyone who has had a decline.",
-              "note": "Hypothesis: nothing collected so far measures this fear. It needs first-time user research."
+              "note": "A 2025 customer survey report describes this fear in customers' own words (embarrassment at the register, paying full price to avoid it) but gives no count. It still needs first-time user research to size it."
             },
             {
               "problem": "Customers whose payment fails don't know what to do next, so they stop trying.",
@@ -2241,7 +2348,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Supporting",
-            "text": "Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. System data now measures the behavior at the purchase level: of 1.07M declined purchases over six months, 72.1% were retried (about 3.1 attempts) and none of the retried purchases was later approved, while 27.9% ended after one decline. That is not the same as customers giving up, because a customer who starts a new purchase request counts as a separate purchase. Nothing here measures the fear of a public decline. To test it, follow the same customer: do they place a new in-store order within 24 hours of a decline, compared with matched customers who were not declined? And run first-time in-store user research on what they worry about at the register."
+            "text": "Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. System data now measures the behavior at the purchase level: of 1.07M declined purchases over six months, 72.1% were retried (about 3.1 attempts) and none of the retried purchases was later approved, while 27.9% ended after one decline. That is not the same as customers giving up, because a customer who starts a new purchase request counts as a separate purchase. Nothing here measures the fear of a public decline. To test it, follow the same customer: do they place a new in-store order within 24 hours of a decline, compared with matched customers who were not declined? And run first-time in-store user research on what they worry about at the register. The 2025 customer survey report (about 100,000 responses, 10,000+ verbatims) has a pain point on exactly this: after an in-store decline customers can't tell whether it was technical, the store or their approval, so they are unsure whether to try again and often pay full price to avoid further embarrassment. The deck gives no count. It suggests a push notification right after an in-store failure and a $5 goodwill credit in select situations."
           },
           hmwIds: ["low-risk", "recover"],
           "signal": null,
@@ -2270,7 +2377,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data, though the chat checked every channel and found no earlier approval on any of these purchases. At the moment of decline the customer holds a card with nothing on it: $0.00 left in 90% of cases (the decline text pairs 'the authorization amount (62.37) is superior to the purchase available balance ($0.00)' with 'the purchase has already been settled'), and a small balance below the amount in the other 10% (for example $38.89 against $0.96). The chat's advice for the customer is to use a different payment method or contact support; a new one-tap purchase request is this opportunity's proposal, not something the chat tested. In dollars it is $36.0M of lost transaction value over six months (28.8%, second to payment source failed) because the average declined purchase is small ($78)."
+            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data, though the chat checked every channel and found no earlier approval on any of these purchases. At the moment of decline the customer holds a card with nothing on it: $0.00 left in 90% of cases (the decline text pairs 'the authorization amount (62.37) is superior to the purchase available balance ($0.00)' with 'the purchase has already been settled'), and a small balance below the amount in the other 10% (for example $38.89 against $0.96). The chat's advice for the customer is to use a different payment method or contact support; a new one-tap purchase request is this opportunity's proposal, not something the chat tested. In dollars it is $36.0M of lost transaction value over six months (28.8%, second to payment source failed) because the average declined purchase is small ($78). The 2025 customer survey report shows what a missing explanation costs: customers who don't know why a payment failed are unsure whether to retry, and the deck suggests an immediate push notification after an in-store failure."
           },
           "signal": null,
           "hmwIds": [
@@ -2361,6 +2468,105 @@ const REPORT = {
           "screenIds": [
             "instore-how-to-pay",
             "instore-common-questions"
+          ],
+          "severity": "Medium",
+          "effort": "Low"
+        },
+        {
+          "title": "Make the Zip physical card easy to find and get for customers who pay in-store",
+          "hmw": "How might we let in-store customers know about the physical card, and get one when contactless or the wallet isn't working?",
+          "rationale": "In the 2025 customer survey report many customers didn't know a Zip physical card exists, and said it would help in stores that don't accept contactless payment. Others knew about it but couldn't get one. A physical card could also be a fallback when a wallet payment is rejected, since 82% of payment-source-failed declines are virtual cards in Apple Pay or Google Pay, but that is an inference, not something the deck says. How many in-store customers hold or want the card is not in the data.",
+          "hypothesis": "Surfacing the physical card on the In-Store tab and in How to Pay (what it is, who can get it, how) raises in-store use among customers who meet terminals without tap-to-pay, and gives customers a fallback when a wallet payment is rejected.",
+          "metrics": [
+            "Physical card requests started from the In-Store tab",
+            "Share of in-store customers who hold a physical card (baseline needed)",
+            "In-store orders by physical card versus wallet card (baseline needed)",
+            "Share of wallet-rejected customers who complete the purchase with the physical card"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "The 2025 customer survey report (Jul'24 to Jun'25, about 100,000 responses from Zip app customers) lists a physical card for in-store payments as a feature request: many customers were unaware of the card and said it would help where contactless isn't accepted, while others knew of it but couldn't get one. The deck's own idea is to offer it to anyone who completes five orders, with a $20 handling charge to recover shipping. It gives no counts, and nothing here shows how many in-store customers hold the card."
+          },
+          "signal": null,
+          "hmwIds": [
+            "understand",
+            "recover"
+          ],
+          "screenIds": [
+            "instore-how-to-pay",
+            "instore-location-disabled",
+            "instore-location-enabled"
+          ],
+          "severity": "Medium",
+          "effort": "Medium"
+        },
+        {
+          "title": "Give regular in-store customers a reason to keep coming back: faster spending power growth and milestone rewards",
+          "hmw": "How might we recognize and reward customers who keep using Zip in-store?",
+          "rationale": "Frequent, on-time customers in the 2025 survey report don't feel their loyalty is returned: spending power grows slowly and in small steps, and they ask for tangible rewards such as points, gift cards and anniversary or birthday rewards. The deck's own idea for in-store users is to test faster spending power increases, on the hypothesis that they are more engaged because they buy groceries regularly. That hypothesis is not tested in the data here, and increases are a risk decision.",
+          "hypothesis": "Faster increases or milestone rewards for customers with repeated on-time in-store purchases raise repeat in-store use without raising loss rates.",
+          "metrics": [
+            "Repeat in-store purchases per customer in the 30 and 90 days after a reward or increase",
+            "Share of in-store customers who place a second and a third in-store order",
+            "Loss rate for customers given faster increases (risk guardrail)"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "In the 2025 customer survey report frequent users want increases bigger than the current $25 to $100 steps, and loyal customers want points for on-time payments, gift cards and anniversary or birthday rewards. The deck suggests testing faster increases for in-store users and a flat $25 to $50 increase after 2 to 3 completed purchases. It gives no counts, and it is untested here that in-store users are more engaged."
+          },
+          "signal": null,
+          "hmwIds": [
+            "reason"
+          ],
+          "screenIds": [
+            "instore-location-disabled",
+            "instore-location-enabled"
+          ],
+          "severity": "Medium",
+          "effort": "High"
+        },
+        {
+          "title": "Explain changes in spending power: why it dropped, when it can recover and how it usually grows",
+          "hmw": "How might we make spending power changes understandable, so customers know why it moved and what to expect?",
+          "rationale": "Spending power runs through the first four pain points in the 2025 survey report. Customers compare Zip with other BNPL apps (an estimated 35% to 50% have used another), feel the starting limit is low and increases are slow, and are blindsided by sudden drops with no explanation (one customer reports $900 to $50 in under a month). The deck's ideas are to tell customers most start at $250 to $400 and grow within 60 days of good use, and to show why spending power changed and when it can rise again.",
+          "hypothesis": "Showing the reason for a drop, a path to recover it, and the typical starting range and growth reduces surprise, and the support contacts and churn that come with it.",
+          "metrics": [
+            "Support contacts about spending power changes",
+            "Customers who stop using Zip within 30 days of a spending power drop (baseline needed)",
+            "Customer understanding of how spending power grows (survey)"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "In the 2025 customer survey report, spending power is the subject of four of the nine pain points on the visible slides (low versus other BNPL apps, slow to grow despite on-time payments, unexplained drops, and approved-but-declined at checkout). The deck gives a count only for the share of customers who have used another BNPL (an estimated 35% to 50%); the rest is customer verbatims. The deck's ideas are untested."
+          },
+          "signal": null,
+          "screenIds": [
+            "spending-power"
+          ],
+          "severity": "High",
+          "effort": "Medium"
+        },
+        {
+          "title": "Warn customers before they delay a payment that it pauses spending power",
+          "hmw": "How might we make the effect of delaying a payment clear before the customer confirms?",
+          "rationale": "In the survey report customers value being able to delay a payment but are caught off guard when it puts their account on hold or stops spending power. One comment says the option doesn't mention that it stops spending power. The deck's idea is a heads-up before the choice is confirmed: delaying this payment temporarily pauses spending power until the next repayment.",
+          "hypothesis": "A clear notice at the moment of choosing to delay reduces surprise holds, and the support contacts about them.",
+          "metrics": [
+            "Support contacts after a payment delay",
+            "Share of customers who confirm a delay after seeing the notice",
+            "Spending power pauses customers report as unexpected"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "The 2025 customer survey report (pain point 6) says customers want clarity on how payment extensions affect their account and some report unexpected spending power changes. The deck proposes heads-up copy before the delay. It rests on a pain point with two customer comments and no counts."
+          },
+          "signal": null,
+          "screenIds": [
+            "payments"
           ],
           "severity": "Medium",
           "effort": "Low"
@@ -2769,7 +2975,7 @@ const REPORT = {
           hypothesis: "Support has a documented, consistent answer ready for this exact question before it becomes a recurring contact reason, rather than reactively explaining it case by case.",
           metrics: ["Support contacts mentioning a mismatch between Spending Power and a specific Pay-in-X plan's limit"],
           type: "Add",
-          evidence: { strength: "Supporting", text: "Unclear spending limit or available funds is already the third-largest in-store support theme (18 of 285, 6.3%), so these contacts are not hypothetical. The comments do not say which pay plan the limit relates to. Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a purchasing-power number the app had shown), and Zip's own Play listing says spending power is an estimate, not an open line of credit, in a footnote." },
+          evidence: { strength: "Supporting", text: "Unclear spending limit or available funds is already the third-largest in-store support theme (18 of 285, 6.3%), so these contacts are not hypothetical. The comments do not say which pay plan the limit relates to. Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a purchasing-power number the app had shown), and Zip's own Play listing says spending power is an estimate, not an open line of credit, in a footnote. The 2025 customer survey report records the same confusion in customers' words: spending power shown in the app but declines at checkout, and drops with no explanation. The deck gives no count." },
           signal: null,
           screenIds: ["spending-power"],
           severity: "Low", effort: "Low"
@@ -2791,7 +2997,7 @@ const REPORT = {
           hypothesis: "Updating Common Questions copy with precise timing, clear definitions, and edge-case coverage measurably reduces in-store-related support contacts within 30 days of shipping.",
           metrics: ["In-store support ticket volume (pre/post copy update)", "Resolution rate for refund-related in-store tickets"],
           type: "Refine",
-          evidence: { strength: "Supporting", text: "In-app guidance or faster support is the largest theme (64 of 285, 22.5%), which backs investing in self-service help. The comments do not isolate refund-timing questions, but public reviews do: installments that keep charging after a refund are the top complaint theme across BNPL apps (24% of 1-3 star complaints, cross-app rather than Zip-only), which supports the refund-timing precision proposed here. Vaultmate's in-store filter may exclude refund contacts, so check refund contact reasons before sizing it. For declines, the top three causes cover about 93% of them (already used or settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%), so those are the three answers the page needs, and for a used-up card the answer is not to retry: the chat's advice is to use a different payment method or contact support." },
+          evidence: { strength: "Supporting", text: "In-app guidance or faster support is the largest theme (64 of 285, 22.5%), which backs investing in self-service help. The comments do not isolate refund-timing questions, but public reviews do: installments that keep charging after a refund are the top complaint theme across BNPL apps (24% of 1-3 star complaints, cross-app rather than Zip-only), which supports the refund-timing precision proposed here. Vaultmate's in-store filter may exclude refund contacts, so check refund contact reasons before sizing it. For declines, the top three causes cover about 93% of them (already used or settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%), so those are the three answers the page needs, and for a used-up card the answer is not to retry: the chat's advice is to use a different payment method or contact support. The 2025 customer survey report adds that slow refunds are a pain point in themselves (refunds taking weeks with little feedback, 30,462 tickets in Mar'25) and suggests a pending-refund tracker in the app." },
           hmwIds: ["understand", "recover"],
           signal: null,
           screenIds: ["instore-common-questions"],
@@ -3565,6 +3771,24 @@ function renderSnapshotBar(parts, label) {
       </ul>`;
 }
 
+function renderSnapshotList(block) {
+  return `
+      <div class="snap-bar-title">${block.title}</div>
+      <ul class="snap-list">${block.items.map(it => `
+        <li>
+          <div class="snap-list-head"><span class="snap-list-tag">${it.tag}</span><strong>${it.title}</strong></div>
+          <p class="snap-list-detail">${it.detail}</p>
+          ${it.idea ? `<p class="snap-list-idea"><span>The deck's idea</span> ${it.idea}</p>` : ""}
+        </li>`).join("")}
+      </ul>`;
+}
+
+function renderSnapshotBlock(bl) {
+  if (bl.type === "rows") return renderSnapshotRows(bl);
+  if (bl.type === "list") return renderSnapshotList(bl);
+  return renderSnapshotBar(bl.parts.map((p, i) => ({ ...p, cls: bl.classes[i] })), bl.title);
+}
+
 function renderSnapshotRows(block) {
   return `
       <div class="snap-bar-title">${block.title}</div>
@@ -3585,9 +3809,7 @@ function renderSnapshotCard(sn) {
       <p class="insight-headline">${sn.headline}</p>
       ${sn.total ? `<p class="snap-total"><strong>${sn.total.value}</strong>${sn.total.label}, ${sn.period}</p>` : ""}
       ${sn.intro ? `<p class="snap-total">${sn.intro}</p>` : ""}
-      ${sn.blocks.map(bl => bl.type === "rows"
-        ? renderSnapshotRows(bl)
-        : renderSnapshotBar(bl.parts.map((p, i) => ({ ...p, cls: bl.classes[i] })), bl.title)).join("")}
+      ${sn.blocks.map(renderSnapshotBlock).join("")}
       <p class="insight-meta">${sn.context}</p>
       <ul class="insight-notes">${(sn.notes || []).map(n => `<li>${n}</li>`).join("")}</ul>
       <a class="insight-source-link" href="${sn.sourceUrl}" target="_blank" rel="noopener">Source: ${sn.sourceLabel} &#8599;</a>
