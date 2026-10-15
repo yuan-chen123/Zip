@@ -1157,6 +1157,172 @@ const REPORT = {
       },
       snapshots: [
         {
+          "title": "Why in-store payments decline",
+          "source": "Snowflake: card authorization data (in-store)",
+          "headline": "About 1 in 10 in-store authorizations is declined, and three causes make up 93% of declines. The biggest is a card that has already been used, which retrying can't fix.",
+          "period": "last 6 months to Sep 9, 2026",
+          "total": {
+            "value": "1.07M",
+            "label": " declines out of 11.2M in-store authorizations (9.6%)"
+          },
+          "blocks": [
+            {
+              "type": "rows",
+              "title": "Share of in-store declines by cause",
+              "rows": [
+                {
+                  "label": "Pre-authorization / already settled",
+                  "value": "44.5%",
+                  "pct": 44.5,
+                  "cls": "snap-c1",
+                  "detail": "The purchase was already settled and has no balance left ($0.00 in 90% of cases)."
+                },
+                {
+                  "label": "Payment source failed",
+                  "value": "28.8%",
+                  "pct": 28.8,
+                  "cls": "snap-c1",
+                  "detail": "The issuer or network rejected the charge, with no further reason given."
+                },
+                {
+                  "label": "Insufficient spending power",
+                  "value": "20.3%",
+                  "pct": 20.3,
+                  "cls": "snap-c1",
+                  "detail": "The authorization amount is above the balance available on the purchase."
+                },
+                {
+                  "label": "Forbidden merchant",
+                  "value": "3.5%",
+                  "pct": 3.5,
+                  "cls": "snap-c1",
+                  "detail": "A blocked merchant category, such as government payments."
+                },
+                {
+                  "label": "Unknown and other",
+                  "value": "3.0%",
+                  "pct": 3.0,
+                  "cls": "snap-c1",
+                  "detail": "Issuer declined with no reason (1.6%) and everything else (1.4%)."
+                }
+              ]
+            },
+            {
+              "type": "split",
+              "title": "Inside the biggest cause (44.5% of declines)",
+              "classes": [
+                "snap-c1",
+                "snap-c2",
+                "snap-c3"
+              ],
+              "parts": [
+                {
+                  "label": "Already settled and single-authorization limit",
+                  "value": "3.3 attempts",
+                  "pct": 55.4
+                },
+                {
+                  "label": "Single-authorization limit only",
+                  "value": "2.3 attempts",
+                  "pct": 30.0
+                },
+                {
+                  "label": "Already settled only",
+                  "value": "4.4 attempts",
+                  "pct": 14.6
+                }
+              ]
+            }
+          ],
+          "context": "The 30-day and 90-day figures sit within a point of the six-month ones (pre-authorization / already settled 45.2% and 44.1%, payment source failed 28.8% and 29.5%, insufficient spending power 19.0% and 19.6%). In the other 10% of the biggest cause a small balance remains, but less than the amount requested.",
+          "notes": [
+            "In-store means contactless, chip, keyed-in and swipe authorizations by active users. The data ends on Sep 9, 2026, so every window ends there.",
+            "How a purchase reaches $0.00 before the customer pays is not visible: none of these purchases had an earlier in-store approval, so the chat infers the balance was used by a separate settlement. Treat that as unconfirmed.",
+            "Payment source failed: 82% are virtual cards in Apple Pay (68.0%) or Google Pay (14.3%), but the wallet share of all in-store purchases isn't shown, so this may only reflect how most customers pay.",
+            "The attempt counts are the average attempt number at which the decline happened."
+          ],
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+        },
+        {
+          "title": "In-store declines by merchant type, and what happens next",
+          "source": "Snowflake: card authorization data (in-store)",
+          "headline": "Grocery has the lowest decline rate (7.5%), not the highest; gas runs 10.3% and fast food 13.7%. After a decline, 72% of purchases are retried and none of the retried purchases was approved.",
+          "intro": "Last 6 months to Sep 9, 2026. Decline rate is declines as a share of in-store authorizations. Bars scale to 15%.",
+          "blocks": [
+            {
+              "type": "rows",
+              "title": "Decline rate by merchant type",
+              "rows": [
+                {
+                  "label": "Fast food",
+                  "value": "13.7%",
+                  "pct": 91.5,
+                  "cls": "snap-c1",
+                  "detail": "54,410 declines. Part of Other below."
+                },
+                {
+                  "label": "Gas",
+                  "value": "10.3%",
+                  "pct": 68.5,
+                  "cls": "snap-c1",
+                  "detail": "1.6M authorizations, 160K declines."
+                },
+                {
+                  "label": "Other (all remaining merchants)",
+                  "value": "10.3%",
+                  "pct": 68.4,
+                  "cls": "snap-c1",
+                  "detail": "6.9M authorizations, 707K declines."
+                },
+                {
+                  "label": "All in-store",
+                  "value": "9.6%",
+                  "pct": 63.9,
+                  "cls": "snap-c2",
+                  "detail": "11.2M authorizations, 1.07M declines."
+                },
+                {
+                  "label": "Grocery",
+                  "value": "7.5%",
+                  "pct": 50.1,
+                  "cls": "snap-c1",
+                  "detail": "2.7M authorizations, 204K declines."
+                }
+              ]
+            },
+            {
+              "type": "split",
+              "title": "What happens after a decline (1.07M declined purchases)",
+              "classes": [
+                "snap-c1",
+                "snap-c2"
+              ],
+              "parts": [
+                {
+                  "label": "Retried and still declined (3.1 attempts on average)",
+                  "value": "772,627",
+                  "pct": 72.1
+                },
+                {
+                  "label": "Abandoned after one decline",
+                  "value": "298,616",
+                  "pct": 27.9
+                }
+              ]
+            }
+          ],
+          "context": "Government services are declined 100% of the time (26,780 declines in six months, mostly DMV and motor vehicle offices, county tax and tag offices and municipal payments), so they sit off this scale. Over 30 days the overall rate was 9.95%, with grocery at 8.0% and gas at 10.9%. The top five 'Other' categories by declines were discount stores (81,018, 7.4%), restaurants (59,400, 7.4%), fast food (54,410, 13.7%), barber and beauty (27,819, 8.4%) and government services.",
+          "notes": [
+            "Counts are by purchase. A customer who starts a new purchase request after a decline shows up as a separate purchase, so 'abandoned after one decline' does not mean the customer gave up.",
+            "No retried purchase was later approved. That fits a card tied to one purchase, where every retry meets the same closed balance, but it could also reflect how outcomes were classified.",
+            "Merchant types are card-network category codes, which is why Target sits under discount stores with Ross, Marshalls and TJ Maxx.",
+            "Government services at 100% points to a blocked-merchant rule. The chat inferred that rather than confirming it."
+          ],
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+        },
+        {
           "title": "In-Store CTAs: Pay in-store button vs the amount card",
           "source": "Snowflake: in-app button-tap events and in-store orders",
           "headline": "In the last 90 days the Pay in-store button converts nearly twice as well as the amount card (66.8% vs 36.8%) and brings in about 86% of the revenue attributed to the two CTAs.",
@@ -1691,7 +1857,7 @@ const REPORT = {
           hypothesis: "Identifying the top 3 support ticket categories for in-store purchases reveals at least one high-leverage fix that can be shipped in under a sprint and measurably reduces in-store support volume.",
           metrics: ["In-store support ticket volume (weekly)", "Top 3 ticket categories by volume", "Support ticket resolution time for in-store issues"],
           type: "Add",
-          evidence: { strength: "Strong", text: "Vaultmate's 285 in-store support comments give this audit a first answer. Top themes: in-app guidance or faster support (64, 22.5%), card declined at the register (28, 9.8%), and unclear spending limit or available funds (18, 6.3%). Public reviews point the same way on declines and limit clarity, and add returns and refunds as a theme Vaultmate's in-store filter may not capture. The audit step is largely done; the open work is acting on the top three." },
+          evidence: { strength: "Strong", text: "Vaultmate's 285 in-store support comments give this audit a first answer. Top themes: in-app guidance or faster support (64, 22.5%), card declined at the register (28, 9.8%), and unclear spending limit or available funds (18, 6.3%). Public reviews point the same way on declines and limit clarity, and add returns and refunds as a theme Vaultmate's in-store filter may not capture. System decline data adds a second ranking: pre-authorization or already settled 44.5% of declines, payment source failed 28.8% and insufficient spending power 20.3% over six months. The audit step is largely done; the open work is acting on the top three." },
           hmwIds: ["understand", "declines"],
           signal: null,
           screenIds: [],
@@ -1717,10 +1883,10 @@ const REPORT = {
               "behind": "The request amount doesn't match the final total after tax or tip, or gas stations pre-authorize more than the customer intended. Pre-fill helps but doesn't solve every case. Grocery and gas are hit hardest."
             }
           ],
-          "rationale": "A decline at the register is the moment Zip is most exposed: it blocks the sale, it happens in public, and today the customer gets no reason. Two sources point at the same gap. Vaultmate's in-store comments rank declines second (28 of 285, 9.8%) and suggest showing the reason and what to do next, and public reviews rank unexplained declines at 19% of cross-app complaints. The causes named here, tax or tip pushing the total past the request and fuel pre-authorization above what the customer intended, are known mechanisms rather than measured shares, so the first job is sizing them from decline data by merchant category.",
-          "hypothesis": "Sizing the request to the likely final total (an allowance for tax and tip, a fuel-specific default for gas) and showing a plain-language decline reason cuts declines at grocery and gas, and the support contacts they generate.",
+          "rationale": "A decline at the register is the moment Zip is most exposed: it blocks the sale, it happens in public, and today the customer gets no reason. Two sources point at the same gap. Vaultmate's in-store comments rank declines second (28 of 285, 9.8%) and suggest showing the reason and what to do next, and public reviews rank unexplained declines at 19% of cross-app complaints. Authorization data now sizes it: 9.6% of in-store authorizations decline over six months, gas runs 10.3% and other merchants 10.3%, grocery is lowest at 7.5%, and fast food is worst at 13.7%. The biggest cause is not an amount mismatch at all: 44.5% of declines are on a card that has already been used, while 20.3% are an authorization above the available balance, which is the case right-sizing the request addresses.",
+          "hypothesis": "Sizing the request to the likely final total (an allowance for tax and tip, a fuel-specific default for gas) and showing a plain-language decline reason cuts the declines where the amount is the cause (insufficient spending power is 20.3% of declines), and a plain-language decline reason covers the rest and cuts the support contacts they generate.",
           "metrics": [
-            "In-store decline rate by merchant category (grocery, gas, other)",
+            "In-store decline rate by merchant category (baseline, last six months: 7.5% grocery, 10.3% gas, 10.3% other, 9.6% overall)",
             "First-attempt success rate",
             "Share of declines shown with a plain-language reason",
             "In-store support contacts about declines (Vaultmate baseline: 28 comments, 9.8%)"
@@ -1728,7 +1894,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). No source here splits declines by cause, so the grocery and gas weighting is still an assumption to check against decline-code data."
+            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and the belief that grocery is hit hardest did not hold, since grocery is the lowest of the main categories (7.5%) while gas (10.3%) and fast food (13.7%) run higher. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used."
           },
           hmwIds: ["declines", "recover"],
           "signal": "Afterpay keeps a persistent card with a visible pre-approved amount, so customers see their headroom before the register. Affirm shows the risk: purchasing power that reads as a limit when it is only an estimate.",
@@ -1753,10 +1919,10 @@ const REPORT = {
             {
               "problem": "Customers whose payment fails don't know what to do next, so they stop trying.",
               "behind": "The recovery experience after a decline is unknown.",
-              "note": "The recovery gap is corroborated by two sources. The part about customers who stop trying is not yet measured."
+              "note": "The recovery gap is corroborated by three sources. Purchase-level data shows 27.9% of declined purchases end after one decline, but a customer who starts a new request counts as abandoning there, so drop-off at the customer level is still unmeasured."
             }
           ],
-          "rationale": "These two problems share a fix: a safety net the customer knows about before the register and can use the moment a payment fails. The recovery gap is corroborated. Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. The fear of a public decline and the drop-off after one are both plausible, but nothing collected so far measures either.",
+          "rationale": "These two problems share a fix: a safety net the customer knows about before the register and can use the moment a payment fails. The recovery gap is corroborated. Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. The fear of a public decline is plausible but still unmeasured, and the drop-off after a decline is only measured at the purchase level.",
           "hypothesis": "A visible, calm recovery path (what happened, what to try now, how to get help) that customers can see before they reach the register, and that appears immediately after a failure, raises the rate at which first-time and previously declined users try again.",
           "metrics": [
             "Repeat in-store attempt within 7 and 30 days after a decline, against matched users who were not declined",
@@ -1766,8 +1932,8 @@ const REPORT = {
           ],
           "type": "Add",
           "evidence": {
-            "strength": "Weak",
-            "text": "Indirect only. Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. Nothing measured here shows that customers avoid in-store because they fear a public decline, or that they stop after a failed payment. To test it, compare repeat in-store orders in the 30 days after a declined attempt with matched users who were not declined (this needs decline events), and run first-time in-store user research on what they worry about at the register."
+            "strength": "Supporting",
+            "text": "Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. System data now measures the behavior at the purchase level: of 1.07M declined purchases over six months, 72.1% were retried (about 3.1 attempts) and none of the retried purchases was later approved, while 27.9% ended after one decline. That is not the same as customers giving up, because a customer who starts a new purchase request counts as a separate purchase. Nothing here measures the fear of a public decline. To test it, follow the same customer: do they place a new in-store order within 24 hours of a decline, compared with matched customers who were not declined? And run first-time in-store user research on what they worry about at the register."
           },
           hmwIds: ["low-risk", "recover"],
           "signal": null,
@@ -1780,6 +1946,114 @@ const REPORT = {
           "top": 2,
           "severity": "High",
           "effort": "Medium"
+        },
+        {
+          "title": "Tell customers when a card has already been used, and let them start a new purchase in one tap",
+          "hmw": "How might we turn a used-up card into a clear next step, instead of a decline that repeats at the register?",
+          "rationale": "The largest decline cause is not a bad card or a low balance: 44.5% of in-store declines over six months are pre-authorization or already-settled declines, and in 90% of them the purchase has $0.00 left. Customers retry anyway (72% retry, about three attempts each) and none of the retried purchases was approved, because the card belongs to one purchase and each retry meets the same closed balance. Today the register shows a generic decline and nothing in the app explains it. How the balance reached $0.00 is unconfirmed, but what to do next is clear: use another payment method or start a new purchase request.",
+          "hypothesis": "When a purchase is used up, showing it as used on the In-Store tab, offering a one-tap new purchase request and telling customers not to retry cuts futile retries and speeds recovery.",
+          "metrics": [
+            "Retries per declined purchase (baseline: about 3 for the 72% who retry)",
+            "Share of used-up-card declines followed by a new in-store purchase within 24 hours",
+            "Pre-authorization / already-settled declines as a share of all in-store declines (baseline 44.5%)",
+            "In-store support contacts about declines"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Strong",
+            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data."
+          },
+          "signal": null,
+          "hmwIds": [
+            "recover",
+            "declines"
+          ],
+          "screenIds": [
+            "instore-location-disabled",
+            "instore-location-enabled"
+          ],
+          "severity": "High",
+          "effort": "Medium"
+        },
+        {
+          "title": "Revisit the one-authorization-per-purchase rule for merchants that send a second authorization",
+          "hmw": "How might we stop a second authorization on the same purchase, such as a fuel completion or a tip, from being declined?",
+          "rationale": "The single-authorization limit appears in 85% of the largest decline bucket (55.4% together with already settled, 30.0% on its own), which is roughly 38% of all in-store declines. Declines on it happen on the second to third attempt on average (2.3 attempts), which fits merchants that authorize more than once, as gas stations (pre-authorization, then completion) and restaurants (tips) do. Gas runs 10.3% and fast food 13.7% against 9.6% overall. The data does not yet show which merchants trigger the limit, so this is a hypothesis to test before it is a fix, and the limit may exist for risk reasons.",
+          "hypothesis": "If the declines on the single-authorization limit are concentrated in gas, fast food and restaurants, allowing a bounded second authorization (within the original amount plus a tolerance for tip or fuel) removes a large share of them without raising risk exposure.",
+          "metrics": [
+            "Single-authorization-limit declines by merchant category (needs a cross-tab)",
+            "In-store decline rate at gas and fast food (baseline 10.3% and 13.7%)",
+            "Loss rate on purchases that received a second authorization (risk guardrail)"
+          ],
+          "type": "Refine",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "The rule is named in the decline data itself (single-auth limit: only one in-store authorization allowed) and appears in 85.4% of pre-authorization / already-settled declines. Gas (10.3%) and fast food (13.7%) decline above the 9.6% average, but the data does not tie those declines to the limit and the chat did not break the limit down by merchant. Treat the merchant link as untested."
+          },
+          "signal": null,
+          "hmwIds": [
+            "declines"
+          ],
+          "screenIds": [
+            "instore-location-disabled",
+            "instore-location-enabled"
+          ],
+          "severity": "High",
+          "effort": "High"
+        },
+        {
+          "title": "Diagnose the issuer-side rejections behind 29% of declines, and tell customers what to try",
+          "hmw": "How might we find out why the card network or issuer rejects these payments, and tell customers what to try?",
+          "rationale": "Payment source failed is the second-largest decline cause (28.8% over six months, 29.5% over 90 days). The reason code is generic: the issuer rejected the charge, with no detail. 82% of these are virtual cards used through Apple Pay (68.0%) or Google Pay (14.3%), but most in-store purchases are probably made that way, so the data does not show a wallet-specific problem without the overall mix. The possible causes the chat lists, such as a frozen or deactivated card, fraud rules or an outage, are not in the data. Unlike a used-up card these could succeed on retry, yet retries overall show no approvals.",
+          "hypothesis": "Splitting issuer rejections by reason and card state, and comparing them with the overall wallet mix, shows whether a fixable subset exists (for example a card that needs re-adding to the wallet) that a targeted message can resolve.",
+          "metrics": [
+            "Payment-source-failed declines as a share of all in-store declines (baseline 28.8%)",
+            "Wallet virtual card share of all in-store authorizations (the base rate this needs)",
+            "Share of these declines followed by an approval on a new purchase within 24 hours"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "28.8% of in-store declines over six months (29.5% over 90 days, 28.8% over 30), 82% of them on virtual cards in Apple Pay (68.0%) or Google Pay (14.3%). The decline reason is generic and the chat lists possible causes without data. Without the wallet share of all in-store authorizations, the 82% could simply reflect how customers pay."
+          },
+          "signal": null,
+          "hmwIds": [
+            "declines"
+          ],
+          "screenIds": [
+            "instore-how-to-pay",
+            "instore-location-disabled",
+            "instore-location-enabled"
+          ],
+          "severity": "High",
+          "effort": "Medium"
+        },
+        {
+          "title": "Tell customers up front where Zip can't be used, starting with government payments",
+          "hmw": "How might we tell customers before the register that Zip can't be used at some merchants, so they don't find out by being declined?",
+          "rationale": "Forbidden-merchant declines are 3.5% of in-store declines over six months, and some categories always fail: government services were declined 100% of the time (26,780 declines), including DMV and motor vehicle offices, county tax and tag offices and municipal payment services. The chat infers the block is a forbidden-category rule. These customers can never succeed, and each one is a public decline at a counter. Whether the app warns about this today is not in the data.",
+          "hypothesis": "Listing the excluded merchant types in the \"Where can I pay with Zip?\" content and showing a specific decline message (for example that Zip can't be used for government payments) reduces repeat attempts and support contacts at these merchants.",
+          "metrics": [
+            "Forbidden-merchant declines as a share of in-store declines (baseline 3.5%)",
+            "Government services declines (baseline 26,780 over six months, 100% declined)",
+            "Repeat attempts at forbidden merchants after a decline"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Strong",
+            "text": "Government services: 100% decline rate over six months, 26,780 declines (4,974 in 30 days, 14,602 in 90). Forbidden merchant is 3.3% to 3.5% of all declines in each window. The chat names state DMV and BMV offices, county tax and tag collectors and municipal payment services as examples. The rule behind it is inferred, not shown."
+          },
+          "signal": null,
+          "hmwIds": [
+            "understand",
+            "declines"
+          ],
+          "screenIds": [
+            "instore-how-to-pay",
+            "instore-common-questions"
+          ],
+          "severity": "Medium",
+          "effort": "Low"
         }
         ],
       painPoints: [
@@ -2128,7 +2402,7 @@ const REPORT = {
           hypothesis: "A complete, step-by-step in-store funnel reveals the single highest-drop-off point within one week of instrumentation, enabling the team to prioritize the highest-ROI fix.",
           metrics: ["In-store funnel step completion rate by step", "PR modal-open-to-completion rate", "Location permission grant rate"],
           type: "Add",
-          evidence: { strength: "Supporting", text: "Card declined at the register is the second-largest theme (28 comments, 9.8%) and happens after the purchase request, so the funnel should include a decline step with its reason rather than ending at purchase complete. Public reviews rank unexplained declines at 19% of cross-app complaints, and the public assessment's PM recommendation is the same: track first-attempt success rate and in-store contact rate. The premise that card-taps and button-taps are collapsed into one event does not hold: they already log as separate button-tap events (Pay in-store and Pay in-store - card component), so the funnel can split by entry point now. The primary button's label changed to Pay in-store¹ around April 2026, so the funnel needs to map both labels." },
+          evidence: { strength: "Supporting", text: "Card declined at the register is the second-largest theme (28 comments, 9.8%) and happens after the purchase request, so the funnel should include a decline step with its reason rather than ending at purchase complete. Public reviews rank unexplained declines at 19% of cross-app complaints, and the public assessment's PM recommendation is the same: track first-attempt success rate and in-store contact rate. The premise that card-taps and button-taps are collapsed into one event does not hold: they already log as separate button-tap events (Pay in-store and Pay in-store - card component), so the funnel can split by entry point now. The primary button's label changed to Pay in-store¹ around April 2026, so the funnel needs to map both labels. The authorization table already records decline reasons, retries and timestamps for every in-store purchase, so the decline step can be built from it now (the data runs through Sep 9, 2026)." },
           hmwIds: ["declines", "recover"],
           signal: null,
           screenIds: [],
@@ -2207,7 +2481,7 @@ const REPORT = {
           hypothesis: "Updating Common Questions copy with precise timing, clear definitions, and edge-case coverage measurably reduces in-store-related support contacts within 30 days of shipping.",
           metrics: ["In-store support ticket volume (pre/post copy update)", "Resolution rate for refund-related in-store tickets"],
           type: "Refine",
-          evidence: { strength: "Supporting", text: "In-app guidance or faster support is the largest theme (64 of 285, 22.5%), which backs investing in self-service help. The comments do not isolate refund-timing questions, but public reviews do: installments that keep charging after a refund are the top complaint theme across BNPL apps (24% of 1-3 star complaints, cross-app rather than Zip-only), which supports the refund-timing precision proposed here. Vaultmate's in-store filter may exclude refund contacts, so check refund contact reasons before sizing it." },
+          evidence: { strength: "Supporting", text: "In-app guidance or faster support is the largest theme (64 of 285, 22.5%), which backs investing in self-service help. The comments do not isolate refund-timing questions, but public reviews do: installments that keep charging after a refund are the top complaint theme across BNPL apps (24% of 1-3 star complaints, cross-app rather than Zip-only), which supports the refund-timing precision proposed here. Vaultmate's in-store filter may exclude refund contacts, so check refund contact reasons before sizing it. For declines, the top three causes cover about 93% of them (already used or settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%), so those are the three answers the page needs, and for a used-up card the answer is not to retry." },
           hmwIds: ["understand", "recover"],
           signal: null,
           screenIds: ["instore-common-questions"],
