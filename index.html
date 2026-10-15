@@ -1234,12 +1234,153 @@ const REPORT = {
               ]
             }
           ],
-          "context": "The 30-day and 90-day figures sit within a point of the six-month ones (pre-authorization / already settled 45.2% and 44.1%, payment source failed 28.8% and 29.5%, insufficient spending power 19.0% and 19.6%). In the other 10% of the biggest cause a small balance remains, but less than the amount requested.",
+          "context": "The 30-day and 90-day figures sit within a point of the six-month ones (pre-authorization / already settled 45.2% and 44.1%, payment source failed 28.8% and 29.5%, insufficient spending power 19.0% and 19.6%). In the other 10% of the biggest cause a small balance remains, but less than the amount requested. By dollars the order changes: payment source failed is the biggest cause (49.1% of lost transaction value), then pre-authorization / already settled (28.8%).",
           "notes": [
             "In-store means contactless, chip, keyed-in and swipe authorizations by active users. The data ends on Sep 9, 2026, so every window ends there.",
             "How a purchase reaches $0.00 before the customer pays is not visible: none of these purchases had an earlier in-store approval, so the chat infers the balance was used by a separate settlement. Treat that as unconfirmed.",
             "Payment source failed: 82% are virtual cards in Apple Pay (68.0%) or Google Pay (14.3%), but the wallet share of all in-store purchases isn't shown, so this may only reflect how most customers pay.",
             "The attempt counts are the average attempt number at which the decline happened."
+          ],
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+        },
+        {
+          "title": "What declines cost in transaction value (TTV)",
+          "source": "Snowflake: card authorization data (in-store, dollars)",
+          "headline": "Declines put about $125M of in-store transaction value at risk over six months, 10.5% of everything attempted. In dollars, issuer rejections are the biggest cause (49%) and Other merchants carry 78%.",
+          "intro": "TTV is total transaction value in dollars. Last 6 months to Sep 9, 2026: $125.0M declined against $1.06B approved. Average declined transaction $116.70.",
+          "blocks": [
+            {
+              "type": "rows",
+              "title": "Lost TTV by decline cause (share of the $125.0M)",
+              "rows": [
+                {
+                  "label": "Payment source failed",
+                  "value": "$61.4M",
+                  "pct": 49.1,
+                  "cls": "snap-c1",
+                  "detail": "49.1% of lost TTV, but only 28.8% of declines by count. $132 average declined transaction."
+                },
+                {
+                  "label": "Pre-authorization / already settled",
+                  "value": "$36.0M",
+                  "pct": 28.8,
+                  "cls": "snap-c1",
+                  "detail": "28.8% of lost TTV, but 44.5% of declines by count. $78 average declined transaction."
+                },
+                {
+                  "label": "Insufficient spending power",
+                  "value": "$11.5M",
+                  "pct": 9.2,
+                  "cls": "snap-c1",
+                  "detail": "9.2% of lost TTV, 20.3% by count. $243 average, the largest declined transactions."
+                },
+                {
+                  "label": "Forbidden merchant",
+                  "value": "$8.8M",
+                  "pct": 7.0,
+                  "cls": "snap-c1",
+                  "detail": "7.0% of lost TTV, 3.5% by count. $170 average declined transaction."
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "title": "Lost TTV by merchant type (share of the $125.0M)",
+              "rows": [
+                {
+                  "label": "Other (all remaining merchants)",
+                  "value": "$97.7M",
+                  "pct": 78.2,
+                  "cls": "snap-c1",
+                  "detail": "78% of lost TTV. 12.1% of attempted TTV lost. $138 average declined transaction."
+                },
+                {
+                  "label": "Grocery",
+                  "value": "$21.5M",
+                  "pct": 17.2,
+                  "cls": "snap-c1",
+                  "detail": "17% of lost TTV. 7.1% of attempted TTV lost. $105 average declined transaction."
+                },
+                {
+                  "label": "Gas",
+                  "value": "$5.8M",
+                  "pct": 4.6,
+                  "cls": "snap-c1",
+                  "detail": "5% of lost TTV. 7.1% of attempted TTV lost. $37 average declined transaction."
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "title": "Biggest categories inside Other by lost TTV (bars scale to $8.3M)",
+              "rows": [
+                {
+                  "label": "Discount stores",
+                  "value": "$8.3M",
+                  "pct": 100.0,
+                  "cls": "snap-c1",
+                  "detail": "81,018 declines. 7.5% of attempted TTV lost. $102 average."
+                },
+                {
+                  "label": "Hotels, motels and resorts",
+                  "value": "$5.8M",
+                  "pct": 69.9,
+                  "cls": "snap-c1",
+                  "detail": "23,314 declines. 30.5% of attempted TTV lost, the worst rate here. $249 average."
+                },
+                {
+                  "label": "Barber and beauty",
+                  "value": "$5.2M",
+                  "pct": 62.7,
+                  "cls": "snap-c1",
+                  "detail": "27,819 declines. 12.5% of attempted TTV lost. $187 average."
+                },
+                {
+                  "label": "Government services",
+                  "value": "$5.0M",
+                  "pct": 60.2,
+                  "cls": "snap-c1",
+                  "detail": "26,780 declines. 100% lost: a blocked category. $186 average."
+                },
+                {
+                  "label": "Restaurants",
+                  "value": "$4.8M",
+                  "pct": 57.8,
+                  "cls": "snap-c1",
+                  "detail": "59,400 declines. 7.9% of attempted TTV lost. $80 average."
+                },
+                {
+                  "label": "Men's and women's clothing",
+                  "value": "$3.5M",
+                  "pct": 42.2,
+                  "cls": "snap-c1",
+                  "detail": "17,442 declines. 13.9% of attempted TTV lost. $202 average."
+                },
+                {
+                  "label": "Home supply and warehouse",
+                  "value": "$2.9M",
+                  "pct": 34.9,
+                  "cls": "snap-c1",
+                  "detail": "15,665 declines. 11.5% of attempted TTV lost. $186 average."
+                },
+                {
+                  "label": "Shoe stores",
+                  "value": "$2.5M",
+                  "pct": 30.1,
+                  "cls": "snap-c1",
+                  "detail": "17,098 declines. 9.2% of attempted TTV lost. $143 average."
+                }
+              ]
+            }
+          ],
+          "context": "Counting dollars changes the picture from counting declines. Used-up cards lead by count (44.5%) but are small tickets ($78), so they are 28.8% of lost TTV; issuer rejections are 28.8% of declines but 49.1% of the dollars. Grocery and gas together are $27.3M, about 22% of lost TTV. Electronics ($2.4M, 14.4% lost, $325 average) and auto service ($2.1M, 12.4% lost, $296 average) are smaller in total but have the largest tickets. The loss rate was 9.98% over 30 days ($21.4M) and 10.84% over 90 days ($68.2M).",
+          "notes": [
+            "Declined TTV is potential loss. A customer who pays another way is not a lost sale for the merchant, only for Zip, and the chat does not say whether retried purchases are counted once or several times.",
+            "% of attempted TTV lost is declined TTV as a share of declined plus approved TTV.",
+            "The four causes shown cover about 94% of lost TTV; the rest is unknown or other (calculated).",
+            "The chat flags hotels, motels and resorts as worth investigating but gives no cause. Large holds at check-in are one possible reading, not something the data shows.",
+            "The chat notes gas has a small average declined amount ($37), which it reads as consistent with small initial holds at the pump."
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
           "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
@@ -1340,7 +1481,7 @@ const REPORT = {
           "title": "Largest grocery merchants by declines",
           "source": "Snowflake: card authorization data (in-store grocery)",
           "headline": "Walmart has the most grocery declines (25K, about 12% of the category), then Kroger (15K) and H-E-B (13K). Decline rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi.",
-          "intro": "Last 6 months, in-store grocery category (204K declines in total, 7.5% rate). Bars scale to the largest row (Walmart, 25,045).",
+          "intro": "Last 6 months, in-store grocery category (204K declines in total, 7.5% rate, $21.5M of declined transaction value). Bars scale to the largest row (Walmart, 25,045).",
           "blocks": [
             {
               "type": "rows",
@@ -1965,7 +2106,7 @@ const REPORT = {
           hypothesis: "Identifying the top 3 support ticket categories for in-store purchases reveals at least one high-leverage fix that can be shipped in under a sprint and measurably reduces in-store support volume.",
           metrics: ["In-store support ticket volume (weekly)", "Top 3 ticket categories by volume", "Support ticket resolution time for in-store issues"],
           type: "Add",
-          evidence: { strength: "Strong", text: "Vaultmate's 285 in-store support comments give this audit a first answer. Top themes: in-app guidance or faster support (64, 22.5%), card declined at the register (28, 9.8%), and unclear spending limit or available funds (18, 6.3%). Public reviews point the same way on declines and limit clarity, and add returns and refunds as a theme Vaultmate's in-store filter may not capture. System decline data adds a second ranking: pre-authorization or already settled 44.5% of declines, payment source failed 28.8% and insufficient spending power 20.3% over six months. The audit step is largely done; the open work is acting on the top three." },
+          evidence: { strength: "Strong", text: "Vaultmate's 285 in-store support comments give this audit a first answer. Top themes: in-app guidance or faster support (64, 22.5%), card declined at the register (28, 9.8%), and unclear spending limit or available funds (18, 6.3%). Public reviews point the same way on declines and limit clarity, and add returns and refunds as a theme Vaultmate's in-store filter may not capture. System decline data adds a second ranking: pre-authorization or already settled 44.5% of declines, payment source failed 28.8% and insufficient spending power 20.3% over six months. Ranked by dollars of lost transaction value the order shifts: payment source failed 49.1%, pre-authorization or already settled 28.8%, insufficient spending power 9.2%, forbidden merchant 7.0%. The audit step is largely done; the open work is acting on the top three." },
           hmwIds: ["understand", "declines"],
           signal: null,
           screenIds: [],
@@ -1996,6 +2137,7 @@ const REPORT = {
           "metrics": [
             "In-store declines by merchant category (baseline, last six months: 204K grocery, 160K gas, 707K other; rates 7.5%, 10.3%, 10.3%; 9.6% overall)",
             "Decline rate by grocery merchant (baseline: 4.7% at Trader Joe's to 8.8% at Kroger and Aldi)",
+            "Declined transaction value (TTV) by merchant category and cause (baseline, last six months: $125.0M, 10.5% of attempted)",
             "First-attempt success rate",
             "Share of declines shown with a plain-language reason",
             "In-store support contacts about declines (Vaultmate baseline: 28 comments, 9.8%)"
@@ -2003,7 +2145,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used."
+            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. In dollars, declines put $125.0M of transaction value at risk over six months (10.5% of attempted): grocery is $21.5M and gas $5.8M, together about 22%, while Other merchants carry 78%. Insufficient spending power is $11.5M (9.2%) but the largest tickets ($243 average declined), the cases right-sizing addresses. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used."
           },
           hmwIds: ["declines", "recover"],
           "signal": "Afterpay keeps a persistent card with a visible pre-approved amount, so customers see their headroom before the register. Affirm shows the risk: purchasing power that reads as a limit when it is only an estimate.",
@@ -2070,7 +2212,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data."
+            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data. In dollars it is $36.0M of lost transaction value over six months (28.8%, second to payment source failed) because the average declined purchase is small ($78)."
           },
           "signal": null,
           "hmwIds": [
@@ -2091,13 +2233,14 @@ const REPORT = {
           "hypothesis": "If the declines on the single-authorization limit are concentrated in gas, fast food and restaurants, allowing a bounded second authorization (within the original amount plus a tolerance for tip or fuel) removes a large share of them without raising risk exposure.",
           "metrics": [
             "Single-authorization-limit declines by merchant category and by merchant (needs a cross-tab; grocery rates alone range from 4.7% to 8.8% by chain)",
+            "Declined TTV and % of attempted TTV lost at hotels and at gas (baseline, six months: hotels $5.8M and 30.5%; gas $5.8M and 7.1%)",
             "In-store decline rate at gas and fast food (baseline 10.3% and 13.7%)",
             "Loss rate on purchases that received a second authorization (risk guardrail)"
           ],
           "type": "Refine",
           "evidence": {
             "strength": "Supporting",
-            "text": "The rule is named in the decline data itself (single-auth limit: only one in-store authorization allowed) and appears in 85.4% of pre-authorization / already-settled declines. Gas (10.3%) and fast food (13.7%) decline above the 9.6% average, but the data does not tie those declines to the limit and the chat did not break the limit down by merchant. Treat the merchant link as untested."
+            "text": "The rule is named in the decline data itself (single-auth limit: only one in-store authorization allowed) and appears in 85.4% of pre-authorization / already-settled declines. Gas (10.3%) and fast food (13.7%) decline above the 9.6% average, but the data does not tie those declines to the limit and the chat did not break the limit down by merchant. Treat the merchant link as untested. Transaction value adds two hints: gas has a small average declined amount ($37, which the chat reads as consistent with small initial holds), and hotels, motels and resorts lose 30.5% of attempted TTV ($5.8M, $249 average), which the chat flags for investigation. Whether either is tied to the limit is not shown."
           },
           "signal": null,
           "hmwIds": [
@@ -2122,8 +2265,8 @@ const REPORT = {
           ],
           "type": "Add",
           "evidence": {
-            "strength": "Supporting",
-            "text": "28.8% of in-store declines over six months (29.5% over 90 days, 28.8% over 30), 82% of them on virtual cards in Apple Pay (68.0%) or Google Pay (14.3%). The decline reason is generic and the chat lists possible causes without data. Without the wallet share of all in-store authorizations, the 82% could simply reflect how customers pay."
+            "strength": "Strong",
+            "text": "28.8% of in-store declines over six months (29.5% over 90 days, 28.8% over 30), 82% of them on virtual cards in Apple Pay (68.0%) or Google Pay (14.3%). The decline reason is generic and the chat lists possible causes without data. Without the wallet share of all in-store authorizations, the 82% could simply reflect how customers pay. In dollars this is the biggest cause: $61.4M of lost transaction value over six months, 49.1% of the total (46.5% over 30 days, 50.4% over 90), at a $132 average declined transaction, well above the $78 average for used-up cards."
           },
           "signal": null,
           "hmwIds": [
@@ -2144,13 +2287,13 @@ const REPORT = {
           "hypothesis": "Listing the excluded merchant types in the \"Where can I pay with Zip?\" content and showing a specific decline message (for example that Zip can't be used for government payments) reduces repeat attempts and support contacts at these merchants.",
           "metrics": [
             "Forbidden-merchant declines as a share of in-store declines (baseline 3.5%)",
-            "Government services declines (baseline 26,780 over six months, 100% declined)",
+            "Government services declines (baseline 26,780 over six months, $5.0M of declined TTV, 100% declined)",
             "Repeat attempts at forbidden merchants after a decline"
           ],
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "Government services: 100% decline rate over six months, 26,780 declines (4,974 in 30 days, 14,602 in 90). Forbidden merchant is 3.3% to 3.5% of all declines in each window. The chat names state DMV and BMV offices, county tax and tag collectors and municipal payment services as examples. The rule behind it is inferred, not shown."
+            "text": "Government services: 100% decline rate over six months, 26,780 declines (4,974 in 30 days, 14,602 in 90). Forbidden merchant is 3.3% to 3.5% of all declines in each window. The chat names state DMV and BMV offices, county tax and tag collectors and municipal payment services as examples. The rule behind it is inferred, not shown. In dollars, forbidden merchants are $8.8M of lost transaction value over six months (7.0%, $170 average), and government services alone are $5.0M of attempted TTV that will never go through, $906K in the last 30 days. The chat notes that whether the block is intentional policy or worth revisiting is a business decision."
           },
           "signal": null,
           "hmwIds": [
