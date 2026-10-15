@@ -1247,7 +1247,7 @@ const REPORT = {
         {
           "title": "In-store declines by merchant type, and what happens next",
           "source": "Snowflake: card authorization data (in-store)",
-          "headline": "Grocery has the lowest decline rate (7.5%), not the highest; gas runs 10.3% and fast food 13.7%. After a decline, 72% of purchases are retried and none of the retried purchases was approved.",
+          "headline": "Grocery has more declines than gas (204K vs 160K) but a lower decline rate (7.5% vs 10.3%); fast food, inside Other, is highest at 13.7%. After a decline, 72% of purchases are retried and none of the retried purchases was approved.",
           "intro": "Last 6 months to Sep 9, 2026. Decline rate is declines as a share of in-store authorizations. Bars scale to 15%.",
           "blocks": [
             {
@@ -1316,7 +1316,7 @@ const REPORT = {
           "notes": [
             "Counts are by purchase. A customer who starts a new purchase request after a decline shows up as a separate purchase, so 'abandoned after one decline' does not mean the customer gave up.",
             "No retried purchase was later approved. That fits a card tied to one purchase, where every retry meets the same closed balance, but it could also reflect how outcomes were classified.",
-            "Merchant types are card-network category codes, which is why Target sits under discount stores with Ross, Marshalls and TJ Maxx.",
+            "Merchant types are card-network category codes, which is why Target sits under discount stores with Ross, Marshalls and TJ Maxx. The categories do not overlap: fast food is part of Other, not grocery. Grocery has more declines than gas because it has more authorizations, not a higher rate.",
             "Government services at 100% points to a blocked-merchant rule. The chat inferred that rather than confirming it."
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
@@ -1883,7 +1883,7 @@ const REPORT = {
               "behind": "The request amount doesn't match the final total after tax or tip, or gas stations pre-authorize more than the customer intended. Pre-fill helps but doesn't solve every case. Grocery and gas are hit hardest."
             }
           ],
-          "rationale": "A decline at the register is the moment Zip is most exposed: it blocks the sale, it happens in public, and today the customer gets no reason. Two sources point at the same gap. Vaultmate's in-store comments rank declines second (28 of 285, 9.8%) and suggest showing the reason and what to do next, and public reviews rank unexplained declines at 19% of cross-app complaints. Authorization data now sizes it: 9.6% of in-store authorizations decline over six months, gas runs 10.3% and other merchants 10.3%, grocery is lowest at 7.5%, and fast food is worst at 13.7%. The biggest cause is not an amount mismatch at all: 44.5% of declines are on a card that has already been used, while 20.3% are an authorization above the available balance, which is the case right-sizing the request addresses.",
+          "rationale": "A decline at the register is the moment Zip is most exposed: it blocks the sale, it happens in public, and today the customer gets no reason. Two sources point at the same gap. Vaultmate's in-store comments rank declines second (28 of 285, 9.8%) and suggest showing the reason and what to do next, and public reviews rank unexplained declines at 19% of cross-app complaints. Authorization data now sizes it: 9.6% of in-store authorizations decline over six months, grocery has more declines than gas (204K vs 160K) but a lower decline rate (7.5% vs 10.3%), other merchants run 10.3%, and fast food, which sits inside Other, has the highest rate at 13.7%. The biggest cause is not an amount mismatch at all: 44.5% of declines are on a card that has already been used, while 20.3% are an authorization above the available balance, which is the case right-sizing the request addresses.",
           "hypothesis": "Sizing the request to the likely final total (an allowance for tax and tip, a fuel-specific default for gas) and showing a plain-language decline reason cuts the declines where the amount is the cause (insufficient spending power is 20.3% of declines), and a plain-language decline reason covers the rest and cuts the support contacts they generate.",
           "metrics": [
             "In-store decline rate by merchant category (baseline, last six months: 7.5% grocery, 10.3% gas, 10.3% other, 9.6% overall)",
@@ -1894,7 +1894,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and the belief that grocery is hit hardest did not hold, since grocery is the lowest of the main categories (7.5%) while gas (10.3%) and fast food (13.7%) run higher. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used."
+            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and grocery has more declines than gas (204K vs 160K) but a lower decline rate (7.5% vs 10.3%), so whether grocery is hit hardest depends on whether you count declines or rates; fast food, inside Other, has the highest rate (13.7%). Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used."
           },
           hmwIds: ["declines", "recover"],
           "signal": "Afterpay keeps a persistent card with a visible pre-approved amount, so customers see their headroom before the register. Affirm shows the risk: purchasing power that reads as a limit when it is only an estimate.",
