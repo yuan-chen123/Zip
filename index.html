@@ -744,6 +744,9 @@
   .badge.hmw-chip:hover { background: var(--accent-tint-strong); }
   .badge.top-opp { background: var(--accent); color: #FFFFFF; }
   .opp-card.is-top { border-left: 3px solid var(--accent); }
+  .hmw-items { margin: 0; padding-left: 20px; }
+  .hmw-items li { margin-bottom: 6px; }
+  .hmw-items li:last-child { margin-bottom: 0; }
   .field-value.hmw { font-weight: 600; color: var(--accent-dark); }
   .opp-problems { margin: 0; padding-left: 18px; font-size: 13px; line-height: 18px; color: var(--text); }
   .opp-problems li { margin-bottom: 8px; }
@@ -3404,7 +3407,7 @@ const REPORT = {
             "instore-location-disabled",
             "instore-location-enabled"
           ],
-          "top": 1,
+          "top": 2,
           "severity": "High",
           "effort": "High"
         },
@@ -3445,28 +3448,33 @@ const REPORT = {
             "instore-location-disabled",
             "instore-location-enabled"
           ],
-          "top": 2,
+          "top": 3,
           "severity": "High",
           "effort": "Medium"
         },
         {
-          "title": "Tell customers when a card has already been used, and let them start a new purchase in one tap",
-          "hmw": "How might we turn a used-up card into a clear next step, instead of a decline that repeats at the register?",
-          "rationale": "The largest decline cause is not a bad card or a low balance: 44.5% of in-store declines over six months are pre-authorization or already-settled declines, and in 90% of them the purchase has $0.00 left. Customers retry anyway (72% retry, about three attempts each) and none of the retried purchases was approved, because the card belongs to one purchase and each retry meets the same closed balance. Today the register shows a generic decline and nothing in the app explains it. The newer data adds a catch for an app-only fix: 46% of customers with a used-up card had not opened the app in the previous 24 hours, and 57% of these purchases are more than a day old (35% more than a week), so the card is often an old one still sitting in the wallet. How the balance reached $0.00 is unconfirmed, but what to do next is clear: use another payment method or start a new purchase request.",
-          "hypothesis": "When a purchase is used up, showing it as used on the In-Store tab and in the decline notice, offering a one-tap new purchase request and telling customers not to retry cuts futile retries and speeds recovery. Because many of these customers never open the app, the message also has to reach them outside it; see the notification and wallet opportunities.",
+          "title": "Help customers who do not have an open purchase request ($0.00 / no PR) not get declined at the register",
+          "hmw": [
+            "Make it clear that customers must create a purchase request for each new purchase in the Zip app?",
+            "Update the Zip card within the Apple Pay and Google Pay apps so that customers know they currently hold a $0.00 purchase request and, when applicable, the exact amount they have requested to use?",
+            "Make the reason for a decline obvious in real time (Braze push notifications take about 2 minutes or more), so that customers can act on it within seconds?"
+          ],
+          "rationale": "The largest decline cause is customers tapping a Zip card that has no open purchase request. 44.5% of in-store declines over six months are pre-authorization or already-settled declines, and in 90% of them the purchase request has $0.00 left. Customers retry anyway (72% retry, about three attempts each) and none of the retried purchases was approved, because each retry meets the same closed purchase request. Today the register shows a generic decline, the Zip card in the wallet gives no sign that it holds nothing, and the explanation arrives about two minutes later. Many of these customers never open the app: 46% had not opened it in the previous 24 hours, and 57% of these purchases are more than a day old (35% more than a week), so the card is often an old one still sitting in the wallet. How the balance reached $0.00 is unconfirmed, and so is whether Apple Pay and Google Pay allow the wallet card to be updated.",
+          "hypothesis": "If customers understand they need a new purchase request for each purchase, the Zip card in Apple Pay and Google Pay shows when it holds $0.00 (and the exact amount requested when it does), and the decline reason reaches them within seconds, fewer customers tap an empty card, and those who do act on the reason before they retry.",
           "metrics": [
             "Retries per declined purchase (baseline: about 3 for the 72% who retry)",
-            "Share of used-up-card declines followed by a new in-store purchase within 24 hours",
+            "Share of no-open-request declines followed by a new purchase request within 24 hours",
+            "Median time from decline to the customer seeing the reason (baseline about 2.3 minutes)",
             "Pre-authorization / already-settled declines as a share of all in-store declines (baseline 44.5%)",
-            "Share of used-up-card declines with $0.00 left on the purchase (baseline 90%)",
+            "Share of declines with $0.00 left on the purchase request (baseline 90%)",
             "In-store support contacts about declines"
           ],
           "type": "Add",
+          "top": 1,
           "evidence": {
             "strength": "Strong",
-            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data, though the chat checked every channel and found no earlier approval on any of these purchases. At the moment of decline the customer holds a card with nothing on it: $0.00 left in 90% of cases (the decline text pairs 'the authorization amount (62.37) is superior to the purchase available balance ($0.00)' with 'the purchase has already been settled'), and a small balance below the amount in the other 10% (for example $38.89 against $0.96). The chat's advice for the customer is to use a different payment method or contact support; a new one-tap purchase request is this opportunity's proposal, not something the chat tested. In dollars it is $36.0M of lost transaction value over six months (28.8%, second to payment source failed) because the average declined purchase is small ($78). The 2025 customer survey report shows what a missing explanation costs: customers who don't know why a payment failed are unsure whether to retry, and the deck suggests an immediate push notification after an in-store failure. The decline-journey data shows 38.0% of customers with a used-up card opened the app within an hour of the decline (54.0% within 24 hours), against 58.7% for customers over their spending power, so about 46% never open it. 57% of the purchases are more than a day old and 35% more than a week. The chat reads this as an old virtual card left in the wallet with no sign it is empty."
+            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data, though the chat checked every channel and found no earlier approval on any of these purchases. At the moment of decline the customer holds a card with nothing on it: $0.00 left in 90% of cases (the decline text pairs 'the authorization amount (62.37) is superior to the purchase available balance ($0.00)' with 'the purchase has already been settled'), and a small balance below the amount in the other 10% (for example $38.89 against $0.96). The chat's advice for the customer is to use a different payment method or contact support; making the purchase request requirement clear, showing it on the wallet card and delivering the reason immediately are this opportunity's proposals, not something the chat tested. In dollars it is $36.0M of lost transaction value over six months (28.8%, second to payment source failed) because the average declined purchase is small ($78). The 2025 customer survey report shows what a missing explanation costs: customers who don't know why a payment failed are unsure whether to retry, and the deck suggests an immediate push notification after an in-store failure. The decline-journey data shows 38.0% of customers with a used-up card opened the app within an hour of the decline (54.0% within 24 hours), against 58.7% for customers over their spending power, so about 46% never open it. 57% of the purchases are more than a day old and 35% more than a week. The chat reads this as an old virtual card left in the wallet with no sign it is empty."
           },
-          "review": "Draft. How the balance reached $0.00 is unconfirmed, and starting a new purchase request is this opportunity's own proposal. Check it with Engineering. The new data suggests many of these customers never open the app, so check whether an in-app state reaches enough of them.",
           "signal": null,
           "hmwIds": [
             "recover",
@@ -4842,7 +4850,7 @@ function renderOppCard(opp, showLens, id, hmwCtx) {
       ${opp.hmw ? `
       <div class="opp-field">
         <div class="field-label">How might we</div>
-        <div class="field-value hmw">${opp.hmw}</div>
+        <div class="field-value hmw">${Array.isArray(opp.hmw) ? `<ol class="hmw-items">${opp.hmw.map(h => `<li>${h}</li>`).join("")}</ol>` : opp.hmw}</div>
       </div>` : ""}
       ${opp.problems && opp.problems.length ? `
       <div class="opp-field">
