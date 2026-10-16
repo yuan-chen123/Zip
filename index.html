@@ -1209,7 +1209,7 @@ const REPORT = {
         {
           "id": "declines",
           "title": "Decline-related",
-          "description": "Why in-store payments decline, what the declines cost, where they happen and what customers do next.",
+          "description": "Why in-store payments decline, who is declined, where it happens and what it costs.",
           "takeaways": [
             {
               "value": "9.6%",
@@ -1222,9 +1222,14 @@ const REPORT = {
               "card": "Why in-store payments decline"
             },
             {
-              "value": "72%",
-              "label": "of declined purchases are retried; none of the retries was approved in this data",
-              "card": "What happens after a decline: retries and abandonment"
+              "value": "46%",
+              "label": "of customers with a used-up card hadn't opened the app in 24 hours",
+              "card": "Who gets declined: two different customer journeys"
+            },
+            {
+              "value": "77%",
+              "label": "of declines are mobile wallet taps (Apple Pay 62%, Google Pay 14%)",
+              "card": "Where declines happen: payment channel"
             },
             {
               "value": "$125M",
@@ -1235,6 +1240,39 @@ const REPORT = {
               "value": "204K",
               "label": "grocery declines, the most of any merchant type",
               "card": "In-store declines by merchant type"
+            }
+          ],
+          "takeawaysNote": "Last six months to Sep 9, 2026 unless noted. Select a number to jump to its card."
+        },
+        {
+          "id": "recovery",
+          "title": "Recovery after a decline",
+          "description": "What customers do right after a decline, how fast and how often they are told, and what a missing notification costs.",
+          "takeaways": [
+            {
+              "value": "72%",
+              "label": "of declined purchases are retried; none of the retries was approved in this data",
+              "card": "What happens after a decline: retries and abandonment"
+            },
+            {
+              "value": "2.3 min",
+              "label": "to the first decline notification; most customers retry in under a minute",
+              "card": "How fast decline notifications arrive, and who gets none"
+            },
+            {
+              "value": "16%",
+              "label": "of decline push notifications are opened (email 85%)",
+              "card": "How fast decline notifications arrive, and who gets none"
+            },
+            {
+              "value": "81% vs 61%",
+              "label": "bought in-store again within 30 days: notified vs not (not like-for-like)",
+              "card": "What a missing decline notification costs"
+            },
+            {
+              "value": "$2.3M",
+              "label": "of transaction value the chat estimates is recoverable (an estimate)",
+              "card": "What a missing decline notification costs"
             }
           ],
           "takeawaysNote": "Last six months to Sep 9, 2026 unless noted. Select a number to jump to its card."
@@ -1366,8 +1404,329 @@ const REPORT = {
           "compact": true
         },
         {
-          "title": "What happens after a decline: retries and abandonment",
+          "title": "Who gets declined: two different customer journeys",
           "theme": "declines",
+          "compact": true,
+          "source": "Snowflake: purchase, login and decline data (in-store)",
+          "headline": "Customers over their spending power are mostly in the app and buying right now. Customers tapping a used-up card mostly aren't: 46% hadn't opened the app in 24 hours, and the card is often days or weeks old.",
+          "intro": "Last 6 months to Sep 9, 2026. App logins before the decline, and the age of the purchase when the decline happened.",
+          "blocks": [
+            {
+              "type": "rows",
+              "title": "Opened the Zip app within an hour before the decline",
+              "rows": [
+                {
+                  "label": "Insufficient spending power",
+                  "value": "58.7%",
+                  "pct": 58.7,
+                  "cls": "snap-c1",
+                  "detail": "68.5% within 24 hours."
+                },
+                {
+                  "label": "Pre-authorization / already settled (a used-up card)",
+                  "value": "38.0%",
+                  "pct": 38.0,
+                  "cls": "snap-c2",
+                  "detail": "54.0% within 24 hours, so about 46% had not opened the app in the day before."
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "more": true,
+              "title": "Age of the purchase when a used-up card is declined",
+              "rows": [
+                {
+                  "label": "Within 2 minutes",
+                  "value": "12.8%",
+                  "pct": 12.8,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "2 to 30 minutes",
+                  "value": "12.0%",
+                  "pct": 12.0,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "30 to 60 minutes",
+                  "value": "4.6%",
+                  "pct": 4.6,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "1 to 24 hours",
+                  "value": "13.5%",
+                  "pct": 13.5,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "1 to 7 days",
+                  "value": "21.7%",
+                  "pct": 21.7,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "7 to 30 days",
+                  "value": "18.2%",
+                  "pct": 18.2,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "More than 30 days",
+                  "value": "17.3%",
+                  "pct": 17.3,
+                  "cls": "snap-c1",
+                  "detail": ""
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "more": true,
+              "title": "Age of the purchase when spending power is exceeded",
+              "rows": [
+                {
+                  "label": "Within 2 minutes",
+                  "value": "61.5%",
+                  "pct": 61.5,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "2 to 30 minutes",
+                  "value": "21.8%",
+                  "pct": 21.8,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "30 to 60 minutes",
+                  "value": "4.6%",
+                  "pct": 4.6,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "1 to 24 hours",
+                  "value": "7.0%",
+                  "pct": 7.0,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "More than 1 day",
+                  "value": "5.2%",
+                  "pct": 5.2,
+                  "cls": "snap-c1",
+                  "detail": ""
+                }
+              ]
+            }
+          ],
+          "context": "Spending power: about 83% of these purchases were created within 30 minutes of the decline, so the customer is at the register, has started a Zip purchase, and the amount is above the available balance. Used-up card: 57% of the purchases are more than a day old and 35% more than a week old. The chat reads this as an old virtual card left in the wallet with no sign it is empty.",
+          "notes": [
+            "None of these purchases carries an app session ID and all show the purchase source 'Anywhere'. The chat reads that as the purchase being created at the point of sale when the customer taps their wallet. That is its inference.",
+            "Opened the app means an app login before the decline. It is not proof the customer used the app to pay.",
+            "The in-store age bands are shares of each decline cause, so each group sums to 100%."
+          ],
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+        },
+        {
+          "title": "Where declines happen: payment channel",
+          "theme": "declines",
+          "compact": true,
+          "source": "Snowflake: card authorization data (in-store)",
+          "headline": "About 77% of declines are mobile wallet taps (Apple Pay 62%, Google Pay 14%), close to wallets' share of authorizations. Google Pay declines more often than Apple Pay (12.1% vs 9.3%), and keyed-in payments fail most (21.6% virtual, 34.2% physical).",
+          "intro": "Last 6 months to Sep 9, 2026. The chat reports the proportions are stable across 30, 90 and 180 days.",
+          "blocks": [
+            {
+              "type": "rows",
+              "preview": 4,
+              "title": "Share of declines by payment channel",
+              "rows": [
+                {
+                  "label": "Apple Pay (contactless tap)",
+                  "value": "62.4%",
+                  "pct": 62.4,
+                  "cls": "snap-c1",
+                  "detail": "668K declines, 9.33% decline rate on 7.16M authorizations. $71.1M lost TTV."
+                },
+                {
+                  "label": "Google Pay (contactless tap)",
+                  "value": "14.4%",
+                  "pct": 14.4,
+                  "cls": "snap-c1",
+                  "detail": "154K declines, 12.07% decline rate on 1.27M authorizations. $16.8M lost TTV."
+                },
+                {
+                  "label": "Physical card, chip",
+                  "value": "11.9%",
+                  "pct": 11.9,
+                  "cls": "snap-c1",
+                  "detail": "127K declines, 7.97% decline rate on 1.60M authorizations. $16.3M lost TTV."
+                },
+                {
+                  "label": "Physical card, contactless tap",
+                  "value": "6.0%",
+                  "pct": 6.0,
+                  "cls": "snap-c1",
+                  "detail": "65K declines, 7.56% decline rate on 855K authorizations. $7.6M lost TTV."
+                },
+                {
+                  "label": "Virtual card, keyed in",
+                  "value": "4.3%",
+                  "pct": 4.3,
+                  "cls": "snap-c1",
+                  "detail": "46K declines, 21.61% decline rate on 213K authorizations. $11.3M lost TTV."
+                },
+                {
+                  "label": "Other (physical keyed in, swipe, Samsung Pay)",
+                  "value": "1.0%",
+                  "pct": 1.0,
+                  "cls": "snap-c1",
+                  "detail": "About 11K declines. Physical keyed in has a 34.22% decline rate on 17K authorizations."
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "more": true,
+              "title": "Decline rate by channel (bars scale to 40%)",
+              "rows": [
+                {
+                  "label": "Physical card, keyed in",
+                  "value": "34.2%",
+                  "pct": 85.6,
+                  "cls": "snap-c1",
+                  "detail": "17K authorizations."
+                },
+                {
+                  "label": "Virtual card, keyed in",
+                  "value": "21.6%",
+                  "pct": 54.0,
+                  "cls": "snap-c1",
+                  "detail": "213K authorizations."
+                },
+                {
+                  "label": "Samsung Pay",
+                  "value": "18.4%",
+                  "pct": 46.0,
+                  "cls": "snap-c1",
+                  "detail": "6K authorizations."
+                },
+                {
+                  "label": "Google Pay",
+                  "value": "12.1%",
+                  "pct": 30.2,
+                  "cls": "snap-c1",
+                  "detail": "1.27M authorizations."
+                },
+                {
+                  "label": "Physical card, swipe",
+                  "value": "9.4%",
+                  "pct": 23.4,
+                  "cls": "snap-c1",
+                  "detail": "47K authorizations."
+                },
+                {
+                  "label": "Apple Pay",
+                  "value": "9.3%",
+                  "pct": 23.3,
+                  "cls": "snap-c1",
+                  "detail": "7.16M authorizations."
+                },
+                {
+                  "label": "Physical card, chip",
+                  "value": "8.0%",
+                  "pct": 19.9,
+                  "cls": "snap-c1",
+                  "detail": "1.60M authorizations."
+                },
+                {
+                  "label": "Physical card, contactless tap",
+                  "value": "7.6%",
+                  "pct": 18.9,
+                  "cls": "snap-c1",
+                  "detail": "855K authorizations."
+                }
+              ]
+            },
+            {
+              "type": "split",
+              "more": true,
+              "title": "Decline causes: mobile wallets",
+              "classes": [
+                "snap-c1",
+                "snap-c2",
+                "snap-c3"
+              ],
+              "parts": [
+                {
+                  "label": "Payment source failed",
+                  "value": "",
+                  "pct": 46.5
+                },
+                {
+                  "label": "Pre-authorization / already settled",
+                  "value": "",
+                  "pct": 43.4
+                },
+                {
+                  "label": "All other causes",
+                  "value": "",
+                  "pct": 10.2
+                }
+              ]
+            },
+            {
+              "type": "split",
+              "more": true,
+              "title": "Decline causes: physical cards",
+              "classes": [
+                "snap-c1",
+                "snap-c2",
+                "snap-c3"
+              ],
+              "parts": [
+                {
+                  "label": "Pre-authorization / already settled",
+                  "value": "",
+                  "pct": 50.5
+                },
+                {
+                  "label": "Payment source failed",
+                  "value": "",
+                  "pct": 32.0
+                },
+                {
+                  "label": "All other causes",
+                  "value": "",
+                  "pct": 17.5
+                }
+              ]
+            }
+          ],
+          "context": "Wallet taps are about 75% of in-store authorizations (8.4M of 11.2M, calculated) and 77% of declines, so wallets are only slightly over-represented. The chat's read: physical cards perform best, and Google Pay's higher rate may point to token handling. Virtual keyed-in has an unusual cause mix (insufficient spending power 21.4%, other or unknown 25.5%), which the chat reads as manual entry at the register.",
+          "notes": [
+            "The cause split by channel does not reconcile with the overall cause shares: insufficient spending power is 3.8% of wallet declines here but 20.3% of all declines elsewhere. Treat the by-channel cause split as indicative.",
+            "Apple Pay leads simply because it is the most used channel, so its share of declines is largely volume.",
+            "The 'all other causes' bars combine insufficient spending power, forbidden merchant and unknown (wallets 10.2%, physical cards 17.5%)."
+          ],
+          "review": "The cause mix by channel does not match the overall cause shares (insufficient spending power 3.8% of wallet declines here, 20.3% overall). Check how the channel analysis classified causes before relying on that split.",
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+        },
+        {
+          "title": "What happens after a decline: retries and abandonment",
+          "theme": "recovery",
           "source": "Snowflake: card authorization data (in-store)",
           "headline": "About 72% of declined purchases are retried, roughly three attempts each, and none of the retried purchases was later approved. The other 28% end after one decline.",
           "intro": "Declined in-store purchases by what happened next. Every window ends Sep 9, 2026, the last day of data.",
@@ -1445,6 +1804,259 @@ const REPORT = {
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
           "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
           "compact": true
+        },
+        {
+          "title": "How fast decline notifications arrive, and who gets none",
+          "theme": "recovery",
+          "compact": true,
+          "source": "Snowflake: decline events and Braze notification data",
+          "headline": "Customers retry within a minute, but the first decline notification takes about 2.3 minutes, so 63% to 73% finish retrying before it lands. Push is opened 16% of the time, and 10.7% of used-up-card declines get no notification at all.",
+          "intro": "Last 6 months to Sep 9, 2026. Decline notifications are push, email and SMS, sent from the decline events (the team's description: one event for integrated merchants such as Best Buy, one for the mobile app, and no customer gets both).",
+          "blocks": [
+            {
+              "type": "rows",
+              "title": "Finished all retries before the first notification arrived",
+              "rows": [
+                {
+                  "label": "Insufficient spending power",
+                  "value": "73.0%",
+                  "pct": 73.0,
+                  "cls": "snap-c1",
+                  "detail": "Median retry 0.4 minutes, median first notification 2.2 minutes. 11,207 retried purchases."
+                },
+                {
+                  "label": "Pre-authorization / already settled",
+                  "value": "69.9%",
+                  "pct": 69.9,
+                  "cls": "snap-c1",
+                  "detail": "Median retry under 1 minute, median first notification 2.3 minutes. 245,053 retried purchases, 3.4 attempts on average."
+                },
+                {
+                  "label": "Payment source failed",
+                  "value": "62.8%",
+                  "pct": 62.8,
+                  "cls": "snap-c1",
+                  "detail": "Median retry 1.5 minutes, median first notification 2.3 minutes. 145,460 retried purchases, 2.8 attempts on average."
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "more": true,
+              "title": "Opened, by channel (decline notification canvas, 6 months)",
+              "rows": [
+                {
+                  "label": "Email",
+                  "value": "85.4%",
+                  "pct": 85.4,
+                  "cls": "snap-c1",
+                  "detail": "12.3M sends. 6.8% click-through. Not a real-time channel at the register."
+                },
+                {
+                  "label": "Push notification",
+                  "value": "16.2%",
+                  "pct": 16.2,
+                  "cls": "snap-c1",
+                  "detail": "7.9M sends. Opened too late to affect the retries, per the chat."
+                },
+                {
+                  "label": "SMS",
+                  "value": "n/a",
+                  "pct": 0,
+                  "cls": "snap-c1",
+                  "detail": "3.2M sends. No open tracking."
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "more": true,
+              "title": "Declines with no notification at all",
+              "rows": [
+                {
+                  "label": "Pre-authorization / already settled",
+                  "value": "10.7%",
+                  "pct": 10.7,
+                  "cls": "snap-c1",
+                  "detail": "About 49K of roughly 461K events."
+                },
+                {
+                  "label": "Insufficient spending power",
+                  "value": "0.3%",
+                  "pct": 0.3,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "Payment source failed",
+                  "value": "0.2%",
+                  "pct": 0.2,
+                  "cls": "snap-c1",
+                  "detail": ""
+                }
+              ]
+            },
+            {
+              "type": "split",
+              "more": true,
+              "title": "Used-up-card declines with no notification: had they been notified before?",
+              "classes": [
+                "snap-c1",
+                "snap-c2"
+              ],
+              "parts": [
+                {
+                  "label": "Received a decline notification before",
+                  "value": "42,041",
+                  "pct": 87.8
+                },
+                {
+                  "label": "Never received one",
+                  "value": "5,855",
+                  "pct": 12.2
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "more": true,
+              "title": "When their last decline notification was",
+              "rows": [
+                {
+                  "label": "Same day",
+                  "value": "1.0%",
+                  "pct": 1.0,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "1 to 7 days ago",
+                  "value": "5.4%",
+                  "pct": 5.4,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "8 to 30 days ago",
+                  "value": "14.4%",
+                  "pct": 14.4,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "31 to 90 days ago",
+                  "value": "29.7%",
+                  "pct": 29.7,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "91 to 180 days ago",
+                  "value": "19.0%",
+                  "pct": 19.0,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "More than 180 days ago",
+                  "value": "30.6%",
+                  "pct": 30.6,
+                  "cls": "snap-c1",
+                  "detail": ""
+                }
+              ]
+            }
+          ],
+          "context": "99.4% of customers with no notification never entered the decline canvas, so the trigger did not fire for them. The chat reads about 88% of the gap as a canvas re-entry restriction (customers notified once are blocked from entering again) and about 12% as a trigger coverage gap. About 60% of them can receive push (50.4% push and email, 9.1% all channels). The chat also notes the message may not say clearly enough that the card is used up and the customer should pay another way.",
+          "notes": [
+            "Median times are per decline cause. Time to retry comes from the authorization request log, time to notification from Braze sends.",
+            "Why the first notification takes about 2.3 minutes (event pipeline, canvas delay or push delivery) is not in the data.",
+            "The 10.7% no-notification figure covers purchases with retries. The follow-up analysis on the next card counts a much larger no-notification group, so check the definition before sizing the gap."
+          ],
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+        },
+        {
+          "title": "What a missing decline notification costs",
+          "theme": "recovery",
+          "compact": true,
+          "source": "Snowflake: declined TTV and return-to-purchase by notification status",
+          "headline": "Customers who got no decline notification came back less: 60.6% bought in-store again within 30 days, against 81.1% of notified customers. The chat estimates about $2.3M of transaction value is recoverable, but the two groups are not like-for-like.",
+          "intro": "Used-up-card declines (pre-authorization / already settled), last 6 months to Sep 9, 2026, notified versus not notified. Return window 30 days.",
+          "blocks": [
+            {
+              "type": "rows",
+              "title": "Bought in-store again within 30 days",
+              "rows": [
+                {
+                  "label": "Got a notification",
+                  "value": "81.1%",
+                  "pct": 81.1,
+                  "cls": "snap-c1",
+                  "detail": "64.6% within 7 days, 42.6% the same day."
+                },
+                {
+                  "label": "No notification",
+                  "value": "60.6%",
+                  "pct": 60.6,
+                  "cls": "snap-c2",
+                  "detail": "47.1% within 7 days, 33.6% the same day."
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "more": true,
+              "title": "Declined TTV by notification status (bars scale to $23.27M)",
+              "rows": [
+                {
+                  "label": "Got a notification",
+                  "value": "$23.27M",
+                  "pct": 100.0,
+                  "cls": "snap-c1",
+                  "detail": "309,988 decline events, 206,996 customers, $75.05 average."
+                },
+                {
+                  "label": "No notification",
+                  "value": "$12.74M",
+                  "pct": 54.8,
+                  "cls": "snap-c2",
+                  "detail": "151,368 decline events, 134,319 customers, $84.17 average, slightly higher-value purchases."
+                }
+              ]
+            },
+            {
+              "type": "rows",
+              "more": true,
+              "title": "Estimated permanent lost TTV (30-day window)",
+              "rows": [
+                {
+                  "label": "Got a notification",
+                  "value": "$3.46M",
+                  "pct": 77.2,
+                  "cls": "snap-c1",
+                  "detail": ""
+                },
+                {
+                  "label": "No notification",
+                  "value": "$4.48M",
+                  "pct": 100.0,
+                  "cls": "snap-c2",
+                  "detail": "If they had returned at 81.1% the loss would be $2.14M."
+                }
+              ]
+            }
+          ],
+          "context": "The chat's estimate: lifting the no-notification group to the notified return rate recovers about $2.3M over roughly five months, about $5.5M a year, and 34.9% of no-notification customers (49,618) never bought in-store again. Over 30 days declined TTV was $4.96M notified and $1.39M not; over 90 days $14.96M and $3.86M.",
+          "notes": [
+            "The groups are not like-for-like: about 88% of the no-notification customers had been declined and notified before, so they are repeat decliners who may be less likely to return for other reasons. The gap does not prove the notification caused the return.",
+            "The chat's coverage figures differ: 10.7% of used-up-card declines had no notification on the previous card, but here 151,368 of 461,356 events (about a third) are in the no-notification group.",
+            "The return timeline (142,342 customers, 34.9% never returned) and the 30-day comparison use different cohorts, so their same-day and 7-day figures differ.",
+            "The chat estimates the same re-entry fix would also improve notification delivery for the other decline causes. That is not measured here."
+          ],
+          "review": "The no-notification group here (151K events, about a third) is far larger than the 10.7% (about 49K events) in the earlier analysis, and the return gap compares repeat decliners with others. Confirm the definition and treat the $2.3M as an estimate before using it.",
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/9aaad263-dadb-4e4a-9302-f0e93772b493"
         },
         {
           "title": "What declines cost in transaction value (TTV)",
@@ -2126,7 +2738,7 @@ const REPORT = {
           "title": "Spending power: what we don't know",
           "theme": "framing",
           "source": "Team context for the Spending Power pillar",
-          "headline": "Six open questions decide how far the increase and visibility opportunities can go, and five more were added so each opportunity has what it needs. None has a figure yet.",
+          "headline": "Six open questions decide how far the increase and visibility opportunities can go, and seven more were added so each opportunity has what it needs. None has a figure yet.",
           "intro": "Unknown 1 to 6 are the team's. Items tagged Added are questions I added. The \"how we could find out\" lines are suggestions, not decisions. The same questions sit on the opportunities they affect.",
           "blocks": [
             {
@@ -2199,6 +2811,18 @@ const REPORT = {
                   "title": "How long does it take Situational and Casual customers to complete a 5-order streak?",
                   "detail": "Tests whether a streak-based increase can reach the customers who place the fewest orders.",
                   "idea": "Measure order cadence for Situational and Casual customers against the 5-order streak."
+                },
+                {
+                  "tag": "Added",
+                  "title": "What share of customers place an order within 7 days of an increase today, and does it differ by tier?",
+                  "detail": "The baseline for the prompt-to-use opportunity.",
+                  "idea": "Count orders in the 7 days after each increase, split by tier and by streak versus automated increase."
+                },
+                {
+                  "tag": "Added",
+                  "title": "Which next step should the prompt point to: any purchase, a merchant suggestion or an in-store purchase?",
+                  "detail": "Decides what the call to action says.",
+                  "idea": "Look at where customers who do order after an increase shop, and test two or three destinations."
                 }
               ]
             }
@@ -2767,7 +3391,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. In dollars, declines put $125.0M of transaction value at risk over six months (10.5% of attempted): grocery is $21.5M and gas $5.8M, together about 22%, while Other merchants carry 78%. Insufficient spending power is $11.5M (9.2%) but the largest tickets ($243 average declined), the cases right-sizing addresses. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used. The 2025 customer survey report also records customers declined with no explanation, some while the app showed spending power (one reports being approved for $250 yet declined every time), and unable to plan purchases ahead. The deck gives no count."
+            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. In dollars, declines put $125.0M of transaction value at risk over six months (10.5% of attempted): grocery is $21.5M and gas $5.8M, together about 22%, while Other merchants carry 78%. Insufficient spending power is $11.5M (9.2%) but the largest tickets ($243 average declined), the cases right-sizing addresses. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used. The 2025 customer survey report also records customers declined with no explanation, some while the app showed spending power (one reports being approved for $250 yet declined every time), and unable to plan purchases ahead. The deck gives no count. Customers over their spending power are mostly in the app and buying in the moment (58.7% opened the app within an hour of the decline, and 61.5% created the purchase within two minutes of it), so showing the available amount before the tap is within reach of the customers in this group."
           },
           hmwIds: ["declines", "recover"],
           "review": "Check the problem statement, which says grocery and gas are hit hardest. By volume that holds (grocery 204K and gas 160K declines), but together they are about a third of declines and about 22% of lost transaction value; Other merchants carry the rest. Also check the High / High rating.",
@@ -2807,7 +3431,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Supporting",
-            "text": "Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. System data now measures the behavior at the purchase level: of 1.07M declined purchases over six months, 72.1% were retried (about 3.1 attempts) and none of the retried purchases was later approved, while 27.9% ended after one decline. That is not the same as customers giving up, because a customer who starts a new purchase request counts as a separate purchase. Nothing here measures the fear of a public decline. To test it, follow the same customer: do they place a new in-store order within 24 hours of a decline, compared with matched customers who were not declined? And run first-time in-store user research on what they worry about at the register. The 2025 customer survey report (about 100,000 responses, 10,000+ verbatims) has a pain point on exactly this: after an in-store decline customers can't tell whether it was technical, the store or their approval, so they are unsure whether to try again and often pay full price to avoid further embarrassment. The deck gives no count. It suggests a push notification right after an in-store failure and a $5 goodwill credit in select situations."
+            "text": "Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. System data now measures the behavior at the purchase level: of 1.07M declined purchases over six months, 72.1% were retried (about 3.1 attempts) and none of the retried purchases was later approved, while 27.9% ended after one decline. That is not the same as customers giving up, because a customer who starts a new purchase request counts as a separate purchase. Nothing here measures the fear of a public decline. To test it, follow the same customer: do they place a new in-store order within 24 hours of a decline, compared with matched customers who were not declined? And run first-time in-store user research on what they worry about at the register. The 2025 customer survey report (about 100,000 responses, 10,000+ verbatims) has a pain point on exactly this: after an in-store decline customers can't tell whether it was technical, the store or their approval, so they are unsure whether to try again and often pay full price to avoid further embarrassment. The deck gives no count. It suggests a push notification right after an in-store failure and a $5 goodwill credit in select situations. System data now shows the timing problem: customers retry within about a minute (median under 1 minute, about 3 attempts), while the first decline notification arrives after about 2.3 minutes, so 63% to 73% finish retrying before it lands. A recovery path has to appear at the tap, not minutes later."
           },
           hmwIds: ["low-risk", "recover"],
           "review": "The evidence rests on purchase-level data: the 27.9% who 'abandoned' may have started a new request. The fear of a public decline is still unmeasured. Check whether this should stay one opportunity.",
@@ -2825,8 +3449,8 @@ const REPORT = {
         {
           "title": "Tell customers when a card has already been used, and let them start a new purchase in one tap",
           "hmw": "How might we turn a used-up card into a clear next step, instead of a decline that repeats at the register?",
-          "rationale": "The largest decline cause is not a bad card or a low balance: 44.5% of in-store declines over six months are pre-authorization or already-settled declines, and in 90% of them the purchase has $0.00 left. Customers retry anyway (72% retry, about three attempts each) and none of the retried purchases was approved, because the card belongs to one purchase and each retry meets the same closed balance. Today the register shows a generic decline and nothing in the app explains it. How the balance reached $0.00 is unconfirmed, but what to do next is clear: use another payment method or start a new purchase request.",
-          "hypothesis": "When a purchase is used up, showing it as used on the In-Store tab, offering a one-tap new purchase request and telling customers not to retry cuts futile retries and speeds recovery.",
+          "rationale": "The largest decline cause is not a bad card or a low balance: 44.5% of in-store declines over six months are pre-authorization or already-settled declines, and in 90% of them the purchase has $0.00 left. Customers retry anyway (72% retry, about three attempts each) and none of the retried purchases was approved, because the card belongs to one purchase and each retry meets the same closed balance. Today the register shows a generic decline and nothing in the app explains it. The newer data adds a catch for an app-only fix: 46% of customers with a used-up card had not opened the app in the previous 24 hours, and 57% of these purchases are more than a day old (35% more than a week), so the card is often an old one still sitting in the wallet. How the balance reached $0.00 is unconfirmed, but what to do next is clear: use another payment method or start a new purchase request.",
+          "hypothesis": "When a purchase is used up, showing it as used on the In-Store tab and in the decline notice, offering a one-tap new purchase request and telling customers not to retry cuts futile retries and speeds recovery. Because many of these customers never open the app, the message also has to reach them outside it; see the notification and wallet opportunities.",
           "metrics": [
             "Retries per declined purchase (baseline: about 3 for the 72% who retry)",
             "Share of used-up-card declines followed by a new in-store purchase within 24 hours",
@@ -2837,9 +3461,9 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data, though the chat checked every channel and found no earlier approval on any of these purchases. At the moment of decline the customer holds a card with nothing on it: $0.00 left in 90% of cases (the decline text pairs 'the authorization amount (62.37) is superior to the purchase available balance ($0.00)' with 'the purchase has already been settled'), and a small balance below the amount in the other 10% (for example $38.89 against $0.96). The chat's advice for the customer is to use a different payment method or contact support; a new one-tap purchase request is this opportunity's proposal, not something the chat tested. In dollars it is $36.0M of lost transaction value over six months (28.8%, second to payment source failed) because the average declined purchase is small ($78). The 2025 customer survey report shows what a missing explanation costs: customers who don't know why a payment failed are unsure whether to retry, and the deck suggests an immediate push notification after an in-store failure."
+            "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data, though the chat checked every channel and found no earlier approval on any of these purchases. At the moment of decline the customer holds a card with nothing on it: $0.00 left in 90% of cases (the decline text pairs 'the authorization amount (62.37) is superior to the purchase available balance ($0.00)' with 'the purchase has already been settled'), and a small balance below the amount in the other 10% (for example $38.89 against $0.96). The chat's advice for the customer is to use a different payment method or contact support; a new one-tap purchase request is this opportunity's proposal, not something the chat tested. In dollars it is $36.0M of lost transaction value over six months (28.8%, second to payment source failed) because the average declined purchase is small ($78). The 2025 customer survey report shows what a missing explanation costs: customers who don't know why a payment failed are unsure whether to retry, and the deck suggests an immediate push notification after an in-store failure. The decline-journey data shows 38.0% of customers with a used-up card opened the app within an hour of the decline (54.0% within 24 hours), against 58.7% for customers over their spending power, so about 46% never open it. 57% of the purchases are more than a day old and 35% more than a week. The chat reads this as an old virtual card left in the wallet with no sign it is empty."
           },
-          "review": "Draft. How the balance reached $0.00 is unconfirmed, and starting a new purchase request is this opportunity's own proposal. Check it with Engineering.",
+          "review": "Draft. How the balance reached $0.00 is unconfirmed, and starting a new purchase request is this opportunity's own proposal. Check it with Engineering. The new data suggests many of these customers never open the app, so check whether an in-app state reaches enough of them.",
           "signal": null,
           "hmwIds": [
             "recover",
@@ -2883,19 +3507,19 @@ const REPORT = {
         {
           "title": "Diagnose the issuer-side rejections behind 29% of declines, and tell customers what to try",
           "hmw": "How might we find out why the card network or issuer rejects these payments, and tell customers what to try?",
-          "rationale": "Payment source failed is the second-largest decline cause (28.8% over six months, 29.5% over 90 days). The reason code is generic: the issuer rejected the charge, with no detail. 82% of these are virtual cards used through Apple Pay (68.0%) or Google Pay (14.3%), but most in-store purchases are probably made that way, so the data does not show a wallet-specific problem without the overall mix. The possible causes the chat lists, such as a frozen or deactivated card, fraud rules or an outage, are not in the data. Unlike a used-up card these could succeed on retry, yet retries overall show no approvals.",
+          "rationale": "Payment source failed is the second-largest decline cause (28.8% over six months, 29.5% over 90 days). The reason code is generic: the issuer rejected the charge, with no detail. 82% of these are virtual cards used through Apple Pay (68.0%) or Google Pay (14.3%), and mobile wallets are about 75% of in-store authorizations, so the 82% is only modestly above how customers pay. Google Pay declines more often than Apple Pay (12.1% vs 9.3%), which the chat suggests is worth checking for token handling. The possible causes the chat lists, such as a frozen or deactivated card, fraud rules or an outage, are not in the data. Unlike a used-up card these could succeed on retry, yet retries overall show no approvals.",
           "hypothesis": "Splitting issuer rejections by reason and card state, and comparing them with the overall wallet mix, shows whether a fixable subset exists (for example a card that needs re-adding to the wallet) that a targeted message can resolve.",
           "metrics": [
             "Payment-source-failed declines as a share of all in-store declines (baseline 28.8%)",
-            "Wallet virtual card share of all in-store authorizations (the base rate this needs)",
+            "Decline rate by wallet (baseline: Google Pay 12.1%, Apple Pay 9.3%; wallets are about 75% of authorizations)",
             "Share of these declines followed by an approval on a new purchase within 24 hours"
           ],
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "28.8% of in-store declines over six months (29.5% over 90 days, 28.8% over 30), 82% of them on virtual cards in Apple Pay (68.0%) or Google Pay (14.3%). The decline reason is generic and the chat lists possible causes without data. Without the wallet share of all in-store authorizations, the 82% could simply reflect how customers pay. In dollars this is the biggest cause: $61.4M of lost transaction value over six months, 49.1% of the total (46.5% over 30 days, 50.4% over 90), at a $132 average declined transaction, well above the $78 average for used-up cards. The chat's advice for the customer is to re-add the card to the wallet, try a different card or contact the issuer; none of that is tested."
+            "text": "28.8% of in-store declines over six months (29.5% over 90 days, 28.8% over 30), 82% of them on virtual cards in Apple Pay (68.0%) or Google Pay (14.3%). The decline reason is generic and the chat lists possible causes without data. Without the wallet share of all in-store authorizations, the 82% could simply reflect how customers pay. In dollars this is the biggest cause: $61.4M of lost transaction value over six months, 49.1% of the total (46.5% over 30 days, 50.4% over 90), at a $132 average declined transaction, well above the $78 average for used-up cards. The chat's advice for the customer is to re-add the card to the wallet, try a different card or contact the issuer; none of that is tested. The channel data supplies the base rate: mobile wallets are about 75% of in-store authorizations (8.4M of 11.2M, calculated) and 77% of declines, so the 82% mostly reflects how customers pay. The chat flags Google Pay's higher decline rate (12.1% vs Apple Pay 9.3%) as worth checking for token handling; that is a lead, not a finding."
           },
-          "review": "Draft. The cause is unknown and the wallet share of all in-store purchases is missing, so the 82% may only reflect how customers pay. Check the Strong evidence rating.",
+          "review": "Draft. The cause is unknown and the wallet share of in-store authorizations is now known (about 75%), so the 82% is only modestly above how customers pay. Check the Strong evidence rating.",
           "signal": null,
           "hmwIds": [
             "declines"
@@ -3097,9 +3721,8 @@ const REPORT = {
             }
           ],
           "rationale": "These are two halves of one loop. An increase only pays off if the customer notices it and uses it, and the next one only motivates if they can see how close it is. The Streaks page says customers are notified to collect their new spending power after the fifth on-time order, but the Spending Power screen shows no history of increases, and increases from the automated model have no visible moment at all. For customers in a streak the screens already show progress (coins toward five) and the rules (repay five on-time orders for up to a $100 increase); what is not visible is the size of the next increase, which the page gives as up to $100 and not a personal figure.",
-          "hypothesis": "Telling customers when they get an increase, prompting them to use it, and showing how close the next one is raises the share who place an order with the new amount, and raises on-time payment.",
+          "hypothesis": "Telling customers when they get an increase, and showing how close the next one is, raises the share who notice and understand their increases and raises on-time payment.",
           "metrics": [
-            "Share of customers who place an order within 7 days of an increase",
             "Taps on streak progress and the What will be my next increase question",
             "On-time payment rate for customers who can see a personal next-increase figure",
             "Customers who notice or understand their increase, and who can say how they earn one (survey, baseline needed)"
@@ -3122,7 +3745,7 @@ const REPORT = {
               "added": true
             }
           ],
-          "review": "Evidence is thin and part of it exists on screen today. Confirm the combined scope of problems 4 and 5, and that question 4 has only this one opportunity.",
+          "review": "Evidence is thin and part of it exists on screen today. Confirm the combined scope of problems 4 and 5.",
           "signal": null,
           "hmwIds": [
             "see-increase",
@@ -3233,6 +3856,136 @@ const REPORT = {
           "top": 2,
           "severity": "High",
           "effort": "Medium"
+        },
+        {
+          "title": "Let repeat decliners get a new decline notification: fix the canvas re-entry restriction",
+          "hmw": "How might we make sure every decline sends a notification, not just the first one a customer ever has?",
+          "rationale": "Of used-up-card declines with no notification, 99.4% never entered the decline canvas at all, and about 88% (42,041 customers) had received a decline notification before, mostly more than a month ago, so the canvas appears to block re-entry. The other 12% (5,855) never got one, which points to a trigger coverage gap. About 60% of them can receive push. Customers who were not notified came back less (60.6% bought in-store again within 30 days against 81.1% of notified customers), but the groups are not like-for-like, because the no-notification group is mostly repeat decliners.",
+          "hypothesis": "Allowing a new decline notification for each distinct decline, and auditing the trigger for every decline rule combination, restores the notification for the missing customers and lifts how many come back.",
+          "metrics": [
+            "Share of used-up-card declines with no notification (baseline 10.7% in one analysis and about a third of events in another; reconcile first)",
+            "30-day in-store return rate for customers with no notification versus notified (baseline 60.6% vs 81.1%)",
+            "Declined TTV for customers who got no notification (baseline $12.74M over six months)"
+          ],
+          "type": "Refine",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "System data, last six months to Sep 9, 2026: 99.4% of customers with no used-up-card notification never entered the decline canvas, and 87.8% of them (42,041) had been notified before; about 80% were last notified more than 30 days earlier. Notified customers returned within 30 days at 81.1% against 60.6%, and the chat estimates about $2.3M of TTV recoverable (about $5.5M a year). The no-notification group is repeat decliners, two analyses size it differently (about 49K events versus 151K), and the gap does not prove the notification caused the return."
+          },
+          "signal": null,
+          "hmwIds": [
+            "recover"
+          ],
+          "screenIds": [
+            "instore-location-disabled",
+            "instore-location-enabled"
+          ],
+          "severity": "High",
+          "effort": "Low",
+          "review": "Draft. Two analyses size the gap differently (about 49K decline events, 10.7%, versus 151K, about a third), and the return gap compares repeat decliners with others, so it does not prove the notification caused the return. Confirm the numbers and the canvas setting with whoever owns Braze."
+        },
+        {
+          "title": "Get the decline message to customers before they tap again, and tell them what to do",
+          "hmw": "How might we tell customers what went wrong within seconds of a decline, in a channel they will see at the register?",
+          "rationale": "Customers retry within a minute (median under 1 minute, about 3 attempts), but the first decline notification arrives after about 2.3 minutes, so 63% to 73% finish retrying before it lands and the message works as a post-mortem. Push is opened 16% of the time. Email is opened 85% of the time but is not a real-time channel. The chat also suggests the message may not say clearly enough what to do, which for a used-up card is to use another payment method. Why the median is 2.3 minutes is not in the data.",
+          "hypothesis": "Sending the decline message within seconds, as a push that says what happened and what to do, cuts retries and recovery time, and raises the share of declined customers who complete the purchase another way.",
+          "metrics": [
+            "Median time from decline to first notification (baseline about 2.3 minutes)",
+            "Share of customers who finish retrying before the first notification (baseline 63% to 73%)",
+            "Push open rate for decline notifications (baseline 16.2%)",
+            "Attempts per declined purchase (baseline about 3)"
+          ],
+          "type": "Refine",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "System data, last six months: median time to retry is under 1 minute for used-up cards (1.5 minutes for issuer rejections, 0.4 for insufficient spending power), against about 2.3 minutes to the first notification, and 62.8% to 73.0% of retried purchases finish retrying first. Decline notifications are sent by email (12.3M, 85.4% opened), push (7.9M, 16.2% opened) and SMS (3.2M, no open tracking). The 2025 survey report also suggests an immediate push after an in-store failure. No data shows what delays the notification."
+          },
+          "signal": null,
+          "hmwIds": [
+            "recover"
+          ],
+          "screenIds": [
+            "instore-location-disabled",
+            "instore-location-enabled"
+          ],
+          "severity": "High",
+          "effort": "Medium",
+          "review": "Draft. Why notifications take about 2.3 minutes (event pipeline, canvas delay or push delivery) is not in the data, so the effort rating is a guess. Check with Engineering and the Braze owner."
+        },
+        {
+          "title": "Stop customers tapping a settled card: update or remove it in Apple Pay and Google Pay",
+          "hmw": "How might we make a used-up virtual card unusable, or clearly marked, before the customer taps it?",
+          "rationale": "Pre-authorization / already-settled declines are 44.5% of declines and $36.0M of lost transaction value over six months. For these customers the purchase is often old (57% more than a day, 35% more than a week), about 46% had not opened the app in the last 24 hours, and the card is still in their wallet with nothing on it, so they tap it again and again (about 3 attempts, none approved). The chat's suggestion is to update the wallet card's status or remove settled cards from Apple Pay and Google Pay. Whether the wallets allow that is not known.",
+          "hypothesis": "If a settled virtual card is removed or marked as used in the wallet, customers stop tapping it and pay another way or start a new purchase, cutting the largest decline cause.",
+          "metrics": [
+            "Pre-authorization / already-settled declines as a share of in-store declines (baseline 44.5%)",
+            "Retries per declined purchase (baseline about 3)",
+            "Customers who tap a settled card more than once (baseline needed)"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "System data, last six months: used-up cards are 44.5% of declines and $36.0M of lost TTV; 38.0% of these customers opened the app within an hour of the decline and about 46% had not opened it in 24 hours; 57% of the purchases are more than a day old. The chat reads this as a stale virtual card persisting in the wallet and calls intercepting the decline at the wallet level the biggest potential improvement. Nothing here shows the wallets allow it."
+          },
+          "signal": null,
+          "hmwIds": [
+            "declines",
+            "recover"
+          ],
+          "screenIds": [
+            "instore-how-to-pay",
+            "instore-location-disabled",
+            "instore-location-enabled"
+          ],
+          "severity": "High",
+          "effort": "High",
+          "review": "Draft. Whether Apple Pay and Google Pay let Zip update or remove a settled card is unknown, and the effort rating depends on it. Check with Engineering. It overlaps with the in-app used-up-card opportunity."
+        },
+        {
+          "title": "Turn the moment of an increase into an order",
+          "hmw": "How might we encourage customers to use their new spending power as soon as they get an increase?",
+          "problems": [
+            {
+              "problem": "Customers can't tell whether they just received an increase, and nothing points them to a next order.",
+              "behind": "Increases bring customers back to purchase and use the new amount, but only when customers act on it. On the completion screen as audited there is no call to action, and the Home sparkle animation does not persist.",
+              "note": "The 'encourage them to use it' half of question 4. The opportunity above makes the increase clear; this one turns it into a purchase."
+            }
+          ],
+          "rationale": "The team's evidence is that increases bring customers back to purchase and use the new amount. The moment an increase arrives is the best chance to start that order, but on the screens audited it ends in a congratulations message with no call to action and a Home sparkle that does not persist, while the Treat yourself to a bigger buy banner is not tied to the increase. Increases from the automated model have no moment at all. The opportunity is to connect the increase to a next step: a call to action in the modal, a follow-up while the increase is fresh, and a suggestion of where to use the new amount, including in-store.",
+          "hypothesis": "Pointing customers to a next order when an increase arrives, and following up while it is fresh, raises the share who place an order with the new amount within 7 days.",
+          "metrics": [
+            "Share of customers who place an order within 7 days of an increase",
+            "Taps on a call to action in the completion modal",
+            "Repeat purchase rate in the 30 days after an increase, with and without the prompt (test)",
+            "Opt-out or complaint rate on increase notifications (guardrail)"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "The team's evidence is that increases bring customers back to purchase and use the new amount. The audited screens show the gap: the completion modal congratulates the customer (5 orders in a row, estimated spending power increase) with no call to action, the Home spending power sparkle is animation only and does not persist, and the Home banner Treat yourself to a bigger buy is a larger-first-installment offer, not a prompt tied to the increase. No figure shows how many customers place an order after an increase today."
+          },
+          "questions": [
+            {
+              "q": "What share of customers place an order within 7 days of an increase today, and does it differ by tier?",
+              "added": true
+            },
+            {
+              "q": "Which next step should the prompt point to: any purchase, a merchant suggestion or an in-store purchase?",
+              "added": true
+            }
+          ],
+          "review": "New draft. Ratings are provisional. The evidence is the audit's screen notes and the team's known evidence; no figure shows the post-increase order rate. Check overlap with the two Product Designer items (a next-step affordance on the completion modal, and a persistent callout).",
+          "signal": null,
+          "hmwIds": [
+            "see-increase"
+          ],
+          "screenIds": [
+            "spending-power",
+            "streak-completion-modal"
+          ],
+          "top": 6,
+          "severity": "Medium",
+          "effort": "Low"
         }
         ],
       painPoints: [
@@ -3562,7 +4315,7 @@ const REPORT = {
           hypothesis: "A complete, step-by-step in-store funnel reveals the single highest-drop-off point within one week of instrumentation, enabling the team to prioritize the highest-ROI fix.",
           metrics: ["In-store funnel step completion rate by step", "PR modal-open-to-completion rate", "Location permission grant rate"],
           type: "Add",
-          evidence: { strength: "Supporting", text: "Card declined at the register is the second-largest theme (28 comments, 9.8%) and happens after the purchase request, so the funnel should include a decline step with its reason rather than ending at purchase complete. Public reviews rank unexplained declines at 19% of cross-app complaints, and the public assessment's PM recommendation is the same: track first-attempt success rate and in-store contact rate. The premise that card-taps and button-taps are collapsed into one event does not hold: they already log as separate button-tap events (Pay in-store and Pay in-store - card component), so the funnel can split by entry point now. The primary button's label changed to Pay in-store¹ around April 2026, so the funnel needs to map both labels. The authorization table already records decline reasons, retries and timestamps for every in-store purchase, so the decline step can be built from it now (the data runs through Sep 9, 2026)." },
+          evidence: { strength: "Supporting", text: "Card declined at the register is the second-largest theme (28 comments, 9.8%) and happens after the purchase request, so the funnel should include a decline step with its reason rather than ending at purchase complete. Public reviews rank unexplained declines at 19% of cross-app complaints, and the public assessment's PM recommendation is the same: track first-attempt success rate and in-store contact rate. The premise that card-taps and button-taps are collapsed into one event does not hold: they already log as separate button-tap events (Pay in-store and Pay in-store - card component), so the funnel can split by entry point now. The primary button's label changed to Pay in-store¹ around April 2026, so the funnel needs to map both labels. The authorization table already records decline reasons, retries and timestamps for every in-store purchase, so the decline step can be built from it now (the data runs through Sep 9, 2026). Decline events and Braze notification events are both timestamped by customer, so the funnel can run decline, notification, retry and return, which is how the chat measured the notification effect." },
           hmwIds: ["declines", "recover"],
           review: "The rationale says card-taps and button-taps are probably collapsed into one event, but the Snowflake data shows they already log separately. The rationale needs rewriting.",
           signal: null,
