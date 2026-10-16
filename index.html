@@ -1270,8 +1270,8 @@ const REPORT = {
               "card": "What a missing decline notification costs"
             },
             {
-              "value": "$2.3M",
-              "label": "of transaction value the chat estimates is recoverable (an estimate)",
+              "value": "$2.7M",
+              "label": "of transaction value the chat estimates is recoverable over six months (an estimate)",
               "card": "What a missing decline notification costs"
             }
           ],
@@ -1810,7 +1810,7 @@ const REPORT = {
           "theme": "recovery",
           "compact": true,
           "source": "Snowflake: decline events and Braze notification data",
-          "headline": "Customers retry within a minute, but the first decline notification takes about 2.3 minutes, so 63% to 73% finish retrying before it lands. Push is opened 16% of the time, and 10.7% of used-up-card declines get no notification at all.",
+          "headline": "Customers retry within a minute, but the first decline notification takes about 2.3 minutes, so 63% to 73% finish retrying before it lands. Push is opened 16% of the time, and between about 18% (three months) and 33% (six months) of used-up-card declines get no notification.",
           "intro": "Last 6 months to Sep 9, 2026. Decline notifications are push, email and SMS, sent from the decline events (the team's description: one event for integrated merchants such as Best Buy, one for the mobile app, and no customer gets both).",
           "blocks": [
             {
@@ -1871,28 +1871,49 @@ const REPORT = {
             {
               "type": "rows",
               "more": true,
-              "title": "Declines with no notification at all",
+              "title": "Used-up-card declines with no notification (consistent 24-hour match)",
               "rows": [
                 {
-                  "label": "Pre-authorization / already settled",
+                  "label": "Last 3 months, purchases with retries",
+                  "value": "18.0%",
+                  "pct": 18.0,
+                  "cls": "snap-c1",
+                  "detail": "46,208 purchases, $3.88M of declined TTV."
+                },
+                {
+                  "label": "Last 3 months, all declines",
+                  "value": "18.1%",
+                  "pct": 18.1,
+                  "cls": "snap-c1",
+                  "detail": "48,220 declines, $4.06M."
+                },
+                {
+                  "label": "Last 6 months, purchases with retries",
+                  "value": "32.8%",
+                  "pct": 32.8,
+                  "cls": "snap-c1",
+                  "detail": "151,369 purchases, $12.85M."
+                },
+                {
+                  "label": "Last 6 months, all declines",
+                  "value": "32.9%",
+                  "pct": 32.9,
+                  "cls": "snap-c1",
+                  "detail": "157,117 declines, $13.41M."
+                },
+                {
+                  "label": "Last 6 months, first attempt only",
+                  "value": "33.5%",
+                  "pct": 33.5,
+                  "cls": "snap-c1",
+                  "detail": "5,748 declines, $565K."
+                },
+                {
+                  "label": "Original analysis (could not be reproduced)",
                   "value": "10.7%",
                   "pct": 10.7,
-                  "cls": "snap-c1",
-                  "detail": "About 49K of roughly 461K events."
-                },
-                {
-                  "label": "Insufficient spending power",
-                  "value": "0.3%",
-                  "pct": 0.3,
-                  "cls": "snap-c1",
-                  "detail": ""
-                },
-                {
-                  "label": "Payment source failed",
-                  "value": "0.2%",
-                  "pct": 0.2,
-                  "cls": "snap-c1",
-                  "detail": ""
+                  "cls": "snap-c2",
+                  "detail": "26,241 of 245,053 purchases with retries, last 3 months, using a different join. It also found 0.2% for payment source failed and 0.3% for insufficient spending power."
                 }
               ]
             },
@@ -1967,22 +1988,24 @@ const REPORT = {
               ]
             }
           ],
-          "context": "99.4% of customers with no notification never entered the decline canvas, so the trigger did not fire for them. The chat reads about 88% of the gap as a canvas re-entry restriction (customers notified once are blocked from entering again) and about 12% as a trigger coverage gap. About 60% of them can receive push (50.4% push and email, 9.1% all channels). The chat also notes the message may not say clearly enough that the card is used up and the customer should pay another way.",
+          "context": "99.4% of customers with no notification never entered the decline canvas, so the trigger did not fire for them. The chat reads about 88% of the gap as a canvas re-entry restriction (customers notified once are blocked from entering again) and about 12% as a trigger coverage gap. About 60% of them can receive push (50.4% push and email, 9.1% all channels). The chat also notes the message may not say clearly enough that the card is used up and the customer should pay another way. Longer windows show more missing notifications (about 18% at three months, 33% at six), which the chat reads as the re-entry restriction blocking more repeat decliners over time.",
           "notes": [
             "Median times are per decline cause. Time to retry comes from the authorization request log, time to notification from Braze sends.",
             "Why the first notification takes about 2.3 minutes (event pipeline, canvas delay or push delivery) is not in the data.",
-            "The 10.7% no-notification figure covers purchases with retries. The follow-up analysis on the next card counts a much larger no-notification group, so check the definition before sizing the gap."
+            "Why the figures differ: the original 10.7% used purchases with retries over three months and matched any notification within 24 hours of the first decline; the later 33% used all declines over six months and matched only on the same calendar day, which is stricter. On one consistent method the no-notification share is about 18% over three months and 33% over six. The chat could not reproduce 10.7% exactly and landed at about 18% for the same cut, possibly because of a different join or different data access.",
+            "The timing percentages, the canvas-entry breakdown and the last-notification dates come from the original analysis, so treat them as indicative."
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
-          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
+          "review": "The original 10.7% no-notification figure could not be reproduced: the chat's consistent re-run gives about 18% over three months and 33% over six. The timing, canvas-entry and last-notification figures on this card come from the original query, so treat them as indicative."
         },
         {
           "title": "What a missing decline notification costs",
           "theme": "recovery",
           "compact": true,
           "source": "Snowflake: declined TTV and return-to-purchase by notification status",
-          "headline": "Customers who got no decline notification came back less: 60.6% bought in-store again within 30 days, against 81.1% of notified customers. The chat estimates about $2.3M of transaction value is recoverable, but the two groups are not like-for-like.",
-          "intro": "Used-up-card declines (pre-authorization / already settled), last 6 months to Sep 9, 2026, notified versus not notified. Return window 30 days.",
+          "headline": "Customers who got no decline notification came back less: 60.6% bought in-store again within 30 days, against 81.1% of notified customers. The chat estimates about $2.7M of transaction value is recoverable over six months (about $820K over three), but the two groups are not like-for-like.",
+          "intro": "Used-up-card declines (pre-authorization / already settled), last 6 months to Sep 9, 2026, notified versus not notified. Return window 30 days. Estimates use the chat's corrected, consistent method.",
           "blocks": [
             {
               "type": "rows",
@@ -2007,54 +2030,34 @@ const REPORT = {
             {
               "type": "rows",
               "more": true,
-              "title": "Declined TTV by notification status (bars scale to $23.27M)",
+              "title": "Recoverable TTV if the no-notification group returned at the notified rate (bars scale to $2.7M)",
               "rows": [
                 {
-                  "label": "Got a notification",
-                  "value": "$23.27M",
+                  "label": "Last 6 months",
+                  "value": "~$2.7M",
                   "pct": 100.0,
                   "cls": "snap-c1",
-                  "detail": "309,988 decline events, 206,996 customers, $75.05 average."
+                  "detail": "Of $13.41M declined for the 157,117 declines with no notification. About $5.28M is permanently lost at a 39.4% non-return rate."
                 },
                 {
-                  "label": "No notification",
-                  "value": "$12.74M",
-                  "pct": 54.8,
-                  "cls": "snap-c2",
-                  "detail": "151,368 decline events, 134,319 customers, $84.17 average, slightly higher-value purchases."
-                }
-              ]
-            },
-            {
-              "type": "rows",
-              "more": true,
-              "title": "Estimated permanent lost TTV (30-day window)",
-              "rows": [
-                {
-                  "label": "Got a notification",
-                  "value": "$3.46M",
-                  "pct": 77.2,
+                  "label": "Last 3 months",
+                  "value": "~$820K",
+                  "pct": 30.4,
                   "cls": "snap-c1",
-                  "detail": ""
-                },
-                {
-                  "label": "No notification",
-                  "value": "$4.48M",
-                  "pct": 100.0,
-                  "cls": "snap-c2",
-                  "detail": "If they had returned at 81.1% the loss would be $2.14M."
+                  "detail": "Of $4.06M declined for the 48,220 declines with no notification. About $1.60M is permanently lost."
                 }
               ]
             }
           ],
-          "context": "The chat's estimate: lifting the no-notification group to the notified return rate recovers about $2.3M over roughly five months, about $5.5M a year, and 34.9% of no-notification customers (49,618) never bought in-store again. Over 30 days declined TTV was $4.96M notified and $1.39M not; over 90 days $14.96M and $3.86M.",
+          "context": "On one consistent method (a 24-hour notification match from the first decline, all used-up-card declines) about a third of declines had no notification over six months (157,117, $13.41M) and about 18% over three (48,220, $4.06M). The chat's estimate: lifting the no-notification group's 30-day return rate from 60.6% to the notified 81.1% recovers about $2.7M over six months and about $820K over three. In the earlier timeline 34.9% of no-notification customers (49,618) never bought in-store again.",
           "notes": [
             "The groups are not like-for-like: about 88% of the no-notification customers had been declined and notified before, so they are repeat decliners who may be less likely to return for other reasons. The gap does not prove the notification caused the return.",
-            "The chat's coverage figures differ: 10.7% of used-up-card declines had no notification on the previous card, but here 151,368 of 461,356 events (about a third) are in the no-notification group.",
+            "The earlier coverage figures differed (10.7% versus about a third) because of the base, the window and how a notification was matched. The chat re-ran them on one method and got about 18% over three months and 33% over six; it could not reproduce 10.7%.",
+            "The 81.1% and 60.6% return rates come from the earlier run and were not recomputed with the corrected 24-hour match.",
             "The return timeline (142,342 customers, 34.9% never returned) and the 30-day comparison use different cohorts, so their same-day and 7-day figures differ.",
             "The chat estimates the same re-entry fix would also improve notification delivery for the other decline causes. That is not measured here."
           ],
-          "review": "The no-notification group here (151K events, about a third) is far larger than the 10.7% (about 49K events) in the earlier analysis, and the return gap compares repeat decliners with others. Confirm the definition and treat the $2.3M as an estimate before using it.",
+          "review": "The first no-notification figures were corrected: one consistent method gives about 18% over three months and 33% over six, and the recoverable TTV is now about $820K over three months and $2.7M over six (the earlier $2.3M and $5.5M a year are superseded). The return rates were not re-run with the corrected match, and the comparison is repeat decliners against others.",
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
           "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/9aaad263-dadb-4e4a-9302-f0e93772b493"
         },
@@ -3860,17 +3863,17 @@ const REPORT = {
         {
           "title": "Let repeat decliners get a new decline notification: fix the canvas re-entry restriction",
           "hmw": "How might we make sure every decline sends a notification, not just the first one a customer ever has?",
-          "rationale": "Of used-up-card declines with no notification, 99.4% never entered the decline canvas at all, and about 88% (42,041 customers) had received a decline notification before, mostly more than a month ago, so the canvas appears to block re-entry. The other 12% (5,855) never got one, which points to a trigger coverage gap. About 60% of them can receive push. Customers who were not notified came back less (60.6% bought in-store again within 30 days against 81.1% of notified customers), but the groups are not like-for-like, because the no-notification group is mostly repeat decliners.",
+          "rationale": "Of used-up-card declines with no notification, 99.4% never entered the decline canvas at all, and about 88% (42,041 customers) had received a decline notification before, mostly more than a month ago, so the canvas appears to block re-entry. The other 12% (5,855) never got one, which points to a trigger coverage gap. About 60% of them can receive push. Customers who were not notified came back less (60.6% bought in-store again within 30 days against 81.1% of notified customers), but the groups are not like-for-like, because the no-notification group is mostly repeat decliners. On one consistent method the share with no notification is about 18% over three months and 33% over six (an earlier 10.7% could not be reproduced), and it grows with the window, which the chat reads as the re-entry restriction blocking more repeat decliners over time.",
           "hypothesis": "Allowing a new decline notification for each distinct decline, and auditing the trigger for every decline rule combination, restores the notification for the missing customers and lifts how many come back.",
           "metrics": [
-            "Share of used-up-card declines with no notification (baseline 10.7% in one analysis and about a third of events in another; reconcile first)",
+            "Share of used-up-card declines with no notification (baseline on a consistent method: about 18% over three months, 33% over six)",
             "30-day in-store return rate for customers with no notification versus notified (baseline 60.6% vs 81.1%)",
-            "Declined TTV for customers who got no notification (baseline $12.74M over six months)"
+            "Declined TTV for customers who got no notification (baseline $13.41M over six months, $4.06M over three)"
           ],
           "type": "Refine",
           "evidence": {
             "strength": "Supporting",
-            "text": "System data, last six months to Sep 9, 2026: 99.4% of customers with no used-up-card notification never entered the decline canvas, and 87.8% of them (42,041) had been notified before; about 80% were last notified more than 30 days earlier. Notified customers returned within 30 days at 81.1% against 60.6%, and the chat estimates about $2.3M of TTV recoverable (about $5.5M a year). The no-notification group is repeat decliners, two analyses size it differently (about 49K events versus 151K), and the gap does not prove the notification caused the return."
+            "text": "System data, last six months to Sep 9, 2026: 99.4% of customers with no used-up-card notification never entered the decline canvas, and 87.8% of them (42,041) had been notified before; about 80% were last notified more than 30 days earlier. Notified customers returned within 30 days at 81.1% against 60.6%, and the chat's corrected estimate is about $2.7M of TTV recoverable over six months (about $820K over three). The first sizing (10.7%, about 49K events) could not be reproduced; on one consistent method about 46K to 48K declines had no notification over three months and about 157K over six. The no-notification group is repeat decliners, and the gap does not prove the notification caused the return."
           },
           "signal": null,
           "hmwIds": [
@@ -3882,7 +3885,7 @@ const REPORT = {
           ],
           "severity": "High",
           "effort": "Low",
-          "review": "Draft. Two analyses size the gap differently (about 49K decline events, 10.7%, versus 151K, about a third), and the return gap compares repeat decliners with others, so it does not prove the notification caused the return. Confirm the numbers and the canvas setting with whoever owns Braze."
+          "review": "Draft. The two coverage figures were reconciled (different base, window and notification match) and the original 10.7% could not be reproduced; the consistent figures are about 18% over three months and 33% over six. The return gap compares repeat decliners with others and was not re-run with the corrected match, so it does not prove the notification caused the return. Confirm the numbers and the canvas setting with whoever owns Braze."
         },
         {
           "title": "Get the decline message to customers before they tap again, and tell them what to do",
@@ -3898,7 +3901,7 @@ const REPORT = {
           "type": "Refine",
           "evidence": {
             "strength": "Supporting",
-            "text": "System data, last six months: median time to retry is under 1 minute for used-up cards (1.5 minutes for issuer rejections, 0.4 for insufficient spending power), against about 2.3 minutes to the first notification, and 62.8% to 73.0% of retried purchases finish retrying first. Decline notifications are sent by email (12.3M, 85.4% opened), push (7.9M, 16.2% opened) and SMS (3.2M, no open tracking). The 2025 survey report also suggests an immediate push after an in-store failure. No data shows what delays the notification."
+            "text": "System data, last six months: median time to retry is under 1 minute for used-up cards (1.5 minutes for issuer rejections, 0.4 for insufficient spending power), against about 2.3 minutes to the first notification, and 62.8% to 73.0% of retried purchases finish retrying first (from the original query, whose notification join the chat could not exactly reproduce). Decline notifications are sent by email (12.3M, 85.4% opened), push (7.9M, 16.2% opened) and SMS (3.2M, no open tracking). The 2025 survey report also suggests an immediate push after an in-store failure. No data shows what delays the notification."
           },
           "signal": null,
           "hmwIds": [
@@ -3910,7 +3913,7 @@ const REPORT = {
           ],
           "severity": "High",
           "effort": "Medium",
-          "review": "Draft. Why notifications take about 2.3 minutes (event pipeline, canvas delay or push delivery) is not in the data, so the effort rating is a guess. Check with Engineering and the Braze owner."
+          "review": "Draft. Why notifications take about 2.3 minutes (event pipeline, canvas delay or push delivery) is not in the data, so the effort rating is a guess. The timing figures come from the original query, whose notification join the chat could not exactly reproduce. Check with Engineering and the Braze owner."
         },
         {
           "title": "Stop customers tapping a settled card: update or remove it in Apple Pay and Google Pay",
