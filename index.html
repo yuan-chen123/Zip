@@ -638,6 +638,12 @@
   .badge.open-q { background: transparent; color: var(--accent-dark); border: 1px solid var(--accent-light); }
   .hmw-open-q { margin: 12px 0 0; font-size: 12px; line-height: 17px; color: var(--text-muted); }
   .journey-related { margin: -4px 0 14px; padding: 8px 12px; font-size: 13px; line-height: 18px; color: var(--text-muted); background: var(--accent-tint); border-radius: 8px; }
+  /* Items flagged for review: a dashed outline, a badge and a note saying what to check. */
+  .opp-card.needs-review, .insight-card.needs-review { border-style: dashed; border-color: var(--text-muted); }
+  .badge.needs-review { background: var(--bg); color: var(--text); border: 1px dashed var(--text-muted); }
+  .review-note { margin: 8px 0 12px; padding: 8px 10px; background: var(--bg); border: 1px dashed var(--text-muted); border-radius: 8px; font-size: 12px; line-height: 17px; color: var(--text); }
+  .hmw-item.hmw-review { border-style: dashed; border-color: var(--text-muted); }
+  .data-review-line { margin: 0 0 14px; font-size: 13px; color: var(--text-muted); }
   .insight-notes { margin: 6px 0 0 16px; padding: 0; font-size: 12px; line-height: 17px; color: var(--text-muted); }
   .insight-details { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
   .insight-details summary { cursor: pointer; font-weight: 600; color: var(--accent-dark); }
@@ -1813,7 +1819,8 @@ const REPORT = {
             "The deck numbers its pain points but, in the slides used here, does not say how many customers raised each one."
           ],
           "sourceLabel": "Google Slides deck (Zip sign-in required, internal distribution only)",
-          "sourceUrl": "https://docs.google.com/presentation/d/1SGeMEHaQIjzfn-_RjKoAdwucJHu978HVwin9erJxYA8/edit"
+          "sourceUrl": "https://docs.google.com/presentation/d/1SGeMEHaQIjzfn-_RjKoAdwucJHu978HVwin9erJxYA8/edit",
+          "review": "The source deck is marked internal distribution only. Check that showing this research on this page is okay."
         },
         {
           "title": "What customers ask for in the 2025 improvement-areas survey: feature requests",
@@ -1856,7 +1863,8 @@ const REPORT = {
             "The ideas are the deck's suggestions, not tested or approved changes."
           ],
           "sourceLabel": "Google Slides deck (Zip sign-in required, internal distribution only)",
-          "sourceUrl": "https://docs.google.com/presentation/d/1SGeMEHaQIjzfn-_RjKoAdwucJHu978HVwin9erJxYA8/edit"
+          "sourceUrl": "https://docs.google.com/presentation/d/1SGeMEHaQIjzfn-_RjKoAdwucJHu978HVwin9erJxYA8/edit",
+          "review": "The source deck is marked internal distribution only. Check that showing this research on this page is okay."
         }
       ],
       hmwCaption: "Five ways to frame the in-store problem. Pick one to see the opportunities that answer it.",
@@ -2078,7 +2086,8 @@ const REPORT = {
                 }
               ]
             }
-          ]
+          ],
+          "review": "Unknown 1 to 6 are the team's questions. The Added questions and the how-we-could-find-out lines are my suggestions and need confirming."
         },
         {
           "title": "Spending Power and Streaks screens: what customers see today",
@@ -2128,7 +2137,8 @@ const REPORT = {
             "The 86.1% figure is current to 4/10/2025, so it may be stale. Its denominator, and why the rest did not receive an increase, are not given. A legal opportunity already asks for a cadence disclosure on this figure.",
             "Only orders placed after May 3, 2026 count toward the streak, per the Streaks screenshot."
           ],
-          "sourceLabel": "audit screenshots (Spending Power and Streaks)"
+          "sourceLabel": "audit screenshots (Spending Power and Streaks)",
+          "review": "Dollar amounts are screenshot values, and the 86.1% figure is current to 4/10/2025. Check both are current before sharing."
         },
         {
           "title": "What customers say about spending power in the 2025 improvement-areas survey",
@@ -2181,7 +2191,8 @@ const REPORT = {
             "The ideas are the deck's suggestions, not tested or approved changes."
           ],
           "sourceLabel": "Google Slides deck (Zip sign-in required, internal distribution only)",
-          "sourceUrl": "https://docs.google.com/presentation/d/1SGeMEHaQIjzfn-_RjKoAdwucJHu978HVwin9erJxYA8/edit"
+          "sourceUrl": "https://docs.google.com/presentation/d/1SGeMEHaQIjzfn-_RjKoAdwucJHu978HVwin9erJxYA8/edit",
+          "review": "This repeats survey items already on the In-Store Data/research tab. Decide whether to keep both copies, trim this to a pointer, or build one shared evidence library. The source deck is marked internal distribution only."
         },
         {
           "title": "Other sources that touch spending power",
@@ -2214,7 +2225,8 @@ const REPORT = {
           "notes": [
             "Each figure is shown with its own base on the In-Store journey's Data/research tab, which has the sources and caveats. They are not comparable with each other."
           ],
-          "sourceLabel": "see the In-Store journey's Data/research tab"
+          "sourceLabel": "see the In-Store journey's Data/research tab",
+          "review": "This restates numbers already on the In-Store Data/research tab. Same decision as the survey card: keep, trim or share."
         }
       ],
       viewBox: "0 0 640 210",
@@ -2416,6 +2428,7 @@ const REPORT = {
           hypothesis: "Adding a \u201cShop now\u201d shortcut (linking to search or a personalized merchant suggestion) inside the streak cut-short modal will recover at least 10% of users who would otherwise churn from the Streaks program.",
           hmwIds: ["recover"],
           screenIds: ["streak-cut-short-modal"],
+          review: "Surfaced from the hidden set for the Spending Power pillar. The wording and rating are the original ones and have not been reviewed. Its hypothesis claims at least 10% of at-risk users recovered, which is untested. Check overlap with the fast path back after a decrease.",
           severity: "High", effort: "Low"
         },
         {
@@ -2424,6 +2437,7 @@ const REPORT = {
           hypothesis: "Replacing the generic \u201cup to $100\u201d with a personalized current\u2192projected spending power display will increase the proportion of Streaks-eligible users who place at least one qualifying order within 7 days of viewing the Streaks page, supporting the repeat-transaction KPI.",
           hmwIds: ["progress"],
           screenIds: ["streaks-main"],
+          review: "Surfaced from the hidden set for the Spending Power pillar. The wording and rating are the original ones and have not been reviewed. Its hypothesis claims a 7-day order lift, which is untested. Check overlap with showing how close the next increase is.",
           severity: "High", effort: "Medium"
         }
         ],
@@ -2586,6 +2600,7 @@ const REPORT = {
           type: "Add",
           evidence: { strength: "Strong", text: "The two entry points are already logged as separate button-tap events. In the last 90 days (iOS + Android), tap-to-order conversion is 66.8% for the Pay in-store button versus 36.8% for the amount card, and average spend per ordering customer is $784.21 versus $367.47. The gap is correlation, so consolidating needs an A/B test rather than a rule drawn from this data alone." },
           hmwIds: ["understand"],
+          review: "The rationale says the two CTAs can't be compared without new instrumentation, but they are already tracked separately and compared on the Data/research tab. Reword it, and keep in mind the conversion gap is correlation.",
           signal: null,
           screenIds: ["instore-location-disabled", "instore-location-enabled"],
           severity: "High", effort: "Low"
@@ -2609,6 +2624,7 @@ const REPORT = {
           metrics: ["In-store purchase conversion rate vs. direct-competitor benchmarks", "User drop-off rate in current pre-activation flow"],
           type: "Add",
           hmwIds: ["understand", "low-risk"],
+          review: "Source mismatch: the note lists Cash App Afterpay among the Apple Pay launches, but the competitive assessment only confirmed Affirm and Klarna. Verify before relying on it.",
           signal: "Apple Pay in-store installments launched 2025-2026 with Affirm, Klarna, and Cash App Afterpay \u2014 Zip is absent from this list at launch. A public competitive assessment of Zip's in-store tab agrees on Affirm and Klarna (plan chosen at the terminal through Apple Wallet, iOS 26+) and found no evidence that Zip is listed. Zip's counter-advantages are any-Visa acceptance, Android coverage and a physical-card fallback, which a wallet-first path would need to preserve.",
           screenIds: [],
           severity: "High", effort: "High"
@@ -2638,6 +2654,7 @@ const REPORT = {
             "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. In dollars, declines put $125.0M of transaction value at risk over six months (10.5% of attempted): grocery is $21.5M and gas $5.8M, together about 22%, while Other merchants carry 78%. Insufficient spending power is $11.5M (9.2%) but the largest tickets ($243 average declined), the cases right-sizing addresses. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used. The 2025 customer survey report also records customers declined with no explanation, some while the app showed spending power (one reports being approved for $250 yet declined every time), and unable to plan purchases ahead. The deck gives no count."
           },
           hmwIds: ["declines", "recover"],
+          "review": "Check the problem statement, which says grocery and gas are hit hardest. By volume that holds (grocery 204K and gas 160K declines), but together they are about a third of declines and about 22% of lost transaction value; Other merchants carry the rest. Also check the High / High rating.",
           "signal": "Afterpay keeps a persistent card with a visible pre-approved amount, so customers see their headroom before the register. Affirm shows the risk: purchasing power that reads as a limit when it is only an estimate.",
           "screenIds": [
             "instore-default-modal",
@@ -2677,6 +2694,7 @@ const REPORT = {
             "text": "Vaultmate's suggested response to declines includes what to do next, and the public assessment calls out declines that land at the register with no recovery path. System data now measures the behavior at the purchase level: of 1.07M declined purchases over six months, 72.1% were retried (about 3.1 attempts) and none of the retried purchases was later approved, while 27.9% ended after one decline. That is not the same as customers giving up, because a customer who starts a new purchase request counts as a separate purchase. Nothing here measures the fear of a public decline. To test it, follow the same customer: do they place a new in-store order within 24 hours of a decline, compared with matched customers who were not declined? And run first-time in-store user research on what they worry about at the register. The 2025 customer survey report (about 100,000 responses, 10,000+ verbatims) has a pain point on exactly this: after an in-store decline customers can't tell whether it was technical, the store or their approval, so they are unsure whether to try again and often pay full price to avoid further embarrassment. The deck gives no count. It suggests a push notification right after an in-store failure and a $5 goodwill credit in select situations."
           },
           hmwIds: ["low-risk", "recover"],
+          "review": "The evidence rests on purchase-level data: the 27.9% who 'abandoned' may have started a new request. The fear of a public decline is still unmeasured. Check whether this should stay one opportunity.",
           "signal": null,
           "screenIds": [
             "instore-how-to-pay",
@@ -2705,6 +2723,7 @@ const REPORT = {
             "strength": "Strong",
             "text": "System data, last six months to Sep 9, 2026: pre-authorization / already settled is 44.5% of in-store declines (45.2% over 30 days, 44.1% over 90). The decline reason pairs the authorization amount with an available balance of $0.00, and 90% of these purchases have $0.00 left. 72.1% of declined purchases are retried (3.1 attempts on average) and none of the retried purchases was later approved. Inside the bucket, 55.4% are both already settled and over the single-authorization limit, 30.0% the single-authorization limit only and 14.6% already settled only. How the balance reached $0.00 is not visible in the data, though the chat checked every channel and found no earlier approval on any of these purchases. At the moment of decline the customer holds a card with nothing on it: $0.00 left in 90% of cases (the decline text pairs 'the authorization amount (62.37) is superior to the purchase available balance ($0.00)' with 'the purchase has already been settled'), and a small balance below the amount in the other 10% (for example $38.89 against $0.96). The chat's advice for the customer is to use a different payment method or contact support; a new one-tap purchase request is this opportunity's proposal, not something the chat tested. In dollars it is $36.0M of lost transaction value over six months (28.8%, second to payment source failed) because the average declined purchase is small ($78). The 2025 customer survey report shows what a missing explanation costs: customers who don't know why a payment failed are unsure whether to retry, and the deck suggests an immediate push notification after an in-store failure."
           },
+          "review": "Draft. How the balance reached $0.00 is unconfirmed, and starting a new purchase request is this opportunity's own proposal. Check it with Engineering.",
           "signal": null,
           "hmwIds": [
             "recover",
@@ -2733,6 +2752,7 @@ const REPORT = {
             "strength": "Supporting",
             "text": "The rule is named in the decline data itself (single-auth limit: only one in-store authorization allowed) and appears in 85.4% of pre-authorization / already-settled declines. Gas (10.3%) and fast food (13.7%) decline above the 9.6% average, but the data does not tie those declines to the limit and the chat did not break the limit down by merchant. Treat the merchant link as untested. Transaction value adds two hints: gas has a small average declined amount ($37, which the chat reads as consistent with small initial holds), and hotels, motels and resorts lose 30.5% of attempted TTV ($5.8M, $249 average), which the chat flags for investigation. Whether either is tied to the limit is not shown."
           },
+          "review": "Draft. Untested hypothesis: which merchants trigger the limit is unknown, and the limit may exist for risk reasons. Review with Risk before keeping the High / High rating.",
           "signal": null,
           "hmwIds": [
             "declines"
@@ -2759,6 +2779,7 @@ const REPORT = {
             "strength": "Strong",
             "text": "28.8% of in-store declines over six months (29.5% over 90 days, 28.8% over 30), 82% of them on virtual cards in Apple Pay (68.0%) or Google Pay (14.3%). The decline reason is generic and the chat lists possible causes without data. Without the wallet share of all in-store authorizations, the 82% could simply reflect how customers pay. In dollars this is the biggest cause: $61.4M of lost transaction value over six months, 49.1% of the total (46.5% over 30 days, 50.4% over 90), at a $132 average declined transaction, well above the $78 average for used-up cards. The chat's advice for the customer is to re-add the card to the wallet, try a different card or contact the issuer; none of that is tested."
           },
+          "review": "Draft. The cause is unknown and the wallet share of all in-store purchases is missing, so the 82% may only reflect how customers pay. Check the Strong evidence rating.",
           "signal": null,
           "hmwIds": [
             "declines"
@@ -2786,6 +2807,7 @@ const REPORT = {
             "strength": "Strong",
             "text": "Government services: 100% decline rate over six months, 26,780 declines (4,974 in 30 days, 14,602 in 90). Forbidden merchant is 3.3% to 3.5% of all declines in each window. The chat names state DMV and BMV offices, county tax and tag collectors and municipal payment services as examples. The rule behind it is inferred, not shown. In dollars, forbidden merchants are $8.8M of lost transaction value over six months (7.0%, $170 average), and government services alone are $5.0M of attempted TTV that will never go through, $906K in the last 30 days. The chat notes that whether the block is intentional policy or worth revisiting is a business decision."
           },
+          "review": "Draft. The rule behind the 100% decline is inferred, and the chat raised whether the block should stay. A policy decision may sit behind this.",
           "signal": null,
           "hmwIds": [
             "understand",
@@ -2813,6 +2835,7 @@ const REPORT = {
             "strength": "Supporting",
             "text": "In the 2025 customer survey report frequent users want increases bigger than the current $25 to $100 steps, and loyal customers want points for on-time payments, gift cards and anniversary or birthday rewards. The deck suggests testing faster increases for in-store users and a flat $25 to $50 increase after 2 to 3 completed purchases. It gives no counts, and it is untested here that in-store users are more engaged."
           },
+          "review": "Draft. It rests on the survey deck's hypothesis that in-store users are more engaged, which is untested here. Increases are a risk decision.",
           "signal": null,
           "hmwIds": [
             "reason"
@@ -2840,6 +2863,7 @@ const REPORT = {
             "text": "In the 2025 customer survey report, spending power is the subject of four of the nine pain points on the visible slides (low versus other BNPL apps, slow to grow despite on-time payments, unexplained drops, and approved-but-declined at checkout). The deck gives a count only for the share of customers who have used another BNPL (an estimated 35% to 50%); the rest is customer verbatims. The deck's ideas are untested."
           },
           hmwIds: ["recover", "progress"],
+          "review": "Draft from the 2025 survey deck: a pain point with customer comments and one count (35% to 50% used another BNPL). Check overlap with the Spending Power top opportunities.",
           "signal": null,
           "screenIds": [
             "spending-power"
@@ -2862,6 +2886,7 @@ const REPORT = {
             "strength": "Supporting",
             "text": "The 2025 customer survey report (pain point 6) says customers want clarity on how payment extensions affect their account and some report unexpected spending power changes. The deck proposes heads-up copy before the delay. It rests on a pain point with two customer comments and no counts."
           },
+          "review": "Draft from the 2025 survey deck: one pain point with two customer comments and no counts.",
           "signal": null,
           "screenIds": [
             "payments"
@@ -2892,6 +2917,7 @@ const REPORT = {
             "text": "The team's hypothesis is that loyal customers who take a large decrease are less likely to return. The 2025 customer survey report describes the experience in customers' words (one reports spending power falling from $900 to $50 in under a month, with no explanation and no clear way back), and the Spending Power disclosure says Zip or WebBank may decrease spending power where there is an unpaid balance or an amount past due. No source here counts how many loyal customers take a large decrease or what they do afterward."
           },
           "questions": [{"q": "How many previously loyal customers take a large decrease, and what do their orders look like afterward?"}, {"q": "How are loyal and a large decrease defined, so the group can be counted?", "added": true}, {"q": "What is the loss and risk cost of a faster path back?", "added": true}],
+          "review": "Severity is a guess: nobody knows how many loyal customers take a large decrease. Check the rating once Unknown 4 has an answer.",
           "signal": null,
           "hmwIds": [
             "recover"
@@ -2927,6 +2953,7 @@ const REPORT = {
             "text": "On the Spending Power screen as audited, customers see the estimated spending power and per-card amounts only: no total limit, no balance owed, no history. Other sources agree: unclear spending limit or available funds is the third-largest in-store support theme (18 of 285 comments, 6.3%), insufficient spending power is 20.3% of in-store declines with the largest tickets ($243 average declined), the 2025 customer survey report records customers shown spending power in the app yet declined, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%)."
           },
           "questions": [{"q": "Which of total limit, amount owed and history do customers most need to see?", "added": true}, {"q": "How often do customers open the Spending Power screen, and what do they do next?", "added": true}],
+          "review": "Check effort: it depends on whether total limit, balance owed and history already exist in the backend. The evidence is strong for the problem, not for the fix.",
           "signal": null,
           "hmwIds": [
             "see-limit"
@@ -2979,6 +3006,7 @@ const REPORT = {
               "added": true
             }
           ],
+          "review": "Evidence is thin and part of it exists on screen today. Confirm the combined scope of problems 4 and 5, and that question 4 has only this one opportunity.",
           "signal": null,
           "hmwIds": [
             "see-increase",
@@ -3028,6 +3056,7 @@ const REPORT = {
               "added": true
             }
           ],
+          "review": "Ratings are provisional (High / High). The size of the group held back by their limit is unknown, and Risk has to say how far limits can go.",
           "signal": null,
           "hmwIds": [
             "sooner"
@@ -3077,6 +3106,7 @@ const REPORT = {
               "q": "What is the loss and risk cost of increases, and where are the limits on how far we can go?"
             }
           ],
+          "review": "Ratings are provisional (High / Medium). The share of qualifying customers who miss an increase is only known for streak completers (about 14%, as of 4/10/2025).",
           "signal": null,
           "hmwIds": [
             "sooner"
@@ -3418,6 +3448,7 @@ const REPORT = {
           type: "Add",
           evidence: { strength: "Supporting", text: "Card declined at the register is the second-largest theme (28 comments, 9.8%) and happens after the purchase request, so the funnel should include a decline step with its reason rather than ending at purchase complete. Public reviews rank unexplained declines at 19% of cross-app complaints, and the public assessment's PM recommendation is the same: track first-attempt success rate and in-store contact rate. The premise that card-taps and button-taps are collapsed into one event does not hold: they already log as separate button-tap events (Pay in-store and Pay in-store - card component), so the funnel can split by entry point now. The primary button's label changed to Pay in-store¹ around April 2026, so the funnel needs to map both labels. The authorization table already records decline reasons, retries and timestamps for every in-store purchase, so the decline step can be built from it now (the data runs through Sep 9, 2026)." },
           hmwIds: ["declines", "recover"],
+          review: "The rationale says card-taps and button-taps are probably collapsed into one event, but the Snowflake data shows they already log separately. The rationale needs rewriting.",
           signal: null,
           screenIds: [],
           severity: "High", effort: "Medium"
@@ -3500,6 +3531,7 @@ const REPORT = {
           hypothesis: "Defining explicit tier caps on Streaks rewards will allow the program to scale without unexpected portfolio risk concentration in high-streak-completion cohorts.",
           hmwIds: ["sooner"],
           screenIds: ["streaks-main"],
+          review: "Surfaced from the hidden set for the Spending Power pillar. The wording and rating are the original ones and have not been reviewed. Check how it relates to the new increase opportunities.",
           severity: "Medium", effort: "Medium"
         },
         {
@@ -3508,6 +3540,7 @@ const REPORT = {
           hypothesis: "Streaks completers will show a statistically significant lift in 90-day GMV that outweighs the marginal credit exposure from their higher spending power tier.",
           hmwIds: ["sooner"],
           screenIds: ["streaks-main", "streak-completion-modal"],
+          review: "Surfaced from the hidden set for the Spending Power pillar. The wording and rating are the original ones and have not been reviewed. Its hypothesis assumes a statistically significant lift in 90-day GMV, which is untested. It is also the route to the open loss-cost question.",
           severity: "High", effort: "High"
         },
         {
@@ -3516,6 +3549,7 @@ const REPORT = {
           hypothesis: "Streaks completion rate will be significantly higher in low-SP tiers (\u003c$300) than high-SP tiers (\u003e$600), indicating the program\u2019s motivational value is inversely correlated with existing spending power.",
           hmwIds: ["sooner"],
           screenIds: ["streaks-main"],
+          review: "Surfaced from the hidden set for the Spending Power pillar. The wording and rating are the original ones and have not been reviewed. Its hypothesis predicts higher completion in low spending power tiers, which is untested.",
           severity: "Medium", effort: "Low"
         },
         {
@@ -3524,6 +3558,7 @@ const REPORT = {
           hypothesis: "Pre-enrollment eligibility disclosure will reduce Streaks-related disputes and CFPB complaint risk while increasing user confidence in the program rules.",
           hmwIds: ["progress"],
           screenIds: ["streaks-main"],
+          review: "Surfaced from the hidden set for the Spending Power pillar. The wording and rating are the original ones and have not been reviewed. An Accessibility twin (surface the rules inline) is still hidden. Decide whether to merge them.",
           severity: "High", effort: "Low"
         }
         ],
@@ -3926,11 +3961,12 @@ function renderDecisionControls(id) {
 function renderOppCard(opp, showLens, id, hmwCtx) {
   const d = getDecision(id);
   return `
-    <div class="opp-card ${d.status ? `decision-${d.status}` : ""}${opp.top ? " is-top" : ""}">
+    <div class="opp-card ${d.status ? `decision-${d.status}` : ""}${opp.top ? " is-top" : ""}${opp.review ? " needs-review" : ""}">
       <div class="opp-field">
         <div class="field-label">Opportunity</div>
         <div class="field-value opp-title">${opp.title}</div>
       </div>
+      ${opp.review ? `<p class="review-note"><strong>&#9873; Needs review.</strong> ${opp.review}</p>` : ""}
       ${opp.hmw ? `
       <div class="opp-field">
         <div class="field-label">How might we</div>
@@ -3973,6 +4009,7 @@ function renderOppCard(opp, showLens, id, hmwCtx) {
       </div>` : ""}
       <div class="badge-row">
         ${opp.top ? badge("Top opportunity", "top-opp") : ""}
+        ${opp.review ? badge("&#9873; Needs review", "needs-review") : ""}
         ${opp.questions && opp.questions.length ? badge(`${opp.questions.length} open question${opp.questions.length === 1 ? "" : "s"}`, "open-q") : ""}
         ${hmwCtx && opp.hmwIds ? opp.hmwIds.map(h => {
           const n = hmwCtx.questions.findIndex(q => q.id === h);
@@ -4249,10 +4286,14 @@ function renderJourneyHmw(journey, relevantOpps) {
     <div class="hmw-frame">
       <div class="hmw-frame-title">How might we&hellip;</div>
       <p class="hmw-frame-caption">${journey.hmwCaption || "Ways to frame this problem. Pick one to see the opportunities that answer it."}</p>
-      <div class="hmw-list" role="group" aria-label="Filter opportunities by how-might-we question">${qs.map((q, i) => `
+      <div class="hmw-list" role="group" aria-label="Filter opportunities by how-might-we question or review flag">${qs.map((q, i) => `
         <button type="button" class="hmw-item" aria-pressed="${cur === q.id}" onclick="setJourneyHmw('${journey.id}', '${q.id}')">
           <span class="hmw-num">${i + 1}</span><span class="hmw-text">${q.text}</span><span class="hmw-count" title="Opportunities that answer this question">${count(q)}</span>
         </button>`).join("")}
+        ${(() => { const nrev = relevantOpps.filter(o => o.review).length; return nrev ? `
+        <button type="button" class="hmw-item hmw-review" aria-pressed="${cur === "needs-review"}" onclick="setJourneyHmw('${journey.id}', 'needs-review')">
+          <span class="hmw-num">&#9873;</span><span class="hmw-text">Needs review: items to check before relying on them</span><span class="hmw-count" title="Opportunities flagged for review">${nrev}</span>
+        </button>` : ""; })()}
       </div>
       ${(() => { const nq = relevantOpps.reduce((n, o) => n + ((o.questions || []).length), 0); return nq ? `<p class="hmw-open-q"><strong>${nq} open questions</strong> are attached to these opportunities. <button type="button" class="insight-link" onclick="setJourneyTab('${journey.id}', 'data')">See what we don't know</button></p>` : ""; })()}
       ${cur ? `<button type="button" class="insight-link hmw-frame-clear" onclick="setJourneyHmw('${journey.id}', null)">Show all opportunities</button>` : ""}
@@ -4263,6 +4304,13 @@ function renderJourneyOpportunitySections(journey, relevantOpps) {
   const countText = n => `${n} opportunit${n === 1 ? "y" : "ies"}`;
   const hmwCtx = journey.hmwQuestions ? { journeyId: journey.id, questions: journey.hmwQuestions } : null;
   const frame = renderJourneyHmw(journey, relevantOpps);
+  if (hmwCtx && getJourneyHmw(journey.id) === "needs-review") {
+    const flagged = relevantOpps.filter(o => o.review);
+    return frame + `
+    <div class="section-label">Opportunities that need review</div>
+    <p class="subtitle small">${countText(flagged.length)} flagged. Each card says what to check.</p>
+    ${flagged.length ? flagged.map(o => renderOppCard(o, true, o.id, hmwCtx)).join("") : `<p class="empty-note">Nothing is flagged.</p>`}`;
+  }
   const picked = hmwCtx && journey.hmwQuestions.find(q => q.id === getJourneyHmw(journey.id));
   if (picked) {
     const matches = relevantOpps.filter(o => (o.hmwIds || []).includes(picked.id));
@@ -4334,8 +4382,9 @@ function renderSnapshotRows(block) {
 function renderSnapshotCard(sn) {
   return `
     <div class="section-label">${sn.title}</div>
-    <div class="insight-card">
+    <div class="insight-card${sn.review ? " needs-review" : ""}">
       <div class="insight-source">${sn.source}</div>
+      ${sn.review ? `<p class="review-note"><strong>&#9873; Needs review.</strong> ${sn.review}</p>` : ""}
       <p class="insight-headline">${sn.headline}</p>
       ${sn.total ? `<p class="snap-total"><strong>${sn.total.value}</strong>${sn.total.label}, ${sn.period}</p>` : ""}
       ${sn.intro ? `<p class="snap-total">${sn.intro}</p>` : ""}
@@ -4371,7 +4420,9 @@ function renderJourneyData(journey, relevantOpps) {
   if (!themes || !themes.length) return cards.map(c => c.html).join("");
   const groups = themes.map(t => ({ t, cards: cards.filter(c => c.theme === t.id) })).filter(g => g.cards.length);
   const loose = cards.filter(c => !themes.some(t => t.id === c.theme));
+  const flagged = (journey.snapshots || []).filter(sn => sn.review).length;
   return `
+    ${flagged ? `<p class="data-review-line">&#9873; ${flagged} card${flagged === 1 ? "" : "s"} on this tab need${flagged === 1 ? "s" : ""} review. ${flagged === 1 ? "It is" : "They are"} marked below.</p>` : ""}
     <nav class="theme-jump" aria-label="Jump to a theme">${groups.map(g => `
       <button type="button" class="theme-jump-btn" onclick="scrollToDataTheme('${g.t.id}')">${g.t.title}<span class="count">${g.cards.length}</span></button>`).join("")}
     </nav>
@@ -4489,6 +4540,7 @@ function renderOverviewPanel() {
       <div class="stat-card clickable" onclick="goToOpportunities({severity:'Medium'})" title="Filter to Medium severity"><div class="num">${counts.Medium}</div><div class="label">Medium severity</div></div>
       <div class="stat-card clickable" onclick="goToOpportunities({severity:'Low'})" title="Filter to Low severity"><div class="num">${counts.Low}</div><div class="label">Low severity</div></div>
       <div class="stat-card clickable" onclick="activePanel='quickWins'; rerender();" title="View quick wins"><div class="num">${quickWins.length}</div><div class="label">Quick wins</div></div>
+      <div class="stat-card clickable" onclick="goToOpportunities({review:'yes'})" title="Opportunities flagged to check before relying on them"><div class="num">${all.filter(o => o.review).length}</div><div class="label">Needs review</div></div>
       <div class="stat-card clickable" onclick="activePanel='decisionLog'; rerender();" title="View decision log"><div class="num">${reviewedCount}/${all.length}</div><div class="label">Reviewed</div></div>
     </div>
     ${isMultiJourney ? `
@@ -4533,13 +4585,13 @@ function renderLensPanel(lens) {
 }
 
 let allOppsSort = { key: null, dir: 1 };
-let allOppsFilters = { lens: "all", severity: "all", effort: "all", decision: "all", screen: "all", journey: "all" };
+let allOppsFilters = { lens: "all", severity: "all", effort: "all", decision: "all", screen: "all", journey: "all", review: "all" };
 
 // Used by the Overview stat cards so they act as real filters, not static
 // counts — always starts from a clean slate ("all" on every dimension) and
 // only applies the specific override the clicked card represents.
 function goToOpportunities(overrides) {
-  allOppsFilters = Object.assign({ lens: "all", severity: "all", effort: "all", decision: "all", screen: "all", journey: "all" }, overrides);
+  allOppsFilters = Object.assign({ lens: "all", severity: "all", effort: "all", decision: "all", screen: "all", journey: "all", review: "all" }, overrides);
   activePanel = "allOpportunities";
   rerender();
 }
@@ -4556,6 +4608,7 @@ function renderAllOpportunitiesPanel() {
   if (isMultiJourney && allOppsFilters.journey !== "all") {
     rows = rows.filter(r => opportunityInJourney(r, allOppsFilters.journey));
   }
+  if (allOppsFilters.review === "yes") rows = rows.filter(r => r.review);
 
   if (allOppsSort.key) {
     rows.sort((a, b) => {
@@ -4610,6 +4663,10 @@ function renderAllOpportunitiesPanel() {
         <option value="denied" ${allOppsFilters.decision === "denied" ? "selected" : ""}>Denied</option>
         <option value="discuss" ${allOppsFilters.decision === "discuss" ? "selected" : ""}>Discuss</option>
         <option value="undecided" ${allOppsFilters.decision === "undecided" ? "selected" : ""}>Undecided</option>
+      </select>
+      <select onchange="allOppsFilters.review=this.value; rerender();">
+        <option value="all">All items</option>
+        <option value="yes" ${allOppsFilters.review === "yes" ? "selected" : ""}>Needs review</option>
       </select>
       <select onchange="sortBy(this.value);">
         <option value="">Sort by...</option>
@@ -5160,7 +5217,7 @@ function applyRoute(hash) {
     activePanel = "journey"; activeJourneyId = j.id; selectedScreenId = null;
     if (j.id === id && journeyHasData(j) && JOURNEY_TABS.some(t => t[0] === tab)) journeyTab[j.id] = tab;
     else delete journeyTab[j.id];
-    if (tab === "opps" && (j.hmwQuestions || []).some(q => q.id === sub)) journeyHmw[j.id] = sub;
+    if (tab === "opps" && ((j.hmwQuestions || []).some(q => q.id === sub) || sub === "needs-review")) journeyHmw[j.id] = sub;
     else delete journeyHmw[j.id];
   } else if (kind === "lens" && REPORT.lenses.some(l => l.id === id)) {
     activePanel = id;
