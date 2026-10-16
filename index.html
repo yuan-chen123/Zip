@@ -632,6 +632,12 @@
   .snap-list-detail { margin: 3px 0 0; font-size: 12.5px; line-height: 18px; color: var(--text-muted); }
   .snap-list-idea { margin: 5px 0 0; padding-left: 10px; border-left: 3px solid var(--accent-tint-strong); font-size: 12px; line-height: 17px; color: var(--text); }
   .snap-list-idea span { font-weight: 600; color: var(--accent-dark); margin-right: 4px; }
+  .opp-questions { margin: 0; padding-left: 18px; font-size: 13px; line-height: 18px; color: var(--text); }
+  .opp-questions li { margin-bottom: 6px; }
+  .opp-q-tag { font-size: 10px; font-weight: 600; color: var(--accent-dark); background: var(--accent-tint); border-radius: 999px; padding: 0 7px; margin-left: 8px; white-space: nowrap; }
+  .badge.open-q { background: transparent; color: var(--accent-dark); border: 1px solid var(--accent-light); }
+  .hmw-open-q { margin: 12px 0 0; font-size: 12px; line-height: 17px; color: var(--text-muted); }
+  .journey-related { margin: -4px 0 14px; padding: 8px 12px; font-size: 13px; line-height: 18px; color: var(--text-muted); background: var(--accent-tint); border-radius: 8px; }
   .insight-notes { margin: 6px 0 0 16px; padding: 0; font-size: 12px; line-height: 17px; color: var(--text-muted); }
   .insight-details { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
   .insight-details summary { cursor: pointer; font-weight: 600; color: var(--accent-dark); }
@@ -1853,6 +1859,7 @@ const REPORT = {
           "sourceUrl": "https://docs.google.com/presentation/d/1SGeMEHaQIjzfn-_RjKoAdwucJHu978HVwin9erJxYA8/edit"
         }
       ],
+      hmwCaption: "Five ways to frame the in-store problem. Pick one to see the opportunities that answer it.",
       hmwQuestions: [
         {
           "id": "understand",
@@ -1894,8 +1901,322 @@ const REPORT = {
     },
     {
       id: "spending-power-flow", name: "Home \u2192 Spending Power",
+      related: { id: "streaks-flow", label: "Open Streaks", text: "Streaks is how many customers earn increases, so this journey shares its framing, data and top opportunities with Streaks." },
       description: "When a Zip user wants to know how much they can spend right now, why that number might change, or how to get more, they tap into Spending Power from the \u2018Spending power\u2019 card on Home. The screen needs to build trust in an estimate that can legally shift at any time, show what\u2019s already allocated to each card type, and give an honest, clear path to increasing that number.",
       screenIds: ["home", "spending-power"],
+      hmwCaption: "Five ways to frame the Spending Power problem. Pick one to see the opportunities that answer it.",
+      hmwQuestions: [
+        {
+          "id": "sooner",
+          "short": "Increases sooner",
+          "text": "…give more of the right customers an increase sooner, without raising risk?"
+        },
+        {
+          "id": "recover",
+          "short": "Recover after a setback",
+          "text": "…help a previously reliable customer who hit a rough patch earn back their spending power faster?"
+        },
+        {
+          "id": "see-limit",
+          "short": "See limit, owed and available",
+          "text": "…make it obvious to a customer what their total limit is, what they owe, and what’s available?"
+        },
+        {
+          "id": "see-increase",
+          "short": "See and use an increase",
+          "text": "…make it clear when a customer gets an increase, and encourage them to use it?"
+        },
+        {
+          "id": "progress",
+          "short": "Progress to the next increase",
+          "text": "…help customers see how close they are to earning their next increase?"
+        }
+      ],
+      dataThemes: [
+        {
+          "id": "framing",
+          "title": "What we know and don't",
+          "description": "What the team knows, what it believes, and what is still open."
+        },
+        {
+          "id": "screens",
+          "title": "What the app shows today",
+          "description": "What customers see on the Spending Power and Streaks screens, read against the problem statements."
+        },
+        {
+          "id": "evidence",
+          "title": "What customers and data say",
+          "description": "Survey comments and numbers from other sources that touch spending power."
+        }
+      ],
+      snapshots: [
+        {
+          "title": "Spending power: what we know and what we believe",
+          "theme": "framing",
+          "source": "Team context for the Spending Power pillar",
+          "headline": "Spending power is the most proven lever: increases bring customers back, and it is the top thing customers ask for. The open problems are who gets increases and when, how customers recover from a setback, and how clearly they can see their spending power.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "Known, and hypotheses",
+              "items": [
+                {
+                  "tag": "Known",
+                  "title": "Increases bring customers back",
+                  "detail": "When spending power goes up, customers come back to purchase and use the new amount."
+                },
+                {
+                  "tag": "Known",
+                  "title": "It is the most common customer request",
+                  "detail": "Increasing spending power is the most common thing customers ask for."
+                },
+                {
+                  "tag": "Known",
+                  "title": "Increases already exist in two forms",
+                  "detail": "The streak program and automated increases both exist today, and a dedicated risk partner is improving the model's data."
+                },
+                {
+                  "tag": "Known",
+                  "title": "The app shows only the available estimate",
+                  "detail": "Customers see the remaining available estimate, with no total limit, balance owed or history."
+                },
+                {
+                  "tag": "Hypothesis",
+                  "title": "Transparency would build trust and increase usage",
+                  "detail": "Showing the limit, what is owed and what is available should make it easier for customers to trust the app and use what they have."
+                },
+                {
+                  "tag": "Hypothesis",
+                  "title": "A faster path back would help loyal customers who take a large decrease",
+                  "detail": "Loyal customers who take a large decrease are less likely to return."
+                }
+              ]
+            }
+          ],
+          "context": "Why it matters for repeat transactions: this is the most direct link to the KPI in any of the pillars. A larger spending power gives customers room and a reason to place another order, and clearer visibility makes it easier to trust the app and use what they have.",
+          "notes": [
+            "These are the team's working knowledge. No figures are attached yet, so the Known items carry no numbers."
+          ]
+        },
+        {
+          "title": "Spending power: what we don't know",
+          "theme": "framing",
+          "source": "Team context for the Spending Power pillar",
+          "headline": "Six open questions decide how far the increase and visibility opportunities can go, and five more were added so each opportunity has what it needs. None has a figure yet.",
+          "intro": "Unknown 1 to 6 are the team's. Items tagged Added are questions I added. The \"how we could find out\" lines are suggestions, not decisions. The same questions sit on the opportunities they affect.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "Open questions",
+              "ideaLabel": "How we could find out",
+              "items": [
+                {
+                  "tag": "Unknown 1",
+                  "title": "How big is the repeat purchase lift from an increase, and how does it differ by tier?",
+                  "detail": "Sizes the case for giving more customers an increase sooner.",
+                  "idea": "Compare orders in the 30 and 90 days after an increase with matched customers who didn't get one, by tier."
+                },
+                {
+                  "tag": "Unknown 2",
+                  "title": "What share of Situational and Casual customers are held back by spending power rather than other reasons?",
+                  "detail": "Separates a spending power problem from a reasons-to-use problem.",
+                  "idea": "Start from declines for insufficient spending power (20.3% of in-store declines) and pair them with survey reasons for not using Zip."
+                },
+                {
+                  "tag": "Unknown 3",
+                  "title": "How many customers who qualify for an increase don't receive one, or receive it late?",
+                  "detail": "Tests whether the model or the streak rules miss good customers.",
+                  "idea": "The Streaks page gives a starting point: 86.1% of customers who repaid 5 on-time orders received an increase (as of 4/10/2025). Measure the days from the fifth on-time payment to the increase."
+                },
+                {
+                  "tag": "Unknown 4",
+                  "title": "How many previously loyal customers take a large decrease, and what do their orders look like afterward?",
+                  "detail": "Sizes the fast-path-back opportunity.",
+                  "idea": "Define loyal and large (for example 10+ on-time orders and a drop of 50% or more in a month) and compare the next 90 days of orders with loyal customers who had no decrease."
+                },
+                {
+                  "tag": "Unknown 5",
+                  "title": "How many customers notice or understand their increases today?",
+                  "detail": "Sizes the two visibility opportunities.",
+                  "idea": "A short in-app question after an increase, plus taps on the Spending power card and the Spending power increases link."
+                },
+                {
+                  "tag": "Unknown 6",
+                  "title": "What is the loss and risk cost of increases, and where are the limits on how far we can go?",
+                  "detail": "Sets how far the increase opportunities can go.",
+                  "idea": "Ask the risk partner for loss rate by increase size and tier."
+                },
+                {
+                  "tag": "Added",
+                  "title": "How are Situational, Casual, Core and Loyal defined, and how many customers are in each?",
+                  "detail": "The problem statements name these tiers, but the definitions and sizes are not yet on the page, so the problems can't be sized by tier.",
+                  "idea": "Ask the team that owns the tiers for the definitions and counts."
+                },
+                {
+                  "tag": "Added",
+                  "title": "How are loyal and a large decrease defined?",
+                  "detail": "Needed to count the group in the fast-path-back opportunity.",
+                  "idea": "Agree thresholds with the risk partner before counting."
+                },
+                {
+                  "tag": "Added",
+                  "title": "Which of total limit, amount owed and history do customers most need to see?",
+                  "detail": "Decides what the first version of the transparency opportunity shows.",
+                  "idea": "Customer interviews or a short survey, compared with what customers contact support about."
+                },
+                {
+                  "tag": "Added",
+                  "title": "How many customers can say how they earn an increase, and what share of increases come from the streak rather than the automated model?",
+                  "detail": "Tells us whether the progress and increase-visibility work should centre on the streak or on all increases.",
+                  "idea": "A short in-app question, and a split of increases by source."
+                },
+                {
+                  "tag": "Added",
+                  "title": "How long does it take Situational and Casual customers to complete a 5-order streak?",
+                  "detail": "Tests whether a streak-based increase can reach the customers who place the fewest orders.",
+                  "idea": "Measure order cadence for Situational and Casual customers against the 5-order streak."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Spending Power and Streaks screens: what customers see today",
+          "theme": "screens",
+          "source": "Audit screenshots: Spending Power and Streaks screens",
+          "headline": "Customers see an estimate and per-card amounts but no total limit, balance owed or history. Streak progress and rules are visible, and 86.1% of customers who completed a streak received an increase.",
+          "intro": "Read from the audit screenshots. Dollar amounts are screenshot values.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "Observed on screen, by problem statement",
+              "items": [
+                {
+                  "tag": "Problem 4",
+                  "title": "The screen shows an estimate and per-card amounts only",
+                  "detail": "Estimated spending power ($1,100.00 in the screenshot), a Pay in up to 2 or 4 line, and Card amount: $0 for the online virtual card and the in-store card. There is no total limit, no balance owed and no history."
+                },
+                {
+                  "tag": "Problem 4",
+                  "title": "An increase is not shown on the Spending Power screen",
+                  "detail": "The Streaks page says customers are notified to collect their new spending power after the fifth on-time order, but the Spending Power screen shows no history of increases."
+                },
+                {
+                  "tag": "Problem 5",
+                  "title": "Streak progress and rules are visible to customers in a streak",
+                  "detail": "A card shows four of five coins and Pay off one more order. The Streaks page states the rule (repay 5 on-time orders for up to a $100 increase), which orders count, and has questions on progress and the next increase. The amount shown is up to $100, not a personal figure."
+                },
+                {
+                  "tag": "Problem 2",
+                  "title": "86.1% of streak completers received an increase",
+                  "detail": "The Streaks page says 86.1% of customers who paid off 5 orders on time received an estimated spending power increase, current as of 4/10/2025. That leaves about 14% who did not, a partial answer on how many qualifying customers don't receive one."
+                },
+                {
+                  "tag": "Problem 1",
+                  "title": "The increase on offer is small next to the ask",
+                  "detail": "A completed streak earns up to $100. A separate banner offers up to $1,650 on a $1,100 estimate with a larger first installment."
+                },
+                {
+                  "tag": "Problem 3",
+                  "title": "The only mention of a decrease is the disclosure",
+                  "detail": "It says Zip or WebBank may decrease estimated spending power at its discretion, including where there is an unpaid balance or an amount past due. Nothing on the screen explains a drop or offers a way back."
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "The 86.1% figure is current to 4/10/2025, so it may be stale. Its denominator, and why the rest did not receive an increase, are not given. A legal opportunity already asks for a cadence disclosure on this figure.",
+            "Only orders placed after May 3, 2026 count toward the streak, per the Streaks screenshot."
+          ],
+          "sourceLabel": "audit screenshots (Spending Power and Streaks)"
+        },
+        {
+          "title": "What customers say about spending power in the 2025 improvement-areas survey",
+          "theme": "evidence",
+          "source": "Google Slides: Customer Improvement Areas & New Features report, Jul'24 to Jun'25",
+          "headline": "The first four pain points in the survey are about spending power: low next to other apps, slow to grow, dropping without explanation, and shown in the app yet declined.",
+          "intro": "About 100,000 responses from Zip app customers (CSAT and NPS), including 10,000+ written verbatims. Mostly qualitative: the deck gives a count only where noted.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "Spending power pain points and requests",
+              "items": [
+                {
+                  "tag": "Pain point 1",
+                  "title": "Spending power feels low next to other BNPL apps",
+                  "detail": "An estimated 35% to 50% of customers have used another BNPL brand, and newer customers find the starting limit too low for the purchases they want.",
+                  "idea": "Tell customers most start at $250 to $400 and grow within 60 days of good use, or allow a limit review after a set number of transactions."
+                },
+                {
+                  "tag": "Pain point 2",
+                  "title": "Frequent on-time payers don't feel rewarded fast enough",
+                  "detail": "Customers who use Zip often feel their loyalty isn't returned. One says paying off five orders earns about $75.",
+                  "idea": "A faster path for high-tier customers (after 3 payments, not 5), faster increases for in-store users, or a flat $25 to $50 increase after 2 to 3 purchases."
+                },
+                {
+                  "tag": "Pain point 3",
+                  "title": "Spending power drops with no explanation",
+                  "detail": "Customers describe a sudden, stressful loss (one reports $900 to $50 in under a month) and don't know whether or when it comes back."
+                },
+                {
+                  "tag": "Pain point 4",
+                  "title": "Approved in the app, declined at checkout",
+                  "detail": "Some customers see spending power in the app yet are declined, and can't plan purchases ahead."
+                },
+                {
+                  "tag": "Request 1",
+                  "title": "Faster and larger increases",
+                  "detail": "Frequent users want increases bigger than the current $25 to $100."
+                },
+                {
+                  "tag": "Request 5",
+                  "title": "See how spending power will change",
+                  "detail": "Customers want to see the exact increase from on-time payment and how it rises as purchases are paid off."
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "The report is Zip app customers only, covers Jul'24 to Jun'25 and is marked internal distribution only.",
+            "The ideas are the deck's suggestions, not tested or approved changes."
+          ],
+          "sourceLabel": "Google Slides deck (Zip sign-in required, internal distribution only)",
+          "sourceUrl": "https://docs.google.com/presentation/d/1SGeMEHaQIjzfn-_RjKoAdwucJHu978HVwin9erJxYA8/edit"
+        },
+        {
+          "title": "Other sources that touch spending power",
+          "theme": "evidence",
+          "source": "Snowflake, Vaultmate and public reviews",
+          "headline": "Spending power confusion already shows up in numbers elsewhere: a fifth of in-store declines, 6.3% of in-store support comments, and a pattern in public reviews.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "Numbers from the In-Store research",
+              "items": [
+                {
+                  "tag": "Snowflake",
+                  "title": "Insufficient spending power is about a fifth of in-store declines",
+                  "detail": "20.3% of in-store declines over six months to Sep 9, 2026, and 9.2% of lost transaction value ($11.5M), with the largest tickets: $243 on average."
+                },
+                {
+                  "tag": "Vaultmate",
+                  "title": "Unclear spending limit or available funds is the third-largest in-store support theme",
+                  "detail": "18 of 285 written comments (6.3%). The suggested response is to show the exact in-store amount on the In-Store tab."
+                },
+                {
+                  "tag": "Public reviews",
+                  "title": "Other BNPL apps hear the same complaint",
+                  "detail": "Affirm: 27 of 384 negative reviews (about 7%) were declines on a purchasing-power number the app had shown. Zip's Play listing describes spending power as an estimate, not an open line of credit, in a footnote."
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "Each figure is shown with its own base on the In-Store journey's Data/research tab, which has the sources and caveats. They are not comparable with each other."
+          ],
+          "sourceLabel": "see the In-Store journey's Data/research tab"
+        }
+      ],
       viewBox: "0 0 640 210",
       connectors: '<defs><marker id="arrowhead2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#6542BE"/></marker></defs><line x1="210" y1="105.0" x2="420" y2="105.0" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead2)"/><rect x="209.0" y="77.0" width="212" height="18" rx="9" fill="#F4F4F4"/><text x="315.0" y="90.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Taps Spending power card</text>',
       steps: [
@@ -1919,6 +2240,9 @@ const REPORT = {
     },
     {
       id: "streaks-flow",
+      shareContextWith: "spending-power-flow",
+      hmwCaption: "Streaks is how many customers earn spending power increases, so it shares the Spending Power framing. Pick a question to see the opportunities that answer it.",
+      related: { id: "spending-power-flow", label: "Open Spending Power", text: "Spending Power and Streaks share one problem: how customers earn, see and use spending power. The framing, data and top opportunities are shared with Spending Power." },
       name: "Streaks",
       screenIds: ["home", "spending-power", "payments", "payments-streak-card", "streaks-main", "streak-refund-modal", "streak-cut-short-modal", "streak-completion-modal", "home-post-completion"],
       description: "Zip Streaks is an engagement program that rewards customers who complete 5 consecutive on-time orders with an estimated spending power increase. This journey maps both entry paths (from the Home screen via Spending Power, and from the Payments tab via the streak progress chip), the motivational Streaks hub screen, three possible interrupt states (refund notification, streak cut short, and completion modal), and the post-completion home screen.",
@@ -2085,6 +2409,22 @@ const REPORT = {
           signal: null,
           screenIds: ["instore-location-disabled", "instore-location-enabled"],
           severity: "Medium", effort: "Low"
+        },
+        {
+          title: "Offer a clear recovery path after streak cut-short",
+          rationale: "The cut-short modal closes with \u201cCreate new orders to restart your streak again\u201d \u2014 correct advice, but with no direct affordance to act on it. The user dismisses the modal and lands back on whatever screen they came from, with no nudge toward the behavior that restarts their streak. Loss aversion is highest at this moment; a well-placed shortcut to browse merchants could convert a discouraged user into an immediate new order.",
+          hypothesis: "Adding a \u201cShop now\u201d shortcut (linking to search or a personalized merchant suggestion) inside the streak cut-short modal will recover at least 10% of users who would otherwise churn from the Streaks program.",
+          hmwIds: ["recover"],
+          screenIds: ["streak-cut-short-modal"],
+          severity: "High", effort: "Low"
+        },
+        {
+          title: "Personalize the reward projection on the Streaks hub",
+          rationale: "The Streaks page shows a generic \u201cup to $100\u201d reward that is identical for every user. A customer with $200 spending power experiences the same copy as one with $800, even though the absolute and relative impact of a $100 increase is very different. Showing a personalized \u201cYour spending power could go from $X to $Y\u201d projection directly addresses the question every user has: \u2018is this worth doing for me?\u2019",
+          hypothesis: "Replacing the generic \u201cup to $100\u201d with a personalized current\u2192projected spending power display will increase the proportion of Streaks-eligible users who place at least one qualifying order within 7 days of viewing the Streaks page, supporting the repeat-transaction KPI.",
+          hmwIds: ["progress"],
+          screenIds: ["streaks-main"],
+          severity: "High", effort: "Medium"
         }
         ],
       painPoints: [
@@ -2092,14 +2432,6 @@ const REPORT = {
       ],
       questions: [
         "Is there a target for how many merchandising sections the Home screen should carry before it's considered too dense?",
-        {
-          title: "Personalize the reward projection on the Streaks hub",
-          rationale: "The Streaks page shows a generic \u201cup to $100\u201d reward that is identical for every user. A customer with $200 spending power experiences the same copy as one with $800, even though the absolute and relative impact of a $100 increase is very different. Showing a personalized \u201cYour spending power could go from $X to $Y\u201d projection directly addresses the question every user has: \u2018is this worth doing for me?\u2019",
-          hypothesis: "Replacing the generic \u201cup to $100\u201d with a personalized current\u2192projected spending power display will increase the proportion of Streaks-eligible users who place at least one qualifying order within 7 days of viewing the Streaks page, supporting the repeat-transaction KPI.",
-          priority: "high",
-          screens: ["streaks-main"],
-          effort: "medium"
-        },
         {
           title: "Adapt the Streaks CTA to the user\u2019s current order state",
           rationale: "\u201cPlace a new order\u201d is the right call-to-action for a user who hasn\u2019t started their streak, but it is misleading for a user who already has an active order counting toward their streak. Showing the same CTA to in-progress users implies their existing orders don\u2019t count, creating unnecessary friction and support contacts.",
@@ -2114,14 +2446,6 @@ const REPORT = {
           hypothesis: "Updating the refund modal to display \u201cYour streak is now X of 5\u201d will reduce streak abandonment rate after a refund event by making the residual progress feel recoverable.",
           priority: "high",
           screens: ["streak-refund-modal"],
-          effort: "low"
-        },
-        {
-          title: "Offer a clear recovery path after streak cut-short",
-          rationale: "The cut-short modal closes with \u201cCreate new orders to restart your streak again\u201d \u2014 correct advice, but with no direct affordance to act on it. The user dismisses the modal and lands back on whatever screen they came from, with no nudge toward the behavior that restarts their streak. Loss aversion is highest at this moment; a well-placed shortcut to browse merchants could convert a discouraged user into an immediate new order.",
-          hypothesis: "Adding a \u201cShop now\u201d shortcut (linking to search or a personalized merchant suggestion) inside the streak cut-short modal will recover at least 10% of users who would otherwise churn from the Streaks program.",
-          priority: "high",
-          screens: ["streak-cut-short-modal"],
           effort: "low"
         }
       ]
@@ -2195,6 +2519,7 @@ const REPORT = {
           hypothesis: "Users complete the final streak step with a clear, specific reward in mind \u2014 and since each streak completion requires paying off an order, every completion maps directly to the CBT primary KPI (repeat app transactions), so the business both motivates a user behavior and captures a concrete transaction signal from it.",
           metrics: ["Completion rate on the final streak step", "Tap-through rate on \u2018Make a payment\u2019 from this card"],
           type: "Refine",
+          hmwIds: ["progress"],
           signal: "Afterpay's Pulse Rewards program states an exact 10 points per qualifying on-time payment and ties every tier to specific, named benefits, rather than a generic \u2018boost.\u2019",
           screenIds: ["spending-power"],
           severity: "Medium", effort: "Low"
@@ -2206,6 +2531,7 @@ const REPORT = {
           metrics: ["Support contacts referencing a mismatch between the shown spending power and what's offered at checkout for a specific Pay-in-X plan"],
           type: "Refine",
           evidence: { strength: "Supporting", text: "18 of 285 in-store support comments (6.3%) were about an unclear spending limit or available funds. The suggested response is to show the exact in-store amount on the In-Store tab. Public reviews echo it: Zip's Play listing describes spending power as an estimate rather than an open line of credit, in a footnote, the same ambiguity behind Affirm's decline complaints (27 of 384 negative reviews). The 2025 customer survey report points the same way: customers see spending power in the app yet are declined, and are blindsided by unexplained drops (one reports $900 to $50 in under a month). The deck gives no count." },
+          hmwIds: ["see-limit"],
           signal: null,
           screenIds: ["spending-power"],
           severity: "Medium", effort: "Medium"
@@ -2513,6 +2839,7 @@ const REPORT = {
             "strength": "Supporting",
             "text": "In the 2025 customer survey report, spending power is the subject of four of the nine pain points on the visible slides (low versus other BNPL apps, slow to grow despite on-time payments, unexplained drops, and approved-but-declined at checkout). The deck gives a count only for the share of customers who have used another BNPL (an estimated 35% to 50%); the rest is customer verbatims. The deck's ideas are untested."
           },
+          hmwIds: ["recover", "progress"],
           "signal": null,
           "screenIds": [
             "spending-power"
@@ -2541,6 +2868,225 @@ const REPORT = {
           ],
           "severity": "Medium",
           "effort": "Low"
+        },
+        {
+          "title": "Give previously reliable customers a fast path back after a large decrease",
+          "hmw": "How might we help a previously reliable customer who hit a rough patch earn back their spending power faster?",
+          "problems": [
+            {
+              "problem": "Customers with a long record of reliable payments who have one rough month are stuck with a much lower limit and no clear way back.",
+              "behind": "A large decrease after missed payments, with no fast path to recover for customers with a strong history. Affects Core and Loyal customers.",
+              "note": "The size of this group is unknown."
+            }
+          ],
+          "rationale": "A customer with a long on-time record who misses payments in one month can take a large decrease and has no quick route to recover. The team's hypothesis is that loyal customers who take a large decrease are less likely to return, and that a faster path back would help. Today the only mention of a decrease on the screen is the disclosure; nothing explains a drop or offers a way back.",
+          "hypothesis": "A faster path back for loyal customers who take a large decrease keeps them ordering.",
+          "metrics": [
+            "Large decreases among loyal customers (count, baseline needed)",
+            "Orders in the 90 days after a decrease, loyal customers against matched customers with no decrease",
+            "Time to regain the prior spending power"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Weak",
+            "text": "The team's hypothesis is that loyal customers who take a large decrease are less likely to return. The 2025 customer survey report describes the experience in customers' words (one reports spending power falling from $900 to $50 in under a month, with no explanation and no clear way back), and the Spending Power disclosure says Zip or WebBank may decrease spending power where there is an unpaid balance or an amount past due. No source here counts how many loyal customers take a large decrease or what they do afterward."
+          },
+          "questions": [{"q": "How many previously loyal customers take a large decrease, and what do their orders look like afterward?"}, {"q": "How are loyal and a large decrease defined, so the group can be counted?", "added": true}, {"q": "What is the loss and risk cost of a faster path back?", "added": true}],
+          "signal": null,
+          "hmwIds": [
+            "recover"
+          ],
+          "screenIds": [
+            "spending-power"
+          ],
+          "top": 3,
+          "severity": "High",
+          "effort": "Medium"
+        },
+        {
+          "title": "Show customers their total limit, what they owe and what is available",
+          "hmw": "How might we make it obvious to a customer what their total limit is, what they owe, and what's available?",
+          "problems": [
+            {
+              "problem": "Customers can't tell what their limit is, what they owe, or whether they just received an increase.",
+              "behind": "The app shows only the remaining available estimate, with no total limit, balance owed, or history. Customers do the math themselves and can't see that an increase happened. Affects all tiers.",
+              "note": "Split in two: the limit, what is owed and the history here; the increase itself in the next opportunity."
+            }
+          ],
+          "rationale": "The Spending Power screen shows an estimate and per-card amounts only. Customers have to work out their limit and what they owe themselves, and the confusion already shows up: it is a fifth of in-store declines and the third-largest in-store support theme.",
+          "hypothesis": "Transparency would build trust and increase usage.",
+          "metrics": [
+            "Support contacts about spending limit or available funds (baseline: 18 of 285 in-store comments, 6.3%)",
+            "Insufficient spending power declines (baseline: 20.3% of in-store declines)",
+            "Taps on the Spending power card and the Spending power increases link",
+            "Customer understanding of limit against available estimate (survey)"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Strong",
+            "text": "On the Spending Power screen as audited, customers see the estimated spending power and per-card amounts only: no total limit, no balance owed, no history. Other sources agree: unclear spending limit or available funds is the third-largest in-store support theme (18 of 285 comments, 6.3%), insufficient spending power is 20.3% of in-store declines with the largest tickets ($243 average declined), the 2025 customer survey report records customers shown spending power in the app yet declined, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%)."
+          },
+          "questions": [{"q": "Which of total limit, amount owed and history do customers most need to see?", "added": true}, {"q": "How often do customers open the Spending Power screen, and what do they do next?", "added": true}],
+          "signal": null,
+          "hmwIds": [
+            "see-limit"
+          ],
+          "screenIds": [
+            "spending-power"
+          ],
+          "top": 4,
+          "severity": "High",
+          "effort": "Medium"
+        },
+        {
+          "title": "Show customers when they get an increase and how close they are to the next one",
+          "hmw": "How might we make it clear when a customer gets an increase, and encourage them to use it? And how might we help customers see how close they are to earning their next increase?",
+          "problems": [
+            {
+              "problem": "Customers can't tell whether they just received an increase.",
+              "behind": "With no history on the screen, customers can't see that an increase happened, and may not use it.",
+              "note": "The second half of problem 4. The team's evidence is that increases bring customers back to use the new amount."
+            },
+            {
+              "problem": "Customers don't know what they need to do to earn more spending power.",
+              "behind": "The streak program's progress and rules may not be visible.",
+              "note": "Combined with problem 4, as one loop: see the increase, then see the next one. The Spending Power and Streaks screens already show streak progress and rules, so the gap looks narrower than stated: the size of the next increase, and increases outside the streak."
+            }
+          ],
+          "rationale": "These are two halves of one loop. An increase only pays off if the customer notices it and uses it, and the next one only motivates if they can see how close it is. The Streaks page says customers are notified to collect their new spending power after the fifth on-time order, but the Spending Power screen shows no history of increases, and increases from the automated model have no visible moment at all. For customers in a streak the screens already show progress (coins toward five) and the rules (repay five on-time orders for up to a $100 increase); what is not visible is the size of the next increase, which the page gives as up to $100 and not a personal figure.",
+          "hypothesis": "Telling customers when they get an increase, prompting them to use it, and showing how close the next one is raises the share who place an order with the new amount, and raises on-time payment.",
+          "metrics": [
+            "Share of customers who place an order within 7 days of an increase",
+            "Taps on streak progress and the What will be my next increase question",
+            "On-time payment rate for customers who can see a personal next-increase figure",
+            "Customers who notice or understand their increase, and who can say how they earn one (survey, baseline needed)"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "The team's evidence is that increases bring customers back to use the new amount. The Streaks page says customers are notified to collect their new spending power after the fifth on-time order, and the 2025 customer survey report records customers asking to see the exact increase from on-time payment and how spending power will change. The Spending Power and Streaks screens already show streak progress and the rules, so for customers in a streak the gap is narrower than the problem statement says: what is missing is the size of the next increase (the page says up to $100, not a personal figure) and anything about increases outside the streak. How many customers notice or understand an increase today is unknown."
+          },
+          "questions": [
+            {
+              "q": "How many customers notice or understand their increases today?"
+            },
+            {
+              "q": "How many customers can say how they earn an increase?",
+              "added": true
+            },
+            {
+              "q": "What share of increases come from the streak, and what share from the automated model?",
+              "added": true
+            }
+          ],
+          "signal": null,
+          "hmwIds": [
+            "see-increase",
+            "progress"
+          ],
+          "screenIds": [
+            "spending-power"
+          ],
+          "top": 5,
+          "severity": "Medium",
+          "effort": "Medium"
+        },
+        {
+          "title": "Raise the spending power ceiling for customers who are held back by their limit",
+          "hmw": "How might we give more of the right customers the increase they need, without raising risk?",
+          "problems": [
+            {
+              "problem": "Customers want to use Zip for more of their purchases, but their spending power isn't enough.",
+              "behind": "More spending power is the top customer request, and increases reliably drive return purchases. Likely affects Situational and Casual customers most.",
+              "note": "Split from problem 2. This one is about the size of the limit."
+            }
+          ],
+          "rationale": "Some customers want to put more of their purchases through Zip but are capped by what they can spend. It is the top customer request, and increases bring customers back to use the new amount. It is also the riskiest lever, because it means giving more spending power to customers with less history. Situational and Casual customers place few orders, so a faster streak won't reach them quickly: a change to the starting limit, a limit review or a bigger increase may matter more for them than speed.",
+          "hypothesis": "Giving the right customers who are capped by their limit more spending power raises repeat purchases without raising loss rates.",
+          "metrics": [
+            "Share of Situational and Casual customers declined for insufficient spending power",
+            "Repeat purchase rate after a limit increase, by tier",
+            "Loss rate by limit size and tier (risk guardrail)"
+          ],
+          "type": "Refine",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "Known from the team: increases bring customers back to purchase and use the new amount, and increasing spending power is the most common customer request. Other sources point the same way: insufficient spending power is 20.3% of in-store declines (six months to Sep 9, 2026) and 9.2% of lost transaction value, with the largest tickets ($243 average declined), and the 2025 customer survey report lists the low starting limit as pain point 1 (an estimated 35% to 50% of customers have used another BNPL) and faster, larger increases as feature request 1. No figure yet sizes the repeat-purchase lift, how many Situational and Casual customers are held back by their limit, or the loss cost."
+          },
+          "questions": [
+            {
+              "q": "What share of Situational and Casual customers are held back by their spending power versus other reasons?"
+            },
+            {
+              "q": "How big is the repeat purchase lift from an increase, and how does it differ by tier?"
+            },
+            {
+              "q": "What is the loss and risk cost of increases, and where are the limits on how far we can go?"
+            },
+            {
+              "q": "How are Situational, Casual, Core and Loyal defined, and how many customers are in each?",
+              "added": true
+            }
+          ],
+          "signal": null,
+          "hmwIds": [
+            "sooner"
+          ],
+          "screenIds": [
+            "spending-power"
+          ],
+          "top": 1,
+          "severity": "High",
+          "effort": "High"
+        },
+        {
+          "title": "Reach customers who qualify for an increase faster",
+          "hmw": "How might we give the right customers an increase sooner, without raising risk?",
+          "problems": [
+            {
+              "problem": "Customers who pay on time don't feel rewarded for it quickly enough.",
+              "behind": "Increases depend on streak rules and a model that may miss good customers or reach them late. Affects middle-tier customers building a track record.",
+              "note": "Split from problem 1. This one is about speed and fairness."
+            }
+          ],
+          "rationale": "Customers with an on-time record already qualify for increases, but the streak asks for five on-time orders for up to $100, and the automated model may miss good customers or reach them late. The Streaks page says 86.1% of customers who repaid five on-time orders received an increase (current to 4/10/2025), which leaves about 14% who did not. These customers have a track record, so this is the lower-risk way to give more customers an increase sooner, and the survey deck's own ideas point at it: a path after 3 payments instead of 5, or a flat $25 to $50 increase after 2 to 3 purchases.",
+          "hypothesis": "Faster, broader increases for customers with a proven on-time record raise repeat purchases without raising loss rates.",
+          "metrics": [
+            "Share of qualifying customers who receive an increase, and days from qualifying to receiving it",
+            "Repeat purchase rate in the 30 and 90 days after an increase, by tier",
+            "Time for Situational and Casual customers to complete a 5-order streak",
+            "Loss rate by increase size and tier (risk guardrail)"
+          ],
+          "type": "Refine",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "The 2025 customer survey report lists frequent on-time payers not feeling rewarded fast enough as pain point 2 (one customer says paying off five orders earns about $75) and suggests a faster path for high-tier customers and a flat $25 to $50 increase after 2 to 3 purchases. The Streaks page says 86.1% of customers who repaid 5 on-time orders received an increase (as of 4/10/2025). The team's known evidence is that the streak program and automated increases both exist today and that a risk partner is improving the model's data. No figure yet shows how many qualifying customers don't receive an increase or receive it late."
+          },
+          "questions": [
+            {
+              "q": "How many customers who qualify for an increase don't receive one, or receive it late?"
+            },
+            {
+              "q": "How big is the repeat purchase lift from an increase, and how does it differ by tier?"
+            },
+            {
+              "q": "How long does it take Situational and Casual customers to complete a 5-order streak?",
+              "added": true
+            },
+            {
+              "q": "What is the loss and risk cost of increases, and where are the limits on how far we can go?"
+            }
+          ],
+          "signal": null,
+          "hmwIds": [
+            "sooner"
+          ],
+          "screenIds": [
+            "spending-power"
+          ],
+          "top": 2,
+          "severity": "High",
+          "effort": "Medium"
         }
         ],
       painPoints: [
@@ -2586,6 +3132,7 @@ const REPORT = {
           rationale: "The Payments tab popup shows streak progress as numbered open circles (1\u20135), while the Streaks hub uses filled coin icons. A user who sees the popup first then navigates to the hub encounters a different visual language for the same concept. This inconsistency suggests two teams built these screens independently. A single reusable \u2018StreakTracker\u2019 component should render identically across all surfaces.",
           hypothesis: "Unifying the streak-tracker component will eliminate the visual discontinuity that causes users to question whether the two representations refer to the same program.",
           screenIds: ["payments-streak-card", "streaks-main"],
+          hmwIds: ["progress"],
           severity: "High", effort: "Medium"
         },
         {
@@ -2593,6 +3140,7 @@ const REPORT = {
           rationale: "The \u201cYou\u2019ve got more spending power!\u201d modal appears to be one of several post-streak celebration screens but provides no indicator of how many screens follow or how to advance. Users may miss subsequent content (or mistake it for a full-screen takeover with no exit). Pagination dots, a \u2018Continue\u2019 CTA, or a visible dismiss handle would resolve the ambiguity.",
           hypothesis: "Adding a clear CTA or page indicator to the completion modal will reduce the number of users who abandon the post-completion flow prematurely, increasing the share who see the updated home screen with the sparkle animation.",
           screenIds: ["streak-completion-modal"],
+          hmwIds: ["see-increase"],
           severity: "High", effort: "Low"
         },
         {
@@ -2600,6 +3148,7 @@ const REPORT = {
           rationale: "The home screen shows sparkle animations around the spending power card after streak completion \u2014 but only transiently. Once dismissed or after the user navigates away, the home screen is visually identical to pre-completion. A persistent \u2018New\u2019 badge or brief callout (\u201cSpending power increased!\u201d) on the spending power card for 48\u201372 hours reinforces the reward and gives the user something to show others.",
           hypothesis: "A persistent post-completion state on the home spending power card will increase the share of completers who tap through to the Spending Power screen to see their new limit.",
           screenIds: ["home-post-completion"],
+          hmwIds: ["see-increase"],
           severity: "Medium", effort: "Low"
         },
         {
@@ -2638,6 +3187,7 @@ const REPORT = {
           hypothesis: "The two upsells reinforce rather than compete with each other, because their visual hierarchy is a deliberate choice rather than incidental page order.",
           metrics: [],
           type: "Refine",
+          hmwIds: ["sooner"],
           signal: null,
           screenIds: ["spending-power"],
           severity: "Low", effort: "Low"
@@ -2736,6 +3286,7 @@ const REPORT = {
           hypothesis: "The business can tell which upsell path more efficiently drives repeat app transactions \u2014 the CBT primary KPI \u2014 because the streak (which requires completing an order) and the larger-first-installment path are measured head-to-head rather than both assumed worth keeping indefinitely.",
           metrics: ["Conversion rate on the larger-first-installment offer vs. the streak-completion \u2018Make a payment\u2019 link"],
           type: "Refine",
+          hmwIds: ["sooner"],
           signal: null,
           screenIds: ["spending-power"],
           severity: "Medium", effort: "Medium"
@@ -2766,23 +3317,7 @@ const REPORT = {
         ],
       painPoints: [],
       questions: [
-        "Do sponsored \u201cFeatured\u201d placements in Search perform differently from equivalent placements on Home, and is that tracked separately today?",
-        {
-          title: "Model the unit economics of spending power increases against repeat transaction lift",
-          rationale: "Granting spending power increases has a direct credit cost. To be sustainable, the incremental repeat transactions from Streaks completers must exceed the expected credit loss from a higher spend limit. A cohort model comparing Streaks completers vs. matched controls on 90-day GMV and delinquency rate will validate (or challenge) the program\u2019s financial thesis.",
-          hypothesis: "Streaks completers will show a statistically significant lift in 90-day GMV that outweighs the marginal credit exposure from their higher spending power tier.",
-          priority: "high",
-          screens: ["streaks-main", "streak-completion-modal"],
-          effort: "high"
-        },
-        {
-          title: "Define a cap or tier ceiling on Streaks-granted spending power increases",
-          rationale: "If Streaks grants \u201cup to $100\u201d per completion and users can complete multiple streaks, the cumulative spending power exposure could exceed responsible credit limits for some risk segments. The program\u2019s business rules should specify whether increases stack, whether there is a ceiling per customer lifetime, and how they interact with manual credit reviews.",
-          hypothesis: "Defining explicit tier caps on Streaks rewards will allow the program to scale without unexpected portfolio risk concentration in high-streak-completion cohorts.",
-          priority: "medium",
-          screens: ["streaks-main"],
-          effort: "medium"
-        }
+        "Do sponsored \u201cFeatured\u201d placements in Search perform differently from equivalent placements on Home, and is that tracked separately today?"
       ]
     },
     {
@@ -2836,14 +3371,6 @@ const REPORT = {
           rationale: "The Streaks page cites 86.1% of Zip customers make all payments on time as social proof, but the statistic is undated. An undated advertising claim that becomes stale is a compliance risk under FTC guidelines on substantiation. A \u201cas of [date]\u201d or \u201cbased on [period]\u201d annotation is a low-effort fix.",
           hypothesis: "Adding a date disclosure to the 86.1% stat will satisfy legal substantiation requirements with zero impact on the persuasive value of the claim.",
           priority: "medium",
-          screens: ["streaks-main"],
-          effort: "low"
-        },
-        {
-          title: "Disclose streak eligibility and disqualification rules before enrollment",
-          rationale: "If a customer discovers after a refund or missed payment that their streak was voided \u2014 without having been told the rules upfront \u2014 they have grounds for a complaint. The eligibility section of the Streaks page should include a plain-language summary of qualifying/disqualifying events (on-time payment required, refunds can reduce progress, minimum 5 distinct orders, etc.) before the user starts a streak.",
-          hypothesis: "Pre-enrollment eligibility disclosure will reduce Streaks-related disputes and CFPB complaint risk while increasing user confidence in the program rules.",
-          priority: "high",
           screens: ["streaks-main"],
           effort: "low"
         }
@@ -2920,14 +3447,6 @@ const REPORT = {
           effort: "low"
         },
         {
-          title: "Segment Streaks completion rate by spending power tier",
-          rationale: "Users with very low spending power ($50\u2013$150) may be more motivated by a $100 increase (100\u2013200% uplift) than users with high spending power ($700+) for whom the same amount is a 15% change. Tier-segmented completion rates reveal whether Streaks should be targeted, personalized by tier, or left as a universal program.",
-          hypothesis: "Streaks completion rate will be significantly higher in low-SP tiers (\u003c$300) than high-SP tiers (\u003e$600), indicating the program\u2019s motivational value is inversely correlated with existing spending power.",
-          priority: "medium",
-          screens: ["streaks-main"],
-          effort: "low"
-        },
-        {
           title: "Track which Streaks entry path (Path A vs Path B) drives higher completion",
           rationale: "The journey has two entry paths: (A) Home \u2192 Spending Power \u2192 Streaks, and (B) Payments tab \u2192 streak chip \u2192 Streaks. Users arriving via Path B are already engaged with their payments and likely have more context about Streaks progress. Knowing which path produces higher completion rates guides where to invest in discoverability.",
           hypothesis: "Path B (Payments-tab entry) will produce higher Streaks completion rates than Path A (Spending Power screen entry), because Path B users are already in a payment-management mindset and have seen their progress chip.",
@@ -2947,6 +3466,7 @@ const REPORT = {
           metrics: ["Support contacts mentioning a mismatch between Spending Power and a specific Pay-in-X plan's limit"],
           type: "Add",
           evidence: { strength: "Supporting", text: "Unclear spending limit or available funds is already the third-largest in-store support theme (18 of 285, 6.3%), so these contacts are not hypothetical. The comments do not say which pay plan the limit relates to. Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a purchasing-power number the app had shown), and Zip's own Play listing says spending power is an estimate, not an open line of credit, in a footnote. The 2025 customer survey report records the same confusion in customers' words: spending power shown in the app but declines at checkout, and drops with no explanation. The deck gives no count." },
+          hmwIds: ["see-limit"],
           signal: null,
           screenIds: ["spending-power"],
           severity: "Low", effort: "Low"
@@ -2973,6 +3493,38 @@ const REPORT = {
           signal: null,
           screenIds: ["instore-common-questions"],
           severity: "Medium", effort: "Low"
+        },
+        {
+          title: "Define a cap or tier ceiling on Streaks-granted spending power increases",
+          rationale: "If Streaks grants \u201cup to $100\u201d per completion and users can complete multiple streaks, the cumulative spending power exposure could exceed responsible credit limits for some risk segments. The program\u2019s business rules should specify whether increases stack, whether there is a ceiling per customer lifetime, and how they interact with manual credit reviews.",
+          hypothesis: "Defining explicit tier caps on Streaks rewards will allow the program to scale without unexpected portfolio risk concentration in high-streak-completion cohorts.",
+          hmwIds: ["sooner"],
+          screenIds: ["streaks-main"],
+          severity: "Medium", effort: "Medium"
+        },
+        {
+          title: "Model the unit economics of spending power increases against repeat transaction lift",
+          rationale: "Granting spending power increases has a direct credit cost. To be sustainable, the incremental repeat transactions from Streaks completers must exceed the expected credit loss from a higher spend limit. A cohort model comparing Streaks completers vs. matched controls on 90-day GMV and delinquency rate will validate (or challenge) the program\u2019s financial thesis.",
+          hypothesis: "Streaks completers will show a statistically significant lift in 90-day GMV that outweighs the marginal credit exposure from their higher spending power tier.",
+          hmwIds: ["sooner"],
+          screenIds: ["streaks-main", "streak-completion-modal"],
+          severity: "High", effort: "High"
+        },
+        {
+          title: "Segment Streaks completion rate by spending power tier",
+          rationale: "Users with very low spending power ($50\u2013$150) may be more motivated by a $100 increase (100\u2013200% uplift) than users with high spending power ($700+) for whom the same amount is a 15% change. Tier-segmented completion rates reveal whether Streaks should be targeted, personalized by tier, or left as a universal program.",
+          hypothesis: "Streaks completion rate will be significantly higher in low-SP tiers (\u003c$300) than high-SP tiers (\u003e$600), indicating the program\u2019s motivational value is inversely correlated with existing spending power.",
+          hmwIds: ["sooner"],
+          screenIds: ["streaks-main"],
+          severity: "Medium", effort: "Low"
+        },
+        {
+          title: "Disclose streak eligibility and disqualification rules before enrollment",
+          rationale: "If a customer discovers after a refund or missed payment that their streak was voided \u2014 without having been told the rules upfront \u2014 they have grounds for a complaint. The eligibility section of the Streaks page should include a plain-language summary of qualifying/disqualifying events (on-time payment required, refunds can reduce progress, minimum 5 distinct orders, etc.) before the user starts a streak.",
+          hypothesis: "Pre-enrollment eligibility disclosure will reduce Streaks-related disputes and CFPB complaint risk while increasing user confidence in the program rules.",
+          hmwIds: ["progress"],
+          screenIds: ["streaks-main"],
+          severity: "High", effort: "Low"
         }
         ],
       painPoints: [
@@ -3409,6 +3961,11 @@ function renderOppCard(opp, showLens, id, hmwCtx) {
         <div class="field-label">Customer evidence<span class="evidence-strength">${opp.evidence.strength}</span></div>
         <div class="field-value muted">${opp.evidence.text}</div>
       </div>` : ""}
+      ${opp.questions && opp.questions.length ? `
+      <div class="opp-field">
+        <div class="field-label">Questions to answer<span class="evidence-strength">${opp.questions.length} open</span></div>
+        <ul class="opp-questions">${opp.questions.map(x => `<li>${x.q}${x.added ? `<span class="opp-q-tag">Added</span>` : ""}</li>`).join("")}</ul>
+      </div>` : ""}
       ${opp.signal ? `
       <div class="opp-field">
         <div class="field-label">Seen elsewhere</div>
@@ -3416,6 +3973,7 @@ function renderOppCard(opp, showLens, id, hmwCtx) {
       </div>` : ""}
       <div class="badge-row">
         ${opp.top ? badge("Top opportunity", "top-opp") : ""}
+        ${opp.questions && opp.questions.length ? badge(`${opp.questions.length} open question${opp.questions.length === 1 ? "" : "s"}`, "open-q") : ""}
         ${hmwCtx && opp.hmwIds ? opp.hmwIds.map(h => {
           const n = hmwCtx.questions.findIndex(q => q.id === h);
           return n < 0 ? "" : `<button type="button" class="badge hmw-chip" title="Show the opportunities that answer this question" onclick="setJourneyHmw('${hmwCtx.journeyId}', '${h}')">HMW ${n + 1} · ${hmwCtx.questions[n].short}</button>`;
@@ -3690,12 +4248,13 @@ function renderJourneyHmw(journey, relevantOpps) {
   return `
     <div class="hmw-frame">
       <div class="hmw-frame-title">How might we&hellip;</div>
-      <p class="hmw-frame-caption">Five ways to frame the in-store problem. Pick one to see the opportunities that answer it.</p>
+      <p class="hmw-frame-caption">${journey.hmwCaption || "Ways to frame this problem. Pick one to see the opportunities that answer it."}</p>
       <div class="hmw-list" role="group" aria-label="Filter opportunities by how-might-we question">${qs.map((q, i) => `
         <button type="button" class="hmw-item" aria-pressed="${cur === q.id}" onclick="setJourneyHmw('${journey.id}', '${q.id}')">
           <span class="hmw-num">${i + 1}</span><span class="hmw-text">${q.text}</span><span class="hmw-count" title="Opportunities that answer this question">${count(q)}</span>
         </button>`).join("")}
       </div>
+      ${(() => { const nq = relevantOpps.reduce((n, o) => n + ((o.questions || []).length), 0); return nq ? `<p class="hmw-open-q"><strong>${nq} open questions</strong> are attached to these opportunities. <button type="button" class="insight-link" onclick="setJourneyTab('${journey.id}', 'data')">See what we don't know</button></p>` : ""; })()}
       ${cur ? `<button type="button" class="insight-link hmw-frame-clear" onclick="setJourneyHmw('${journey.id}', null)">Show all opportunities</button>` : ""}
     </div>`;
 }
@@ -3749,7 +4308,7 @@ function renderSnapshotList(block) {
         <li>
           <div class="snap-list-head"><span class="snap-list-tag">${it.tag}</span><strong>${it.title}</strong></div>
           <p class="snap-list-detail">${it.detail}</p>
-          ${it.idea ? `<p class="snap-list-idea"><span>The deck's idea</span> ${it.idea}</p>` : ""}
+          ${it.idea ? `<p class="snap-list-idea"><span>${block.ideaLabel || "The deck's idea"}</span> ${it.idea}</p>` : ""}
         </li>`).join("")}
       </ul>`;
 }
@@ -3781,9 +4340,11 @@ function renderSnapshotCard(sn) {
       ${sn.total ? `<p class="snap-total"><strong>${sn.total.value}</strong>${sn.total.label}, ${sn.period}</p>` : ""}
       ${sn.intro ? `<p class="snap-total">${sn.intro}</p>` : ""}
       ${sn.blocks.map(renderSnapshotBlock).join("")}
-      <p class="insight-meta">${sn.context}</p>
+      ${sn.context ? `<p class="insight-meta">${sn.context}</p>` : ""}
       <ul class="insight-notes">${(sn.notes || []).map(n => `<li>${n}</li>`).join("")}</ul>
-      <a class="insight-source-link" href="${sn.sourceUrl}" target="_blank" rel="noopener">Source: ${sn.sourceLabel} &#8599;</a>
+      ${sn.sourceUrl
+        ? `<a class="insight-source-link" href="${sn.sourceUrl}" target="_blank" rel="noopener">Source: ${sn.sourceLabel} &#8599;</a>`
+        : (sn.sourceLabel ? `<p class="insight-source-link">Source: ${sn.sourceLabel}</p>` : "")}
     </div>`;
 }
 
@@ -3854,6 +4415,19 @@ function renderJourneyTabs(journey, oppCount) {
   </div>`;
 }
 
+// Journeys that share a problem space (journey.shareContextWith) reuse the other journey's
+// how-might-we questions, data themes and data cards, so both read as one pillar.
+function applySharedJourneyContext() {
+  (REPORT.journeys || []).forEach(j => {
+    const src = j.shareContextWith && REPORT.journeys.find(x => x.id === j.shareContextWith);
+    if (!src) return;
+    ["hmwQuestions", "dataThemes", "snapshots", "insights"].forEach(k => { if (j[k] === undefined && src[k] !== undefined) j[k] = src[k]; });
+  });
+}
+applySharedJourneyContext();
+
+function openJourney(id) { activePanel = "journey"; selectJourney(id); }
+
 function renderJourneyPanel() {
   const journey = getCurrentJourney();
   if (!journey || (!journey.flowDiagram && !(journey.steps && journey.steps.length))) {
@@ -3883,6 +4457,7 @@ function renderJourneyPanel() {
   const cur = getJourneyTab(journey.id);
   return `
     <h1>${isMultiJourney ? journey.name : "Journey"}</h1>
+    ${journey.related ? `<p class="journey-related">${journey.related.text} <button type="button" class="insight-link" onclick="openJourney('${journey.related.id}')">${journey.related.label}</button></p>` : ""}
     ${diagramPart}
     ${tabbed
       ? `${renderJourneyTabs(journey, relevantOpps.length)}<div role="tabpanel" id="journeyTabPanel" aria-labelledby="journeyTab-${cur}">${cur === "opps" ? oppsPart : dataPart}</div>`
