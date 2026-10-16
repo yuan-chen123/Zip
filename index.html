@@ -625,6 +625,25 @@
   .theme-count { font-size: 12px; font-weight: 600; background: var(--accent-tint); color: var(--accent-dark); border-radius: 999px; padding: 1px 9px; }
   .theme-desc { margin: 2px 0 6px; padding-bottom: 10px; border-bottom: 2px solid var(--accent-tint-strong); font-size: 13px; line-height: 18px; color: var(--text-muted); }
   .theme-desc + .section-label { margin-top: 18px; }
+  /* Key takeaway tiles and compact (collapsible) data cards. */
+  .takeaways { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 10px; margin: 4px 0 0; }
+  .takeaway { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px 14px; text-align: left; font: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-card); cursor: pointer; }
+  .takeaway:hover { border-color: var(--accent); background: var(--accent-tint); }
+  .takeaway:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 2px; }
+  .takeaway-value { font-size: 26px; line-height: 30px; font-weight: 700; color: var(--accent-dark); }
+  .takeaway-label { font-size: 12px; line-height: 17px; color: var(--text-muted); }
+  .takeaways-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 10px 0 0; font-size: 12px; color: var(--text-muted); }
+  .takeaways-bar + .section-label, .takeaways + .section-label { margin-top: 22px; }
+  .insight-toggle { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; padding: 6px 14px; font: inherit; font-size: 13px; font-weight: 600; color: var(--accent-dark); background: var(--accent-tint); border: 1px solid var(--accent-tint-strong); border-radius: 999px; cursor: pointer; }
+  .insight-toggle:hover { background: var(--accent-tint-strong); }
+  .insight-toggle:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 2px; }
+  .insight-toggle .chev { width: 14px; height: 14px; transition: transform 0.15s ease; }
+  .insight-card.expanded .insight-toggle .chev { transform: rotate(180deg); }
+  .insight-card.compact:not(.expanded) .snap-more { display: none; }
+  .insight-card.compact:not(.expanded) .insight-row .insight-ask { display: none; }
+  .insight-card.compact:not(.expanded) .insight-row.extra { display: none; }
+  .insight-card.compact:not(.expanded) .insight-row-head { margin-bottom: 5px; }
+  @media (prefers-reduced-motion: reduce) { .insight-toggle .chev { transition: none; } }
   .snap-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
   .snap-list-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
   .snap-list-head strong { font-size: 14px; line-height: 19px; color: var(--text); }
@@ -1190,7 +1209,35 @@ const REPORT = {
         {
           "id": "declines",
           "title": "Decline-related",
-          "description": "Why in-store payments decline, what the declines cost, where they happen and what customers do next."
+          "description": "Why in-store payments decline, what the declines cost, where they happen and what customers do next.",
+          "takeaways": [
+            {
+              "value": "9.6%",
+              "label": "of in-store authorizations are declined",
+              "card": "Why in-store payments decline"
+            },
+            {
+              "value": "44.5%",
+              "label": "of declines are a used-up card; retrying can't fix it",
+              "card": "Why in-store payments decline"
+            },
+            {
+              "value": "72%",
+              "label": "of declined purchases are retried; none of the retries was approved in this data",
+              "card": "What happens after a decline: retries and abandonment"
+            },
+            {
+              "value": "$125M",
+              "label": "declined, 10.5% of attempted value; 49% from issuer rejections",
+              "card": "What declines cost in transaction value (TTV)"
+            },
+            {
+              "value": "204K",
+              "label": "grocery declines, the most of any merchant type",
+              "card": "In-store declines by merchant type"
+            }
+          ],
+          "takeawaysNote": "Last six months to Sep 9, 2026 unless noted. Select a number to jump to its card."
         },
         {
           "id": "voice",
@@ -1279,7 +1326,8 @@ const REPORT = {
                   "value": "4.4 attempts",
                   "pct": 14.6
                 }
-              ]
+              ],
+              "more": true
             },
             {
               "type": "split",
@@ -1299,7 +1347,8 @@ const REPORT = {
                   "value": "e.g. $38.89 vs $0.96",
                   "pct": 10.0
                 }
-              ]
+              ],
+              "more": true
             }
           ],
           "context": "The 30-day and 90-day figures sit within a point of the six-month ones (pre-authorization / already settled 45.2% and 44.1%, payment source failed 28.8% and 29.5%, insufficient spending power 19.0% and 19.6%). By dollars the order changes: payment source failed is the biggest cause (49.1% of lost transaction value), then pre-authorization / already settled (28.8%).",
@@ -1313,7 +1362,8 @@ const REPORT = {
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
           "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
-          "theme": "declines"
+          "theme": "declines",
+          "compact": true
         },
         {
           "title": "What happens after a decline: retries and abandonment",
@@ -1360,7 +1410,8 @@ const REPORT = {
                   "value": "165,527",
                   "pct": 28.1
                 }
-              ]
+              ],
+              "more": true
             },
             {
               "type": "split",
@@ -1380,7 +1431,8 @@ const REPORT = {
                   "value": "57,692",
                   "pct": 27.4
                 }
-              ]
+              ],
+              "more": true
             }
           ],
           "context": "The split barely moves across the three windows (72.6%, 71.9% and 72.1% retried), and the average number of attempts per retried purchase edges down from 3.4 to 3.1. The largest decline cause is a card that has already been used, where every retry meets the same closed balance: the average attempt at which that decline happens is 3.3 (already settled and over the single-authorization limit), 4.4 (already settled only) or 2.3 (single-authorization limit only), as the first card shows.",
@@ -1391,7 +1443,8 @@ const REPORT = {
             "In-store means contactless, chip, keyed-in and swipe authorizations by active users."
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
-          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
+          "compact": true
         },
         {
           "title": "What declines cost in transaction value (TTV)",
@@ -1458,7 +1511,8 @@ const REPORT = {
                   "cls": "snap-c1",
                   "detail": "5% of lost TTV. 7.1% of attempted TTV lost. $37 average declined transaction."
                 }
-              ]
+              ],
+              "more": true
             },
             {
               "type": "rows",
@@ -1520,7 +1574,8 @@ const REPORT = {
                   "cls": "snap-c1",
                   "detail": "17,098 declines. 9.2% of attempted TTV lost. $143 average."
                 }
-              ]
+              ],
+              "more": true
             }
           ],
           "context": "Counting dollars changes the picture from counting declines. Used-up cards lead by count (44.5%) but are small tickets ($78), so they are 28.8% of lost TTV; issuer rejections are 28.8% of declines but 49.1% of the dollars. Grocery and gas together are $27.3M, about 22% of lost TTV. Electronics ($2.4M, 14.4% lost, $325 average) and auto service ($2.1M, 12.4% lost, $296 average) are smaller in total but have the largest tickets. The loss rate was 9.98% over 30 days ($21.4M) and 10.84% over 90 days ($68.2M).",
@@ -1533,7 +1588,8 @@ const REPORT = {
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
           "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
-          "theme": "declines"
+          "theme": "declines",
+          "compact": true
         },
         {
           "title": "In-store declines by merchant type",
@@ -1594,7 +1650,8 @@ const REPORT = {
                   "cls": "snap-c1",
                   "detail": "2.5% of declines. 100% decline rate, a blocked category."
                 }
-              ]
+              ],
+              "preview": 4
             }
           ],
           "context": "Grocery and gas together are about a third of all declines (364K of 1.07M). The other two thirds sit under Other (707K, 10.3% rate), which the chat only breaks down to its top five categories: discount stores, restaurants, fast food, barber and beauty, and government services, about 250K together. Government services are mostly DMV and motor vehicle offices, county tax and tag offices and municipal payments. Over 30 days the overall rate was 9.95%, with grocery at 8.0% and gas at 10.9%.",
@@ -1604,7 +1661,8 @@ const REPORT = {
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
           "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
-          "theme": "declines"
+          "theme": "declines",
+          "compact": true
         },
         {
           "title": "Largest grocery merchants by declines",
@@ -1686,7 +1744,8 @@ const REPORT = {
                   "cls": "snap-c1",
                   "detail": "7.53% decline rate. $91 average declined amount. 39,044 authorizations."
                 }
-              ]
+              ],
+              "preview": 5
             }
           ],
           "context": "The top five (Walmart, Kroger, H-E-B, Publix, Aldi) account for about 72K declines, roughly 35% of the grocery category. Smaller chains in the chat's table: Trader Joe's 2,023 declines at 4.70% (the lowest rate), Stop & Shop 1,678 at 8.50%, and Albertsons 1,452 at 7.23%.",
@@ -1699,7 +1758,8 @@ const REPORT = {
           ],
           "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
           "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855",
-          "theme": "declines"
+          "theme": "declines",
+          "compact": true
         },
         {
           "title": "In-Store CTAs: Pay in-store button vs the amount card",
@@ -4426,8 +4486,8 @@ function renderSnapshotBlock(bl) {
 function renderSnapshotRows(block) {
   return `
       <div class="snap-bar-title">${block.title}</div>
-      <ol class="insight-bars">${block.rows.map(r => `
-        <li class="insight-row" title="${r.label}: ${r.value}">
+      <ol class="insight-bars">${block.rows.map((r, idx) => `
+        <li class="insight-row${block.preview && idx >= block.preview ? " extra" : ""}" title="${r.label}: ${r.value}">
           <div class="insight-row-head"><span class="insight-label">${r.label}</span><span class="insight-value"><strong>${r.value}</strong></span></div>
           <div class="insight-ask">${r.detail}</div>
           <div class="insight-track" aria-hidden="true"><div class="insight-bar ${r.cls}" style="width:${r.pct}%"></div></div>
@@ -4435,18 +4495,54 @@ function renderSnapshotRows(block) {
       </ol>`;
 }
 
+// Compact data cards (sn.compact): the headline, the key figures and the first chart stay in view.
+// Blocks marked `more`, rows past a block's `preview` count, each row's detail line, and the
+// context and notes sit behind "Show details". A theme can also list `takeaways`: big numbers that
+// jump to their card, with one control to open or close every card's details.
+let dataCardOpen = {};
+function dataCardSlug(title) { return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+function setDataCardExpanded(card, open) {
+  card.classList.toggle("expanded", open);
+  const btn = card.querySelector(".insight-toggle");
+  if (btn) { btn.setAttribute("aria-expanded", String(open)); btn.querySelector(".t").textContent = open ? "Hide details" : "Show details"; }
+  dataCardOpen[card.dataset.card] = open;
+}
+function toggleDataCard(btn) {
+  const card = btn.closest(".insight-card");
+  setDataCardExpanded(card, !card.classList.contains("expanded"));
+}
+function toggleThemeDetails(themeId, btn) {
+  const cards = [...document.querySelectorAll(`#dataTheme-${themeId} .insight-card.compact`)];
+  const open = !cards.every(c => c.classList.contains("expanded"));
+  cards.forEach(c => setDataCardExpanded(c, open));
+  btn.textContent = open ? "Hide all details" : "Show all details";
+}
+function scrollToDataCard(slug) {
+  const el = document.getElementById("dataCard-" + slug);
+  if (el) el.scrollIntoView({ behavior: "auto", block: "start" });
+}
+
 function renderSnapshotCard(sn) {
+  const slug = dataCardSlug(sn.title);
+  const compact = !!sn.compact;
+  const open = compact && !!dataCardOpen[slug];
+  const primary = compact ? sn.blocks.filter(b => !b.more) : sn.blocks;
+  const more = compact ? sn.blocks.filter(b => b.more) : [];
   return `
-    <div class="section-label">${sn.title}</div>
-    <div class="insight-card${sn.review ? " needs-review" : ""}">
+    <div class="section-label" id="dataCard-${slug}">${sn.title}</div>
+    <div class="insight-card${sn.review ? " needs-review" : ""}${compact ? " compact" : ""}${open ? " expanded" : ""}" data-card="${slug}">
       <div class="insight-source">${sn.source}</div>
       ${sn.review ? `<p class="review-note"><strong>&#9873; Needs review.</strong> ${sn.review}</p>` : ""}
       <p class="insight-headline">${sn.headline}</p>
       ${sn.total ? `<p class="snap-total"><strong>${sn.total.value}</strong>${sn.total.label}, ${sn.period}</p>` : ""}
       ${sn.intro ? `<p class="snap-total">${sn.intro}</p>` : ""}
-      ${sn.blocks.map(renderSnapshotBlock).join("")}
-      ${sn.context ? `<p class="insight-meta">${sn.context}</p>` : ""}
-      <ul class="insight-notes">${(sn.notes || []).map(n => `<li>${n}</li>`).join("")}</ul>
+      ${primary.map(renderSnapshotBlock).join("")}
+      ${compact ? `<button type="button" class="insight-toggle" aria-expanded="${open}" aria-controls="snapMore-${slug}" onclick="toggleDataCard(this)"><span class="t">${open ? "Hide details" : "Show details"}</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg></button>` : ""}
+      <div class="snap-more" id="snapMore-${slug}">
+        ${more.map(renderSnapshotBlock).join("")}
+        ${sn.context ? `<p class="insight-meta">${sn.context}</p>` : ""}
+        <ul class="insight-notes">${(sn.notes || []).map(n => `<li>${n}</li>`).join("")}</ul>
+      </div>
       ${sn.sourceUrl
         ? `<a class="insight-source-link" href="${sn.sourceUrl}" target="_blank" rel="noopener">Source: ${sn.sourceLabel} &#8599;</a>`
         : (sn.sourceLabel ? `<p class="insight-source-link">Source: ${sn.sourceLabel}</p>` : "")}
@@ -4471,7 +4567,7 @@ function renderJourneyData(journey, relevantOpps) {
   if (journey.insights && journey.insights.themes && journey.insights.themes.length) {
     cards.push({ theme: journey.insights.theme, html: renderJourneyInsights(journey, relevantOpps) });
   }
-  (journey.snapshots || []).forEach(sn => cards.push({ theme: sn.theme, html: renderSnapshotCard(sn) }));
+  (journey.snapshots || []).forEach(sn => cards.push({ theme: sn.theme, html: renderSnapshotCard(sn), slug: dataCardSlug(sn.title), compact: !!sn.compact }));
   const themes = journey.dataThemes;
   if (!themes || !themes.length) return cards.map(c => c.html).join("");
   const groups = themes.map(t => ({ t, cards: cards.filter(c => c.theme === t.id) })).filter(g => g.cards.length);
@@ -4486,6 +4582,12 @@ function renderJourneyData(journey, relevantOpps) {
     <section class="data-theme" id="dataTheme-${g.t.id}" aria-labelledby="dataThemeHead-${g.t.id}">
       <h2 class="theme-head" id="dataThemeHead-${g.t.id}">${g.t.title}<span class="theme-count">${g.cards.length} ${g.cards.length === 1 ? "card" : "cards"}</span></h2>
       <p class="theme-desc">${g.t.description}</p>
+      ${(g.t.takeaways && g.t.takeaways.length) ? `
+      <div class="takeaways" role="group" aria-label="Key takeaways">${g.t.takeaways.map(tk => `
+        <button type="button" class="takeaway" onclick="scrollToDataCard('${dataCardSlug(tk.card)}')"><span class="takeaway-value">${tk.value}</span><span class="takeaway-label">${tk.label}</span></button>`).join("")}
+      </div>` : ""}
+      ${g.cards.some(c => c.compact) ? `
+      <div class="takeaways-bar"><span>${g.t.takeawaysNote || "Select a number to jump to its card."}</span><button type="button" class="insight-link" onclick="toggleThemeDetails('${g.t.id}', this)">${g.cards.filter(c => c.compact).every(c => dataCardOpen[c.slug]) ? "Hide all details" : "Show all details"}</button></div>` : ""}
       ${g.cards.map(c => c.html).join("")}
     </section>`).join("")}
     ${loose.map(c => c.html).join("")}`;
