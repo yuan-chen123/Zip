@@ -1316,6 +1316,84 @@ const REPORT = {
           "theme": "declines"
         },
         {
+          "title": "What happens after a decline: retries and abandonment",
+          "theme": "declines",
+          "source": "Snowflake: card authorization data (in-store)",
+          "headline": "About 72% of declined purchases are retried, roughly three attempts each, and none of the retried purchases was later approved. The other 28% end after one decline.",
+          "intro": "Declined in-store purchases by what happened next. Every window ends Sep 9, 2026, the last day of data.",
+          "blocks": [
+            {
+              "type": "split",
+              "title": "Last 6 months (1,071,243 declined purchases)",
+              "classes": [
+                "snap-c1",
+                "snap-c2"
+              ],
+              "parts": [
+                {
+                  "label": "Retried and still declined (3.1 attempts on average)",
+                  "value": "772,627",
+                  "pct": 72.1
+                },
+                {
+                  "label": "Abandoned after one decline",
+                  "value": "298,616",
+                  "pct": 27.9
+                }
+              ]
+            },
+            {
+              "type": "split",
+              "title": "Last 90 days (588,453 declined purchases)",
+              "classes": [
+                "snap-c1",
+                "snap-c2"
+              ],
+              "parts": [
+                {
+                  "label": "Retried and still declined (3.2 attempts on average)",
+                  "value": "422,926",
+                  "pct": 71.9
+                },
+                {
+                  "label": "Abandoned after one decline",
+                  "value": "165,527",
+                  "pct": 28.1
+                }
+              ]
+            },
+            {
+              "type": "split",
+              "title": "Last 30 days (210,249 declined purchases)",
+              "classes": [
+                "snap-c1",
+                "snap-c2"
+              ],
+              "parts": [
+                {
+                  "label": "Retried and still declined (3.4 attempts on average)",
+                  "value": "152,557",
+                  "pct": 72.6
+                },
+                {
+                  "label": "Abandoned after one decline",
+                  "value": "57,692",
+                  "pct": 27.4
+                }
+              ]
+            }
+          ],
+          "context": "The split barely moves across the three windows (72.6%, 71.9% and 72.1% retried), and the average number of attempts per retried purchase edges down from 3.4 to 3.1. The largest decline cause is a card that has already been used, where every retry meets the same closed balance: the average attempt at which that decline happens is 3.3 (already settled and over the single-authorization limit), 4.4 (already settled only) or 2.3 (single-authorization limit only), as the first card shows.",
+          "notes": [
+            "Counts are by purchase. A customer who starts a new purchase request after a decline shows up as a separate purchase, so 'abandoned after one decline' does not mean the customer gave up.",
+            "No retried purchase was later approved in any window. That fits a card tied to one purchase, where every retry meets the same closed balance, but it could also reflect how the outcomes were classified.",
+            "The chat reports only the average number of attempts per retried purchase. It does not break retries down by one, two, three or more tries, so the page can't show that spread.",
+            "In-store means contactless, chip, keyed-in and swipe authorizations by active users."
+          ],
+          "sourceLabel": "Snowflake Cortex chat (Zip sign-in required)",
+          "sourceUrl": "https://app.snowflake.com/zipus/zdodwheastusprod/#/coco/shared/c4da8c0e-c140-4e69-9f9e-f69da85d6855"
+        },
+        {
           "title": "What declines cost in transaction value (TTV)",
           "source": "Snowflake: card authorization data (in-store, dollars)",
           "headline": "Declines put about $125M of in-store transaction value at risk over six months, 10.5% of everything attempted. In dollars, issuer rejections are the biggest cause (49%) and Other merchants carry 78%.",
@@ -1458,9 +1536,9 @@ const REPORT = {
           "theme": "declines"
         },
         {
-          "title": "In-store declines by merchant type, and what happens next",
+          "title": "In-store declines by merchant type",
           "source": "Snowflake: card authorization data (in-store)",
-          "headline": "Grocery has the most declines (204K, 19% of the total), then gas (160K, 15%). Decline rates run 7.5% at grocery, 10.3% at gas and 13.7% at fast food. After a decline, 72% of purchases are retried and none of the retried purchases was approved.",
+          "headline": "Grocery has the most declines (204K, 19% of the total), then gas (160K, 15%). Decline rates run 7.5% at grocery, 10.3% at gas and 13.7% at fast food.",
           "intro": "Last 6 months to Sep 9, 2026. Shares are of the 1.07M declines, and each row's decline rate is in its detail line. Bars scale to the largest row (204K).",
           "blocks": [
             {
@@ -1517,32 +1595,10 @@ const REPORT = {
                   "detail": "2.5% of declines. 100% decline rate, a blocked category."
                 }
               ]
-            },
-            {
-              "type": "split",
-              "title": "What happens after a decline (1.07M declined purchases)",
-              "classes": [
-                "snap-c1",
-                "snap-c2"
-              ],
-              "parts": [
-                {
-                  "label": "Retried and still declined (3.1 attempts on average)",
-                  "value": "772,627",
-                  "pct": 72.1
-                },
-                {
-                  "label": "Abandoned after one decline",
-                  "value": "298,616",
-                  "pct": 27.9
-                }
-              ]
             }
           ],
           "context": "Grocery and gas together are about a third of all declines (364K of 1.07M). The other two thirds sit under Other (707K, 10.3% rate), which the chat only breaks down to its top five categories: discount stores, restaurants, fast food, barber and beauty, and government services, about 250K together. Government services are mostly DMV and motor vehicle offices, county tax and tag offices and municipal payments. Over 30 days the overall rate was 9.95%, with grocery at 8.0% and gas at 10.9%.",
           "notes": [
-            "Counts are by purchase. A customer who starts a new purchase request after a decline shows up as a separate purchase, so 'abandoned after one decline' does not mean the customer gave up.",
-            "No retried purchase was later approved. That fits a card tied to one purchase, where every retry meets the same closed balance, but it could also reflect how outcomes were classified.",
             "Merchant types are card-network category codes, which is why Target sits under discount stores with Ross, Marshalls and TJ Maxx. The categories do not overlap: fast food is part of Other, not grocery. Grocery has more declines than gas because it has more authorizations, not a higher rate.",
             "Government services at 100% points to a blocked-merchant rule. The chat inferred that rather than confirming it."
           ],
