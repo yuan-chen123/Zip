@@ -1409,6 +1409,47 @@ const REPORT = {
           "compact": true
         },
         {
+          "title": "Declined even though spending power was available: a growing support theme",
+          "theme": "declines",
+          "source": "Vaultmate Slack Query from Oct 19, 2026",
+          "headline": "Declined even though spending power was available is the only spending power support theme still growing, from 2.0% to 3.5% of written comments. It covers all orders, not only in-store, and the cause is not known.",
+          "intro": "Share of about 2,000 written spending power CSAT comments, 12 months to the last 3 months. The in-store insufficient spending power figure on this tab (20.3% of declines) measures something different: authorizations above the balance, not customers who saw enough.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "What we have on this theme",
+              "items": [
+                {
+                  "tag": "Support comments",
+                  "title": "2.0% to 3.5% of written comments",
+                  "detail": "The other complaint themes are flat or falling. Vaultmate suggests a possible bug or a mismatch between what the app shows and how orders are decided."
+                },
+                {
+                  "tag": "Customer words",
+                  "title": "No reason given for a failed order",
+                  "detail": "“No reason was given on why my order didn't go through and spending power has decreased because of messed up orders…” (Chat, rated 1 of 5, Oct 15; Vaultmate Slack Query from Oct 19, 2026)"
+                },
+                {
+                  "tag": "2025 survey report",
+                  "title": "Approved in the app, declined at checkout",
+                  "detail": "Customers see spending power in the app yet are declined, and can't plan purchases ahead. One reports being approved for $250 yet declined every time. The deck gives no count."
+                },
+                {
+                  "tag": "Not known",
+                  "title": "Why the order was declined",
+                  "detail": "Vaultmate's data holds only each customer's current spending power, so it can't say why a specific order was declined: spending power, the merchant, a risk decision or a larger first payment. Product or risk data is needed."
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "Written comments only: a small set, so the trend shows direction, not an exact rate.",
+            "The full theme table, period and filters are on the Spending Power journey's Data/research tab."
+          ],
+          "sourceLabel": "Vaultmate Slack Query from Oct 19, 2026 (Snowflake PUBLIC_ANALYST semantic view, Kustomer CSAT comments)",
+          "review": "Confirm the trend with order data before relying on it, and check the cause with product or risk."
+        },
+        {
           "title": "Who gets declined: two different customer journeys",
           "theme": "declines",
           "compact": true,
@@ -2889,6 +2930,199 @@ const REPORT = {
           "review": "Dollar amounts are screenshot values, and the 86.1% figure is current to 4/10/2025. Check both are current before sharing."
         },
         {
+          "title": "Spending power in support: volume, themes and trend",
+          "theme": "evidence",
+          "source": "Vaultmate Slack Query from Oct 19, 2026",
+          "compact": true,
+          "headline": "Spending power is one of the biggest reasons customers contact support, with about 88K conversations in the last 12 months. The top spending power complaint in the last 3 months is that customers can't see how it is set.",
+          "intro": "Shares are of about 2,000 written CSAT comments, grouped by theme with Cortex AI, so they show direction, not exact proportions. Each row reads 12 months, then the last 3 months. Satisfaction is improving: positive ratings rose from 56% to 63%.",
+          "blocks": [
+            {
+              "type": "rows",
+              "title": "Share of written comments by theme (12 months to last 3 months)",
+              "rows": [
+                {
+                  "label": "Long waits and poor service",
+                  "value": "20% to 11%",
+                  "pct": 11,
+                  "cls": "snap-c1",
+                  "detail": "The biggest theme over 12 months, now falling. This is about the support experience, not spending power itself."
+                },
+                {
+                  "label": "No explanation of how spending power is set",
+                  "value": "5 to 6%, steady",
+                  "pct": 6,
+                  "cls": "snap-c1",
+                  "detail": "The top spending power complaint in the last 3 months."
+                },
+                {
+                  "label": "Agents can't help or can't change spending power",
+                  "value": "7% to 4%",
+                  "pct": 4,
+                  "cls": "snap-c1",
+                  "detail": "Agents can't manually change spending power, so a contact can't resolve these."
+                },
+                {
+                  "label": "Spending power dropped unexpectedly",
+                  "value": "6% to 4%",
+                  "pct": 4,
+                  "cls": "snap-c1",
+                  "detail": "Average rating about 1.4 to 1.5 out of 5, among the lowest of any theme."
+                },
+                {
+                  "label": "Too low, wants an increase",
+                  "value": "about 4%, steady",
+                  "pct": 4,
+                  "cls": "snap-c1",
+                  "detail": "Customers asking for more spending power."
+                },
+                {
+                  "label": "Declined even though spending power was available",
+                  "value": "2.0% to 3.5%",
+                  "pct": 3.5,
+                  "cls": "snap-c1",
+                  "detail": "The only theme still growing. Worth a closer look as a possible bug or a mismatch between what the app shows and how orders are decided. See the In-Store journey's Data/research tab for a card on this theme."
+                },
+                {
+                  "label": "Not restored after a payoff or refund",
+                  "value": "about 3%, steady",
+                  "pct": 3,
+                  "cls": "snap-c1",
+                  "detail": "Customers who paid or were refunded and still see little available."
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "title": "Where spending power contacts start (last 3 months)",
+              "more": true,
+              "items": [
+                {
+                  "tag": "Chat",
+                  "title": "In-app chat is about 79% of contacts",
+                  "detail": "About 27.7K of about 35K contacts. Zia, the AI chat agent, handles 59% of chats, but only 59% of chat ratings are 4 or 5, the lowest of any channel."
+                },
+                {
+                  "tag": "Calls and email",
+                  "title": "The first answer often doesn't settle it",
+                  "detail": "Customers contact again within 3 days 32 to 36% of the time for calls and emails, and 21% for chat. The return contact can be for any reason."
+                },
+                {
+                  "tag": "Unified spending power",
+                  "title": "Contacts have almost disappeared",
+                  "detail": "549 in the last 6 months and 154 in the last 3, after a spike with low satisfaction (44%)."
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "Period: last 12, 6 and 3 months to Oct 18, 2026, by the date of the customer's first message (Eastern time). Contact reasons: approval_spending_power and approval_unified_spending_power.",
+            "CX data (Kustomer) only starts in November 2025, so the 12-month window covers about Nov 2025 to Oct 2026.",
+            "Themes come only from customers who left a written survey comment. Under 1% of comments make an explicit suggestion, so most suggestions are implied by the complaints.",
+            "The data holds only each customer's current spending power, so it can't show the history of changes or why a specific order was declined.",
+            "Vaultmate's sizing: if in-app explanations, change notices and a progress tracker prevent 20 to 30% of chat contacts, that is about 5.5K to 8K fewer conversations a quarter. This is an assumption, not a measured result.",
+            "The formal complaints table was not available to the analyst's role, so complaint-level summaries were not used."
+          ],
+          "sourceLabel": "Vaultmate Slack Query from Oct 19, 2026 (Snowflake PUBLIC_ANALYST semantic view, Kustomer CX conversations)",
+          "review": "Check the volumes before relying on them. About 88K conversations in 12 months but about 35K in the last 3 months do not fit together easily, and Zia's 59% share of chats matches the 59% positive chat rating exactly. The 20 to 30% reduction is an assumption."
+        },
+        {
+          "title": "What customers say about spending power in support comments",
+          "theme": "evidence",
+          "source": "Vaultmate Slack Query from Oct 19, 2026",
+          "compact": true,
+          "headline": "Customers ask for the reason behind their spending power and for a way to build it. The five-orders-in-a-row rule confuses them, and paying on time does not feel like it counts.",
+          "intro": "Exact customer comments from CSAT surveys, word for word. Vaultmate took the 15 most recent per theme, comments over 25 characters, Nov 2025 to Oct 18, 2026, and these are the strongest.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "What the quotes show",
+              "items": [
+                {
+                  "tag": "Pattern",
+                  "title": "The five-in-a-row rule confuses people",
+                  "detail": "Customers don't know which payoffs count toward it. This supports a progress tracker that shows what counts."
+                },
+                {
+                  "tag": "Pattern",
+                  "title": "Customers expect paying on time to raise spending power right away",
+                  "detail": "When it doesn't, they feel ignored, even when the agent did a good job."
+                },
+                {
+                  "tag": "Pattern",
+                  "title": "Chat answers point to the policy, not to the customer's account",
+                  "detail": "This supports a personalized explanation of why spending power is what it is."
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "title": "Not knowing how spending power is set (Vaultmate Slack Query from Oct 19, 2026)",
+              "more": true,
+              "items": [
+                {
+                  "tag": "Email, rated 1 of 5, Sep 25",
+                  "title": "Paid $153, still zero available",
+                  "detail": "“I paid $153 in payments, I have nothing due until Oct, yet have zero available to spend and all I could get for an answer was well check your account again you probably missed something. That isn't an answer.”"
+                },
+                {
+                  "tag": "Chat, rated 1 of 5, Sep 11",
+                  "title": "Never told why spending power was lost",
+                  "detail": "“The question about my spending power didn't really get answered or tell me why I lost it at all”"
+                },
+                {
+                  "tag": "Chat, rated 1 of 5, Sep 25",
+                  "title": "No credit for paying off three payments",
+                  "detail": "“Never got a proper response as to why I got no credit for paying off 3 payments..”"
+                },
+                {
+                  "tag": "Chat, rated 3 of 5, Sep 8",
+                  "title": "The policy isn't clear",
+                  "detail": "“Just to refer to the policy you have which really isnt clear in the question I was asking”"
+                },
+                {
+                  "tag": "Chat, rated 1 of 5, Oct 15",
+                  "title": "No reason given for a failed order",
+                  "detail": "“No reason was given on why my order didn't go through and spending power has decreased because of messed up orders…”"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "title": "Building spending power (Vaultmate Slack Query from Oct 19, 2026)",
+              "more": true,
+              "items": [
+                {
+                  "tag": "Chat, rated 5 of 5, Sep 10",
+                  "title": "On-time payoffs should count as an increase",
+                  "detail": "“If you pay off an order on time then it should count as an increase. I almost want to change companies because of that.” The customer rated the agent highly but is unhappy with how spending power works, and says they might leave."
+                },
+                {
+                  "tag": "Chat, rated 1 of 5, Jun 3",
+                  "title": "Paid-off orders did not count toward five in a row",
+                  "detail": "“My last 3 orders I paid off didn't count towards my 5 in a row and the reason he gave me makes no sense… Every single order you pay off should count towards the 5 in row no matter what.”"
+                },
+                {
+                  "tag": "Email, rated 4 of 5, Apr 28",
+                  "title": "Paying on time does not raise approval",
+                  "detail": "“Paying on time does not raise your approval amount.”"
+                },
+                {
+                  "tag": "Chat, rated 1 of 5, Sep 20",
+                  "title": "No chance to prove they can pay back",
+                  "detail": "“Didn't give me a chance to build credit or prove that I could pay back”"
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "No quote directly asks for a warning before spending power drops. That idea comes from the 'dropped unexpectedly' complaints, not a stated request.",
+            "Vaultmate left out weaker quotes: some comments were vague, or about other things such as payment date flexibility or splitting payments.",
+            "Cortex AI sorted the comments into themes. Each quote is word for word, including the customers' spelling."
+          ],
+          "sourceLabel": "Vaultmate Slack Query from Oct 19, 2026 (Snowflake PUBLIC_ANALYST semantic view, Kustomer CSAT comments)"
+        },
+        {
           "title": "What customers say about spending power in the 2025 improvement-areas survey",
           "theme": "evidence",
           "source": "Google Slides: Customer Improvement Areas & New Features report, Jul'24 to Jun'25",
@@ -3384,6 +3618,11 @@ const REPORT = {
             {
               "problem": "Customers get declined at the register and don't know why.",
               "behind": "The request amount doesn't match the final total after tax or tip, or gas stations pre-authorize more than the customer intended. Pre-fill helps but doesn't solve every case. Grocery and gas are hit hardest."
+            },
+            {
+              "problem": "Customers see spending power in the app, place an order and are declined with no reason.",
+              "behind": "Orders declined even though spending power was available went from 2.0% to 3.5% of written spending power comments, the only complaint theme still growing. These are spending power contacts across all orders, not only in-store, and the cause is not known.",
+              "note": "Merged in from the Spending Power journey. The data card is on this journey's Data/research tab."
             }
           ],
           "rationale": "A decline at the register is the moment Zip is most exposed: it blocks the sale, it happens in public, and today the customer gets no reason. Two sources point at the same gap. Vaultmate's in-store comments rank declines second (28 of 285, 9.8%) and suggest showing the reason and what to do next, and public reviews rank unexplained declines at 19% of cross-app complaints. Authorization data now sizes it: 9.6% of in-store authorizations decline over six months, grocery and gas are the two biggest merchant types by volume (204K and 160K declines, together about a third of the 1.07M), with the rest spread across many types such as discount stores (81K), restaurants (59K) and fast food (54K). By rate gas runs 10.3% against 7.5% at grocery, but volume is where the weight is. The biggest cause is not an amount mismatch at all: 44.5% of declines are on a card that has already been used, while 20.3% are an authorization above the available balance, which is the case right-sizing the request addresses.",
@@ -3394,15 +3633,18 @@ const REPORT = {
             "Declined transaction value (TTV) by merchant category and cause (baseline, last six months: $125.0M, 10.5% of attempted)",
             "First-attempt success rate",
             "Share of declines shown with a plain-language reason",
-            "In-store support contacts about declines (Vaultmate baseline: 28 comments, 9.8%)"
+            "In-store support contacts about declines (Vaultmate baseline: 28 comments, 9.8%)",
+            "Share of written spending power comments about declines despite available spending power (3.5% in the last 3 months, up from 2.0% over 12 months)",
+            "Declines where the app showed enough spending power (baseline needed from product or risk data)"
           ],
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. In dollars, declines put $125.0M of transaction value at risk over six months (10.5% of attempted): grocery is $21.5M and gas $5.8M, together about 22%, while Other merchants carry 78%. Insufficient spending power is $11.5M (9.2%) but the largest tickets ($243 average declined), the cases right-sizing addresses. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used. The 2025 customer survey report also records customers declined with no explanation, some while the app showed spending power (one reports being approved for $250 yet declined every time), and unable to plan purchases ahead. The deck gives no count. Customers over their spending power are mostly in the app and buying in the moment (58.7% opened the app within an hour of the decline, and 61.5% created the purchase within two minutes of it), so showing the available amount before the tap is within reach of the customers in this group."
+            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. In dollars, declines put $125.0M of transaction value at risk over six months (10.5% of attempted): grocery is $21.5M and gas $5.8M, together about 22%, while Other merchants carry 78%. Insufficient spending power is $11.5M (9.2%) but the largest tickets ($243 average declined), the cases right-sizing addresses. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used. The 2025 customer survey report also records customers declined with no explanation, some while the app showed spending power (one reports being approved for $250 yet declined every time), and unable to plan purchases ahead. The deck gives no count. Customers over their spending power are mostly in the app and buying in the moment (58.7% opened the app within an hour of the decline, and 61.5% created the purchase within two minutes of it), so showing the available amount before the tap is within reach of the customers in this group. The Vaultmate Slack Query from Oct 19, 2026 adds that declined even though spending power was available is the only growing spending power support theme, 2.0% to 3.5% of about 2,000 written comments, across all orders. It is a small set of comments, so confirm the trend with order data."
           },
+          "questions": [{"q": "Is declined despite available spending power a bug, or a mismatch between what the app shows and how orders are decided? Product or risk data can answer this.", "added": true}, {"q": "Which reasons cover most of these declines: spending power, merchant, risk, or a larger first payment?", "added": true}],
           hmwIds: ["declines", "recover"],
-          "review": "Check the problem statement, which says grocery and gas are hit hardest. By volume that holds (grocery 204K and gas 160K declines), but together they are about a third of declines and about 22% of lost transaction value; Other merchants carry the rest. Also check the High / High rating.",
+          "review": "Check the problem statement, which says grocery and gas are hit hardest. By volume that holds (grocery 204K and gas 160K declines), but together they are about a third of declines and about 22% of lost transaction value; Other merchants carry the rest. Also check the High / High rating. Scope now includes declines despite available spending power on any order, merged from a Spending Power draft; check it still fits one opportunity.",
           "signal": "Afterpay keeps a persistent card with a visible pre-approved amount, so customers see their headroom before the register. Affirm shows the risk: purchasing power that reads as a limit when it is only an estimate.",
           "screenIds": [
             "instore-default-modal",
@@ -3608,19 +3850,24 @@ const REPORT = {
           "metrics": [
             "Support contacts about spending power changes",
             "Customers who stop using Zip within 30 days of a spending power drop (baseline needed)",
-            "Customer understanding of how spending power grows (survey)"
+            "Customer understanding of how spending power grows (survey)",
+            "Share of written spending power comments about unexpected drops (4% in the last 3 months, 6% over 12; counts needed)",
+            "Average rating on drop contacts (about 1.4 to 1.5 out of 5 today)"
           ],
           "type": "Add",
           "evidence": {
             "strength": "Supporting",
-            "text": "In the 2025 customer survey report, spending power is the subject of four of the nine pain points on the visible slides (low versus other BNPL apps, slow to grow despite on-time payments, unexplained drops, and approved-but-declined at checkout). The deck gives a count only for the share of customers who have used another BNPL (an estimated 35% to 50%); the rest is customer verbatims. The deck's ideas are untested."
+            "text": "In the 2025 customer survey report, spending power is the subject of four of the nine pain points on the visible slides (low versus other BNPL apps, slow to grow despite on-time payments, unexplained drops, and approved-but-declined at checkout). The deck gives a count only for the share of customers who have used another BNPL (an estimated 35% to 50%); the rest is customer verbatims. The deck's ideas are untested. The Vaultmate Slack Query from Oct 19, 2026 adds support data: dropped unexpectedly is 6% of written comments over 12 months and 4% over the last 3, rated about 1.4 to 1.5 out of 5, among the lowest of any theme. No comment directly asks for a warning, so a notice is inferred from the complaints."
           },
+          "questions": [{"q": "What does the app tell customers today when spending power drops, if anything (push, email or in-app)?", "added": true}, {"q": "What reasons can a notice show for a decrease, and what must Legal approve first?", "added": true}, {"q": "How many decreases happen each month, and how many customers contact support after one?"}],
           hmwIds: ["recover", "progress"],
-          "review": "Draft from the 2025 survey deck: a pain point with customer comments and one count (35% to 50% used another BNPL). Check overlap with the Spending Power top opportunities.",
+          "review": "Draft from the 2025 survey deck: a pain point with customer comments and one count (35% to 50% used another BNPL). Check overlap with the Spending Power top opportunities. Support evidence added from the Vaultmate Slack Query from Oct 19, 2026 (it also covers a notice when spending power drops, with the reason). Ratings are provisional. Legal has to say what a notice can state. Rank #6 is my recommendation (customer evidence now supports it), to be confirmed.",
+          "dataToLookInto": ["What the app, push and email tell customers today when spending power drops (Product and CRM)", "Decreases per month, and the share of customers who contact support after one (Snowflake, Vaultmate)", "Customer quotes for dropped unexpectedly (Vaultmate follow-up query)", "Month-by-month theme counts instead of percentages of a small comment set (Vaultmate follow-up query)"],
           "signal": null,
           "screenIds": [
             "spending-power"
           ],
+          "top": 6,
           "severity": "High",
           "effort": "Medium"
         },
@@ -3670,7 +3917,8 @@ const REPORT = {
             "text": "The team's hypothesis is that loyal customers who take a large decrease are less likely to return. The 2025 customer survey report describes the experience in customers' words (one reports spending power falling from $900 to $50 in under a month, with no explanation and no clear way back), and the Spending Power disclosure says Zip or WebBank may decrease spending power where there is an unpaid balance or an amount past due. No source here counts how many loyal customers take a large decrease or what they do afterward."
           },
           "questions": [{"q": "How many previously loyal customers take a large decrease, and what do their orders look like afterward?"}, {"q": "How are loyal and a large decrease defined, so the group can be counted?", "added": true}, {"q": "What is the loss and risk cost of a faster path back?", "added": true}],
-          "review": "Severity is a guess: nobody knows how many loyal customers take a large decrease. Check the rating once Unknown 4 has an answer.",
+          "review": "Severity is a guess: nobody knows how many loyal customers take a large decrease. Check the rating once Unknown 4 has an answer. Rank moved from #3 to #4 when the Vaultmate opportunities were added; to be confirmed.",
+          "dataToLookInto": ["Count of loyal customers who take a large decrease; needs definitions of loyal and large (Snowflake)", "Orders in the 90 days after a decrease against matched customers with no decrease (Snowflake)", "Time to regain the prior spending power, and how many never do (Snowflake)"],
           "signal": null,
           "hmwIds": [
             "recover"
@@ -3678,7 +3926,7 @@ const REPORT = {
           "screenIds": [
             "spending-power"
           ],
-          "top": 3,
+          "top": 4,
           "severity": "High",
           "effort": "Medium"
         },
@@ -3706,7 +3954,8 @@ const REPORT = {
             "text": "On the Spending Power screen as audited, customers see the estimated spending power and per-card amounts only: no total limit, no balance owed, no history. Other sources agree: unclear spending limit or available funds is the third-largest in-store support theme (18 of 285 comments, 6.3%), insufficient spending power is 20.3% of in-store declines with the largest tickets ($243 average declined), the 2025 customer survey report records customers shown spending power in the app yet declined, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%)."
           },
           "questions": [{"q": "Which of total limit, amount owed and history do customers most need to see?", "added": true}, {"q": "How often do customers open the Spending Power screen, and what do they do next?", "added": true}],
-          "review": "Check effort: it depends on whether total limit, balance owed and history already exist in the backend. The evidence is strong for the problem, not for the fix.",
+          "review": "Check effort: it depends on whether total limit, balance owed and history already exist in the backend. The evidence is strong for the problem, not for the fix. Rank moved from #4 to #5 when the Vaultmate opportunities were added; to be confirmed.",
+          "dataToLookInto": ["Taps on the Spending power card and the Spending power increases link (Amplitude)", "Support contacts about limit or available funds across all orders; the in-store baseline is 6.3% (Vaultmate follow-up query)", "Trend in insufficient spending power declines (Snowflake)"],
           "signal": null,
           "hmwIds": [
             "see-limit"
@@ -3714,7 +3963,7 @@ const REPORT = {
           "screenIds": [
             "spending-power"
           ],
-          "top": 4,
+          "top": 5,
           "severity": "High",
           "effort": "Medium"
         },
@@ -3743,7 +3992,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Supporting",
-            "text": "The team's evidence is that increases bring customers back to use the new amount. The Streaks page says customers are notified to collect their new spending power after the fifth on-time order, and the 2025 customer survey report records customers asking to see the exact increase from on-time payment and how spending power will change. The Spending Power and Streaks screens already show streak progress and the rules, so for customers in a streak the gap is narrower than the problem statement says: what is missing is the size of the next increase (the page says up to $100, not a personal figure) and anything about increases outside the streak. How many customers notice or understand an increase today is unknown."
+            "text": "The team's evidence is that increases bring customers back to use the new amount. The Streaks page says customers are notified to collect their new spending power after the fifth on-time order, and the 2025 customer survey report records customers asking to see the exact increase from on-time payment and how spending power will change. The Spending Power and Streaks screens already show streak progress and the rules, so for customers in a streak the gap is narrower than the problem statement says: what is missing is the size of the next increase (the page says up to $100, not a personal figure) and anything about increases outside the streak. How many customers notice or understand an increase today is unknown. The Vaultmate Slack Query from Oct 19, 2026 adds that customers do not know which payoffs count toward the five in a row, and expect paying on time to raise spending power right away."
           },
           "questions": [
             {
@@ -3756,9 +4005,11 @@ const REPORT = {
             {
               "q": "What share of increases come from the streak, and what share from the automated model?",
               "added": true
-            }
+            },
+            {"q": "Which payoffs count toward the five in a row, and why do some not? Customers report paid-off orders that did not count.", "added": true}
           ],
-          "review": "Evidence is thin and part of it exists on screen today. Confirm the combined scope of problems 4 and 5.",
+          "review": "Evidence is thin and part of it exists on screen today. Confirm the combined scope of problems 4 and 5. Rank moved from #5 to #7 when the Vaultmate opportunities were added; to be confirmed.",
+          "dataToLookInto": ["Share of customers who notice and understand their increase (survey or Amplitude funnel)", "Share of increases from the streak against the automated model (Snowflake)", "Taps on streak progress and the next-increase question (Amplitude)", "Which payoffs count toward the five in a row, and why some do not (Product; Vaultmate quotes)"],
           "signal": null,
           "hmwIds": [
             "see-increase",
@@ -3767,7 +4018,7 @@ const REPORT = {
           "screenIds": [
             "spending-power"
           ],
-          "top": 5,
+          "top": 7,
           "severity": "Medium",
           "effort": "Medium"
         },
@@ -3791,7 +4042,7 @@ const REPORT = {
           "type": "Refine",
           "evidence": {
             "strength": "Supporting",
-            "text": "Known from the team: increases bring customers back to purchase and use the new amount, and increasing spending power is the most common customer request. Other sources point the same way: insufficient spending power is 20.3% of in-store declines (six months to Sep 9, 2026) and 9.2% of lost transaction value, with the largest tickets ($243 average declined), and the 2025 customer survey report lists the low starting limit as pain point 1 (an estimated 35% to 50% of customers have used another BNPL) and faster, larger increases as feature request 1. No figure yet sizes the repeat-purchase lift, how many Situational and Casual customers are held back by their limit, or the loss cost."
+            "text": "Known from the team: increases bring customers back to purchase and use the new amount, and increasing spending power is the most common customer request. Other sources point the same way: insufficient spending power is 20.3% of in-store declines (six months to Sep 9, 2026) and 9.2% of lost transaction value, with the largest tickets ($243 average declined), and the 2025 customer survey report lists the low starting limit as pain point 1 (an estimated 35% to 50% of customers have used another BNPL) and faster, larger increases as feature request 1. No figure yet sizes the repeat-purchase lift, how many Situational and Casual customers are held back by their limit, or the loss cost. The Vaultmate Slack Query from Oct 19, 2026 adds that being too low and wanting an increase is about 4% of written spending power comments, steady."
           },
           "questions": [
             {
@@ -3806,9 +4057,11 @@ const REPORT = {
             {
               "q": "How are Situational, Casual, Core and Loyal defined, and how many customers are in each?",
               "added": true
-            }
+            },
+            {"q": "Do the customers who write in about a low limit match the group held back by it, or are they different?", "added": true}
           ],
           "review": "Ratings are provisional (High / High). The size of the group held back by their limit is unknown, and Risk has to say how far limits can go.",
+          "dataToLookInto": ["Declines for insufficient spending power by tier (Snowflake; the 20.3% in-store figure is not yet split by tier)", "Repeat-purchase lift after an increase, by tier, as a matched comparison (Snowflake)", "Loss rate by limit size and tier, as the risk guardrail (Risk team)", "Tier definitions and sizes for Situational, Casual, Core and Loyal"],
           "signal": null,
           "hmwIds": [
             "sooner"
@@ -3858,7 +4111,8 @@ const REPORT = {
               "q": "What is the loss and risk cost of increases, and where are the limits on how far we can go?"
             }
           ],
-          "review": "Ratings are provisional (High / Medium). The share of qualifying customers who miss an increase is only known for streak completers (about 14%, as of 4/10/2025).",
+          "review": "Ratings are provisional (High / Medium). The share of qualifying customers who miss an increase is only known for streak completers (about 14%, as of 4/10/2025). Rank moved from #2 to #3 when the Vaultmate opportunities were added; to be confirmed.",
+          "dataToLookInto": ["Share of customers who qualify for an increase but have not received one, and the median wait (Snowflake, Risk)", "Increase rate and timing by tier, and by streak versus automated model (Snowflake)", "Repeat-purchase and loss outcomes for customers who got an increase early, as a matched comparison"],
           "signal": null,
           "hmwIds": [
             "sooner"
@@ -3866,7 +4120,7 @@ const REPORT = {
           "screenIds": [
             "spending-power"
           ],
-          "top": 2,
+          "top": 3,
           "severity": "High",
           "effort": "Medium"
         },
@@ -3987,7 +4241,8 @@ const REPORT = {
               "added": true
             }
           ],
-          "review": "New draft. Ratings are provisional. The evidence is the audit's screen notes and the team's known evidence; no figure shows the post-increase order rate. Check overlap with the two Product Designer items (a next-step affordance on the completion modal, and a persistent callout).",
+          "review": "New draft. Ratings are provisional. The evidence is the audit's screen notes and the team's known evidence; no figure shows the post-increase order rate. Check overlap with the two Product Designer items (a next-step affordance on the completion modal, and a persistent callout). Rank moved from #6 to #8 when the Vaultmate opportunities were added; to be confirmed.",
+          "dataToLookInto": ["7-day order rate after an increase, by tier (Snowflake)", "Where customers go after the streak completion modal and the Spending Power screen (Amplitude)", "Which next step to point to, from order history after an increase (Snowflake)"],
           "signal": null,
           "hmwIds": [
             "see-increase"
@@ -3996,9 +4251,143 @@ const REPORT = {
             "spending-power",
             "streak-completion-modal"
           ],
-          "top": 6,
+          "top": 8,
           "severity": "Medium",
           "effort": "Low"
+        },
+        {
+          "title": "Explain why a customer's spending power is what it is",
+          "hmw": "How might we help a customer understand why their spending power is what it is, and why it changed?",
+          "problems": [
+            {
+              "problem": "Customers can't see why their spending power is what it is, so they contact support to ask.",
+              "behind": "No explanation of how spending power is set is about 5 to 6% of written comments, steady, and the top spending power complaint in the last 3 months. Agents can't change the number, so a contact can't fix it.",
+              "note": "New, from the Vaultmate Slack Query from Oct 19, 2026. The limit, owed and available opportunity shows the numbers; this one explains them. The separate opportunity on explaining changes covers drops and recoveries. Filed under Increases sooner: knowing how spending power is set shows customers what earns more."
+            }
+          ],
+          "rationale": "Spending power is one of the biggest reasons customers contact support, and the most common spending power complaint in the last 3 months is not knowing how the number is set. The Spending Power screen shows an estimate and per-card amounts but none of the reasons behind them. Customers' comments show the gap: chat answers point to the policy without applying it to the customer's own account, and agents can't change the number anyway. A personalized explanation in the app could answer what an agent cannot.",
+          "hypothesis": "A plain-language explanation of the factors behind a customer's spending power reduces contacts asking why it is what it is, and raises trust in the number.",
+          "metrics": [
+            "Spending power support contacts per 1,000 active app users (baseline needed; about 35K contacts in the last 3 months)",
+            "Share of written spending power comments citing no explanation (5 to 6% today)",
+            "Repeat contacts within 3 days (21% for chat today)"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Strong",
+            "text": "Vaultmate Slack Query from Oct 19, 2026: not knowing how spending power is set is 5 to 6% of written comments, steady, and the top spending power complaint in the last 3 months. Customer comments ask for the reason in their own words, and the 2025 survey report lists spending power dropping with no explanation. The themes come from about 2,000 written comments, so they show direction, not exact shares."
+          },
+          "questions": [
+            {
+              "q": "Which factors can the app show for a customer, and which does the model not expose or Legal won't allow?",
+              "added": true
+            },
+            {
+              "q": "Can agents really not explain or change spending power today, and what do they tell customers?",
+              "added": true
+            },
+            {
+              "q": "Do customers with low current spending power contact support more often? This would show who should see the explanation first.",
+              "added": true
+            }
+          ],
+          "review": "New draft from the Vaultmate Slack Query from Oct 19, 2026. Ratings are provisional. The factors to show (on-time payments, account age, open orders, recent payoffs) are Vaultmate's examples, not confirmed model inputs. Check with Risk and Legal what can be shown. Rank #2 is my recommendation (strongest customer evidence, High / Medium), to be confirmed.",
+          "dataToLookInto": ["Which factors the model can expose, and which Legal allows (Risk and Legal)", "Whether customers with low current spending power contact support more often (Vaultmate follow-up query)", "Spending power contacts per 1,000 active app users, after checking the 88K and 35K volumes (Snowflake)"],
+          "signal": null,
+          "hmwIds": [
+            "sooner"
+          ],
+          "screenIds": [
+            "spending-power"
+          ],
+          "top": 2,
+          "severity": "High",
+          "effort": "Medium"
+        },
+        {
+          "title": "Show when spending power comes back after a payoff or refund",
+          "hmw": "How might we make it obvious to a customer what is available, including when it comes back after a payoff or refund?",
+          "problems": [
+            {
+              "problem": "Customers who pay off an order or get a refund still see little available and don't know when it returns.",
+              "behind": "Not restored after a payoff or refund is about 3% of written comments, steady. Customers write that they paid and got no credit for it.",
+              "note": "New. A narrow, mostly wording fix next to the bigger limit, owed and available opportunity."
+            }
+          ],
+          "rationale": "Customers expect a payoff or refund to free up spending power straight away. When it doesn't, they contact support, and agents can't change the number. A line such as '$120 back in 1 to 2 business days' would tell them what is happening. Vaultmate rates it an easy fix, but nobody has checked whether the issue is timing or payoffs that really don't restore spending power.",
+          "hypothesis": "Showing when funds will be available again after a payoff or refund reduces contacts asking where the spending power is.",
+          "metrics": [
+            "Support contacts about spending power not restored (about 3% of written comments)",
+            "Time from payoff or refund to updated available amount (baseline needed)",
+            "Repeat contacts within 3 days"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Supporting",
+            "text": "Vaultmate Slack Query from Oct 19, 2026: about 3% of written comments, steady. Two customers describe paying and seeing zero available or no credit for paying off three payments. Vaultmate's call that this is an easy fix is a view, not a measured result."
+          },
+          "questions": [
+            {
+              "q": "How long does a payoff or refund take to return spending power today, and does it vary by payment method?",
+              "added": true
+            },
+            {
+              "q": "Are these contacts about timing, or about payoffs that never restore spending power?",
+              "added": true
+            }
+          ],
+          "review": "New draft. Ratings are provisional. Low effort assumes the return time is known and can be shown.",
+          "dataToLookInto": ["How long a payoff or refund takes to return spending power, by payment method (Product, Snowflake)", "Whether contacts are about timing or about payoffs that never restore spending power (a sample of Vaultmate comments)"],
+          "signal": null,
+          "hmwIds": [
+            "see-limit"
+          ],
+          "screenIds": [
+            "spending-power"
+          ],
+          "severity": "Medium",
+          "effort": "Low"
+        },
+        {
+          "title": "Give Zia the same reasons the app shows, starting with spending power",
+          "hmw": "How might we help a customer understand why their spending power is what it is, and why it changed?",
+          "problems": [
+            {
+              "problem": "Customers who ask in chat get the policy, not an answer about their own account, and are sent to agents who can't change spending power.",
+              "behind": "About 79% of spending power contacts start in in-app chat. Zia handles 59% of them, and chat has the lowest share of 4 or 5 ratings of any channel. Long waits and poor service are 20% of comments over 12 months and 11% in the last 3.",
+              "note": "New. This sits with support and Zia, not the Spending Power screen, and depends on the explanation opportunity having reasons to reuse."
+            }
+          ],
+          "rationale": "Chat is where most spending power contacts start, and it has the weakest satisfaction. If the app explains spending power and Zia gives the same reasons, fewer customers need an agent, and queues get shorter. Zia sending customers to an agent who can't change the limit is the pattern to avoid.",
+          "hypothesis": "Zia answering spending power questions with the same reasons as the app reduces hand-offs to agents and raises chat satisfaction.",
+          "metrics": [
+            "Zia resolution rate on spending power chats (baseline needed)",
+            "3-day return-contact rate for chat (21% today)",
+            "Share of spending power chats handed to an agent"
+          ],
+          "type": "Add",
+          "evidence": {
+            "strength": "Weak",
+            "text": "Vaultmate Slack Query from Oct 19, 2026: about 79% of spending power contacts start in chat and chat has the lowest share of 4 or 5 ratings. Customer comments say chat answers point to the policy without applying it to their account. No data shows what Zia says or how many chats it hands off."
+          },
+          "questions": [
+            {
+              "q": "Who owns Zia's spending power answers, and can they use the same reasons as the in-app explanation?",
+              "added": true
+            },
+            {
+              "q": "How many spending power chats move from Zia to an agent, and how many return within 3 days?",
+              "added": true
+            }
+          ],
+          "review": "New draft. Ratings are provisional. Applies to every journey: Zia should reuse whatever reasons each screen shows. The evidence so far is spending power only. Left unranked because it is not specific to one journey.",
+          "dataToLookInto": ["Share of spending power chats handed from Zia to an agent, and the 3-day return rate (Vaultmate, Kustomer)", "What Zia answers today to spending power questions (a sample of transcripts)", "Who owns Zia's answers (Support or the Zia team)"],
+          "signal": null,
+          "hmwIds": [
+            "sooner"
+          ],
+          "severity": "Medium",
+          "effort": "Medium"
         }
         ],
       painPoints: [
@@ -4883,6 +5272,11 @@ function renderOppCard(opp, showLens, id, hmwCtx) {
       <div class="opp-field">
         <div class="field-label">Questions to answer<span class="evidence-strength">${opp.questions.length} open</span></div>
         <ul class="opp-questions">${opp.questions.map(x => `<li>${x.q}${x.added ? `<span class="opp-q-tag">Added</span>` : ""}</li>`).join("")}</ul>
+      </div>` : ""}
+      ${opp.dataToLookInto && opp.dataToLookInto.length ? `
+      <div class="opp-field">
+        <div class="field-label">Data to look into</div>
+        <ul class="opp-questions">${opp.dataToLookInto.map(x => `<li>${x}</li>`).join("")}</ul>
       </div>` : ""}
       ${opp.signal ? `
       <div class="opp-field">
