@@ -2543,6 +2543,74 @@ const REPORT = {
           "theme": "entry"
         },
         {
+          "title": "Customers use Zip for everyday necessities and keep their limit as a cushion: five customer interviews",
+          "theme": "voice",
+          "source": "AOV Trend IDIs, Oct 2026 (five in-depth customer interviews)",
+          "compact": true,
+          "headline": "All five customers have used Zip for everyday necessities such as gas, groceries or dog food, and one limits a $100 grocery order by paying $25 up front.",
+          "intro": "Five in-depth interviews, October 2026, run to explain why Zip order values are falling. They were not about the In-Store tab, so read them as background on what customers use Zip for.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "What the interviews say that touches in-store",
+              "items": [
+                {
+                  "tag": "Everyday needs",
+                  "title": "5 of 5 have used Zip for gas, groceries or dog food",
+                  "detail": "One typically uses it only for Chewy dog food ($60 to $70)."
+                },
+                {
+                  "tag": "Limiting the order",
+                  "title": "A $100 grocery order with $25 paid up front",
+                  "detail": "“I just bought a hundred dollars worth of groceries. I only spent twenty five bucks... it makes me feel a lot better and a lot more safe and secure knowing that that's there just in case of emergencies.” (Works from home)"
+                },
+                {
+                  "tag": "Safety net",
+                  "title": "4 of 5 describe Zip as a backup or emergency cushion",
+                  "detail": "“I really don't wanna mess with my spending limit too much in case I need it.” (Firefighter, Philadelphia)"
+                },
+                {
+                  "tag": "Checkout friction",
+                  "title": "Leaving a merchant app or browser for Zip adds steps",
+                  "detail": "“I have to go find my password. It's the whole big deal.” (Works from home). “I just do the virtual card and put the amount in and do it separate anyways.” (Healthcare worker, Michigan)"
+                },
+                {
+                  "tag": "Smaller baskets",
+                  "title": "Lists, weekly budgets and fewer units per order",
+                  "detail": "“Before, I would just kinda go to the store, and I'd have, like, two hundred fifty bucks and just, you know, kinda wing it.” (Healthcare worker, Michigan)"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "title": "What it means for In-Store (the audit's reading)",
+              "items": [
+                {
+                  "tag": "Declines",
+                  "title": "These are the purchases that decline most",
+                  "detail": "Grocery and gas lead in-store decline volume on this tab, and these customers use Zip for exactly such purchases. Five interviews can't size it."
+                },
+                {
+                  "tag": "Right amount",
+                  "title": "Customers who plan baskets may suit a right-sized request",
+                  "detail": "They already plan orders and set amounts by hand. Whether that makes a pre-filled amount more or less welcome is untested."
+                },
+                {
+                  "tag": "Open question",
+                  "title": "Do customers who protect their limit decline less at the register?",
+                  "detail": "Not known. It would need usage and decline data by customer."
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "Five in-depth interviews is a small, qualitative sample: it shows why these customers say they behave as they do, not how many do. Quotes are word for word, labelled as in the deck.",
+            "The reading is the audit's, not the deck's. The same interviews are summarized on the Spending Power journey's Data/research tab."
+          ],
+          "sourceLabel": "Google Slides: [US] AOV trends (Oct '26), AOV Trend IDIs, Oct 2026 (Zip sign-in required)",
+          "sourceUrl": "https://docs.google.com/presentation/d/1Z4r10jNBITaoQ6Z25SM7yBBo-ZJVcHgHpftGYq-6EaI/edit"
+        },
+        {
           "title": "What customers say in the 2025 improvement-areas survey: pain points",
           "theme": "voice",
           "source": "Google Slides: Customer Improvement Areas & New Features report, Jul'24 to Jun'25",
@@ -2812,7 +2880,7 @@ const REPORT = {
                   "tag": "Unknown 3",
                   "title": "How many customers who qualify for an increase don't receive one, or receive it late?",
                   "detail": "Tests whether the model or the streak rules miss good customers.",
-                  "idea": "The Streaks page gives a starting point: 86.1% of customers who repaid 5 on-time orders received an increase (as of 4/10/2025; the new design shows 93.36%, data from 07/09/2026). Measure the days from the fifth on-time payment to the increase."
+                  "idea": "The Streaks page gives a starting point: 93.36% of customers who repaid 5 on-time orders received an increase in production (data from 07/09/2026; the older screenshot shows 86.1%). Measure the days from the fifth on-time payment to the increase."
                 },
                 {
                   "tag": "Unknown 4",
@@ -2883,7 +2951,7 @@ const REPORT = {
           "title": "Spending Power and Streaks screens: what customers see today",
           "theme": "screens",
           "source": "Audit screenshots: Spending Power and Streaks screens",
-          "headline": "Customers see an estimate and per-card amounts but no total limit, balance owed or history. Streak progress and rules are visible, and most customers who completed a streak received an increase (93.36% in the latest design, data from 07/09/2026; 86.1% in the earlier screenshot).",
+          "headline": "Customers see an estimate and per-card amounts but no total limit, balance owed or history. Streak progress and rules are visible, and 93.36% of customers who completed a streak received an increase in production (data from 07/09/2026; the screenshot and design are outdated and show 86.1%).",
           "intro": "Read from the audit screenshots. Dollar amounts are screenshot values.",
           "blocks": [
             {
@@ -2907,13 +2975,13 @@ const REPORT = {
                 },
                 {
                   "tag": "Problem 2",
-                  "title": "86.1% of streak completers received an increase",
-                  "detail": "The Streaks page says 86.1% of customers who paid off 5 orders on time received an estimated spending power increase, current as of 4/10/2025. That leaves about 14% who did not, a partial answer on how many qualifying customers don't receive one. The new Spending Power Increases design updates the figure to 93.36%, with data from 07/09/2026, which leaves about 7%."
+                  "title": "93.36% of streak completers received an increase",
+                  "detail": "Production says 93.36% of customers who paid off 5 orders on time received an estimated spending power increase, with data from 07/09/2026. That leaves about 7% who did not, a partial answer on how many qualifying customers don't receive one. The audit screenshot and the Figma design are outdated and show 86.1% as of 4/10/2025."
                 },
                 {
                   "tag": "New screen",
                   "title": "The Spending Power Increases screen repeats the streak rule, and its content is placeholder",
-                  "detail": "Opened from the last item on the Spending Power screen. It shows Your path to more spending power!, the five-order streak with up to a $100 increase, and a How does it work? section with four questions. The design has placeholder content: the completion figure was 86.1% as of 4/10/2025 and has been updated to 93.36%, with data from 07/09/2026, and the fourth question is a placeholder (XXXX). Treat its wording and figures as draft until they are final."
+                  "detail": "Opened from the last item on the Spending Power screen. It shows Your path to more spending power!, the five-order streak with up to a $100 increase, and a How does it work? section with four questions. The design is outdated and has placeholder content: it shows the completion figure as 86.1% as of 4/10/2025, where production shows 93.36% with data from 07/09/2026, and the fourth question is a placeholder (XXXX). Use it for layout, not for wording or figures."
                 },
                 {
                   "tag": "Problem 1",
@@ -2929,11 +2997,11 @@ const REPORT = {
             }
           ],
           "notes": [
-            "The 86.1% figure (4/10/2025) is from the earlier Streaks screenshot. The new Spending Power Increases design shows 93.36%, with data from 07/09/2026, and its content is placeholder, so check which figure is live before quoting either.", "The 86.1% figure is current to 4/10/2025, so it may be stale. Its denominator, and why the rest did not receive an increase, are not given. A legal opportunity already asks for a cadence disclosure on this figure.",
+            "The 86.1% figure (4/10/2025) in the Streaks screenshot and the Figma design is outdated: production shows 93.36%, with data from 07/09/2026. Its denominator, and why the rest did not receive an increase, are not given. A legal opportunity already asks for a cadence disclosure on this figure.",
             "Only orders placed after May 3, 2026 count toward the streak, per the Streaks screenshot."
           ],
           "sourceLabel": "audit screenshots (Spending Power and Streaks)",
-          "review": "Dollar amounts are screenshot values. The Streaks screenshot shows 86.1% (4/10/2025); the new Spending Power Increases design shows 93.36% (07/09/2026) with other placeholder content. Check these are current before sharing."
+          "review": "The screenshots and the Spending Power Increases design are outdated. Production shows 93.36% (data from 07/09/2026), not 86.1%. Dollar amounts are screenshot values, so check them against production before sharing."
         },
         {
           "title": "Spending power in support: volume, themes and trend",
@@ -3129,6 +3197,176 @@ const REPORT = {
           "sourceLabel": "Vaultmate Slack Query from Oct 19, 2026 (Snowflake PUBLIC_ANALYST semantic view, Kustomer CSAT comments)"
         },
         {
+          "title": "How today's economy is shaping Zip spending: five customer interviews",
+          "theme": "evidence",
+          "source": "AOV Trend IDIs, Oct 2026 (five in-depth customer interviews)",
+          "compact": true,
+          "headline": "Five customers say rising costs are tightening budgets, so they buy less per trip and treat Zip as a safety net: four of five keep their spending limit for emergencies.",
+          "intro": "Five in-depth interviews, October 2026, run to explain why Zip order values are falling. None of the five described an increase or a decrease in their spending power, so this is context for the journey, not direct evidence on it.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "Six findings",
+              "items": [
+                {
+                  "tag": "Costs",
+                  "title": "All five say bills and prices jump without warning",
+                  "detail": "A monthly electric bill from $130 to $258 and up to about $300 (firefighter, Philadelphia); a home gas bill 3x its usual $20 a month (attorney, North Carolina); a water bill 2x in a couple of months (healthcare worker, Michigan)."
+                },
+                {
+                  "tag": "Income",
+                  "title": "Even higher earners feel stretched",
+                  "detail": "Two incomes and rising pay still don't cover costs. Some lost overtime or a full-time job, and some earn side income."
+                },
+                {
+                  "tag": "Life stage",
+                  "title": "Marriage, kids and age move spending from wants to needs",
+                  "detail": "Children's needs come first, and customers plan ahead for saving, debt paydown and family costs."
+                },
+                {
+                  "tag": "Baskets",
+                  "title": "Customers buy less per trip",
+                  "detail": "They cut wants such as takeout and beauty, plan baskets with lists and weekly budgets, and trade down to cheaper brands and cuts."
+                },
+                {
+                  "tag": "Safety net",
+                  "title": "Zip is kept as an emergency cushion",
+                  "detail": "4 of 5 describe Zip as a backup or emergency cushion, and 5 of 5 have used it for everyday necessities such as gas, groceries or dog food. One typically uses it only for Chewy dog food ($60 to $70); another limits a $100 grocery order by paying $25 up front."
+                },
+                {
+                  "tag": "Larger purchases",
+                  "title": "Bigger purchases leave or don't happen",
+                  "detail": "Two customers no longer see a Pay in 8 style option, large items such as plane tickets go to Affirm or Klarna for longer terms, and leaving for Zip adds app and login steps. Counterpoint in the deck: the firefighter still uses Zip for big purchases with a higher down payment."
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "title": "What it means for Spending Power (the audit's reading)",
+              "items": [
+                {
+                  "tag": "Raise the ceiling",
+                  "title": "Some low use is a choice, not a cap",
+                  "detail": "Four of five keep their limit as a cushion and are cutting wants, so a bigger limit may not raise their orders. This is qualitative evidence for the open question of how many customers are held back versus choosing to keep headroom."
+                },
+                {
+                  "tag": "Increase into an order",
+                  "title": "An increase may be valued as headroom to keep",
+                  "detail": "Success may need a measure beyond orders. Nudging customers to spend while budgets are tight is also a question for Risk and Legal."
+                },
+                {
+                  "tag": "Limit, owed, available",
+                  "title": "Knowing the money is there matters",
+                  "detail": "A customer who kept $75 unused says it feels safe knowing it is there. Showing what an order leaves available fits this, and could lead some customers to spend less per order."
+                },
+                {
+                  "tag": "Faster increases",
+                  "title": "Good customers are under strain",
+                  "detail": "Lost overtime and a lost job show up among strong earners, so faster increases carry risk that the guardrail has to reflect."
+                },
+                {
+                  "tag": "Open question",
+                  "title": "Do longer terms depend on spending power or tier?",
+                  "detail": "Two customers no longer see Pay in 8, and the Spending Power screen shows Pay in up to 2 or 4. Whether terms depend on spending power or tier is not known."
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "title": "In their words: Zip as a safety net",
+              "more": true,
+              "items": [
+                {
+                  "tag": "Firefighter, Philadelphia",
+                  "title": "Keeping the limit for emergencies",
+                  "detail": "“I know if I really need something, I can go to Zip and get it. I really don't wanna mess with my spending limit too much in case I need it.”"
+                },
+                {
+                  "tag": "Works from home",
+                  "title": "Paying $25 up front on a $100 order",
+                  "detail": "“I just bought a hundred dollars worth of groceries. I only spent twenty five bucks... it makes me feel a lot better and a lot more safe and secure knowing that that's there just in case of emergencies.”"
+                },
+                {
+                  "tag": "Healthcare worker, Michigan",
+                  "title": "Covering needs until payday",
+                  "detail": "“It kind of allows me to do both while still getting both of my priorities done and not being negative in the bank.”"
+                },
+                {
+                  "tag": "Firefighter, Philadelphia",
+                  "title": "From choice to need",
+                  "detail": "“Before... I'm using it just because I don't want to spend the extra money right now. Now it's like I'm using it because I feel like I have to.”"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "title": "In their words: larger purchases and costs",
+              "more": true,
+              "items": [
+                {
+                  "tag": "Firefighter, Philadelphia",
+                  "title": "Longer terms gone",
+                  "detail": "“I used to see the pay in eight. I don't see the pay in eight in there no more.”"
+                },
+                {
+                  "tag": "Attorney, North Carolina",
+                  "title": "Longer terms gone",
+                  "detail": "“I was never able to get a bigger purchase amount and split it, like, over twelve weeks or whatever it was.”"
+                },
+                {
+                  "tag": "Stay-at-home mom, Florida",
+                  "title": "Larger items go elsewhere",
+                  "detail": "“I use Affirm a lot because... they spread the payments way longer.”"
+                },
+                {
+                  "tag": "Attorney, North Carolina",
+                  "title": "Rising costs",
+                  "detail": "“I can't plan. I can't... I don't know what's going to pop out next.”"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "title": "Five customers, five situations",
+              "more": true,
+              "items": [
+                {
+                  "tag": "Stay-at-home mom, Florida",
+                  "title": "Bigger purchases, less often",
+                  "detail": "“I use it for bigger purchases less frequently because I don't... I'm not shopping too much anymore.”"
+                },
+                {
+                  "tag": "Works from home",
+                  "title": "Shrinking all pay-later balances",
+                  "detail": "“Trying to decrease all of them and get them all lower.”"
+                },
+                {
+                  "tag": "Healthcare worker, Michigan",
+                  "title": "Smaller orders, used more often",
+                  "detail": "“My purchases are just smaller in general. Less money going around.”"
+                },
+                {
+                  "tag": "Attorney, North Carolina",
+                  "title": "Stopped larger purchases after losing longer terms",
+                  "detail": "“I was never able to get a bigger purchase amount and split it, like, over twelve weeks or whatever it was.”"
+                },
+                {
+                  "tag": "Firefighter, Philadelphia",
+                  "title": "More frequent, more selective",
+                  "detail": "“I'm just using it for what is really needed.”"
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "Five in-depth interviews is a small, qualitative sample: it shows why these customers say they behave as they do, not how many customers do. Quotes are word for word, labelled as in the deck.",
+            "Interviewees: a firefighter in Philadelphia, an attorney in North Carolina, a healthcare worker in Michigan, a stay-at-home mom in Florida, and a customer who works from home.",
+            "The reading of what this means for the journey is the audit's, not the deck's."
+          ],
+          "sourceLabel": "Google Slides: [US] AOV trends (Oct '26), AOV Trend IDIs, Oct 2026 (Zip sign-in required)",
+          "sourceUrl": "https://docs.google.com/presentation/d/1Z4r10jNBITaoQ6Z25SM7yBBo-ZJVcHgHpftGYq-6EaI/edit"
+        },
+        {
           "title": "What customers say about spending power in the 2025 improvement-areas survey",
           "theme": "evidence",
           "source": "Google Slides: Customer Improvement Areas & New Features report, Jul'24 to Jun'25",
@@ -3265,6 +3503,62 @@ const REPORT = {
       id: "deals-flow", name: "Home \u2192 Deals",
       description: "When a Zip user wants to find a discount or promotion, they move from Home into Deals \u2014 either by tapping the Deals tab in the bottom navigation, or by tapping \u2018View all deals\u2019 in the Shop deals section on Home. From the Deals screen, they either browse curated category rows directly, or drill into \u2018All Deals\u2019 for the full unfiltered list, or into a specific category (e.g. Top Travel & Experiences) for the full list of merchants running a promotion in that space.",
       screenIds: ["home-deals", "deals", "all-deals", "deals-category-travel"],
+      snapshots: [
+        {
+          "title": "Customers cut wants, trade down and check prices: five customer interviews",
+          "theme": "voice",
+          "source": "AOV Trend IDIs, Oct 2026 (five in-depth customer interviews)",
+          "compact": true,
+          "headline": "Customers cut wants first, plan baskets and compare unit prices, but still buy on sale, only in smaller quantities.",
+          "intro": "Five in-depth interviews, October 2026, run to explain why Zip order values are falling. They were not about Deals, so this is a light read of what shapes customers' shopping.",
+          "blocks": [
+            {
+              "type": "list",
+              "title": "What the interviews say that touches deals",
+              "items": [
+                {
+                  "tag": "Wants go first",
+                  "title": "Takeout and beauty are cut before essentials",
+                  "detail": "“I would get takeout. That is not in the budget.” (Firefighter, Philadelphia)"
+                },
+                {
+                  "tag": "Sales still work",
+                  "title": "Fewer units on sale, not none",
+                  "detail": "“I used to buy five bags of dog treats because they were on sale. Now I get three.” (Healthcare worker, Michigan)"
+                },
+                {
+                  "tag": "Unit price",
+                  "title": "Customers trade down and check cost per ounce",
+                  "detail": "“Frozen chicken's cheaper than fresh chicken. And then you're always looking at the cost per ounce.” (Works from home)"
+                },
+                {
+                  "tag": "Still some wants",
+                  "title": "One customer still uses Zip for hair and nails",
+                  "detail": "“Zip, I typically use, like I told you, for, like, hair, nails, stuff.” (Attorney, North Carolina)"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "title": "What it means for Deals (the audit's reading)",
+              "items": [
+                {
+                  "tag": "Fit",
+                  "title": "Deals that save on essentials may fit these customers better than deals on wants",
+                  "detail": "Wants such as takeout and beauty are the first things cut. Not tested, and none of the five were asked about Deals."
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "Five in-depth interviews is a small, qualitative sample. Quotes are word for word, labelled as in the deck.",
+            "The reading is the audit's, not the deck's."
+          ],
+          "review": "The interviews were not about Deals, so this card is a light read. Check it is useful here before keeping it.",
+          "sourceLabel": "Google Slides: [US] AOV trends (Oct '26), AOV Trend IDIs, Oct 2026 (Zip sign-in required)",
+          "sourceUrl": "https://docs.google.com/presentation/d/1Z4r10jNBITaoQ6Z25SM7yBBo-ZJVcHgHpftGYq-6EaI/edit"
+        }
+      ],
       viewBox: "0 0 1180 560",
       connectors: '<defs><marker id="arrowhead3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#6542BE"/></marker></defs><circle cx="265" cy="270.0" r="4" fill="#6542BE"/><path d="M 210 240.0 Q 280 240.0 261 260.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead3)"/><path d="M 210 300.0 Q 280 300.0 261 280.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead3)"/><rect x="209.6" y="212.0" width="120.8" height="18" rx="9" fill="#F4F4F4"/><text x="270" y="225.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Taps Deals tab</text><rect x="167.8" y="304.0" width="214.4" height="18" rx="9" fill="#F4F4F4"/><text x="275" y="317.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Taps View all deals on Home</text><line x1="265" y1="270.0" x2="420" y2="200.0" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead3)"/><circle cx="645" cy="270.0" r="4" fill="#6542BE"/><line x1="590" y1="200.0" x2="641" y2="270.0" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead3)"/><path d="M 645 270.0 Q 715 115.0 800 125.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead3)"/><path d="M 645 270.0 Q 715 415.0 800 405.0" fill="none" stroke="#6542BE" stroke-width="2" marker-end="url(#arrowhead3)"/><rect x="624.4" y="85.0" width="171.2" height="18" rx="9" fill="#F4F4F4"/><text x="710" y="98.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Taps &#8220;View all deals&#8221;</text><rect x="599.2" y="421.0" width="221.6" height="18" rx="9" fill="#F4F4F4"/><text x="710" y="434.0" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#6542BE" text-anchor="middle">Taps a category&#8217;s &#8220;View all&#8221;</text>',
       steps: [
@@ -3647,7 +3941,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. In dollars, declines put $125.0M of transaction value at risk over six months (10.5% of attempted): grocery is $21.5M and gas $5.8M, together about 22%, while Other merchants carry 78%. Insufficient spending power is $11.5M (9.2%) but the largest tickets ($243 average declined), the cases right-sizing addresses. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used. The 2025 customer survey report also records customers declined with no explanation, some while the app showed spending power (one reports being approved for $250 yet declined every time), and unable to plan purchases ahead. The deck gives no count. Customers over their spending power are mostly in the app and buying in the moment (58.7% opened the app within an hour of the decline, and 61.5% created the purchase within two minutes of it), so showing the available amount before the tap is within reach of the customers in this group. The Vaultmate Slack Query from Oct 19, 2026 adds that declined even though spending power was available is the only growing spending power support theme, 2.0% to 3.5% of about 2,000 written comments, across all orders. It is a small set of comments, so confirm the trend with order data."
+            "text": "Card declined at the register is the second-largest in-store support theme (28 of 285 comments, 9.8%), and Vaultmate's suggested response is to show the reason and what to do next. Public reviews rank unexplained declines and shifting limits at 19% of cross-app complaints, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%, were declines on a limit the app had shown). Unclear spending limit or funds adds 18 comments (6.3%). System authorization data (last six months to Sep 9, 2026) now splits declines by cause and merchant type: 9.6% of in-store authorizations decline, and by volume grocery (204K declines, 19%) and gas (160K, 15%) are the two biggest merchant types, which supports the grocery and gas focus, though together they are about a third of declines and the rest spreads across discount stores (81K), restaurants (59K) and fast food (54K). By rate gas (10.3%) is above grocery (7.5%). Within grocery, the largest merchants by declines are Walmart (25K declines, 6.95% rate), Kroger (15K, 8.8%), H-E-B (13K, 8.3%), Publix (9.6K) and Aldi (9.2K), about 35% of grocery declines together; rates range from 4.7% at Trader Joe's to 8.8% at Kroger and Aldi. In dollars, declines put $125.0M of transaction value at risk over six months (10.5% of attempted): grocery is $21.5M and gas $5.8M, together about 22%, while Other merchants carry 78%. Insufficient spending power is $11.5M (9.2%) but the largest tickets ($243 average declined), the cases right-sizing addresses. Causes: pre-authorization or already settled 44.5%, payment source failed 28.8%, insufficient spending power 20.3%. Right-sizing the amount therefore reaches about a fifth of declines; the largest cause is a card that has already been used. The 2025 customer survey report also records customers declined with no explanation, some while the app showed spending power (one reports being approved for $250 yet declined every time), and unable to plan purchases ahead. The deck gives no count. Customers over their spending power are mostly in the app and buying in the moment (58.7% opened the app within an hour of the decline, and 61.5% created the purchase within two minutes of it), so showing the available amount before the tap is within reach of the customers in this group. The Vaultmate Slack Query from Oct 19, 2026 adds that declined even though spending power was available is the only growing spending power support theme, 2.0% to 3.5% of about 2,000 written comments, across all orders. It is a small set of comments, so confirm the trend with order data. Five customer interviews (AOV Trend IDIs, Oct 2026): all five have used Zip for everyday necessities such as gas, groceries or dog food, and one limits a $100 grocery order by paying $25 up front, which fits grocery and gas leading decline volume. Five interviews can't size it."
           },
           "questions": [{"q": "Is declined despite available spending power a bug, or a mismatch between what the app shows and how orders are decided? Product or risk data can answer this.", "added": true}, {"q": "Which reasons cover most of these declines: spending power, merchant, risk, or a larger first payment?", "added": true}],
           hmwIds: ["declines", "recover"],
@@ -3958,10 +4252,11 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Strong",
-            "text": "On the Spending Power screen as audited, customers see the estimated spending power and per-card amounts only: no total limit, no balance owed, no history. Other sources agree: unclear spending limit or available funds is the third-largest in-store support theme (18 of 285 comments, 6.3%), insufficient spending power is 20.3% of in-store declines with the largest tickets ($243 average declined), the 2025 customer survey report records customers shown spending power in the app yet declined, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%)."
+            "text": "On the Spending Power screen as audited, customers see the estimated spending power and per-card amounts only: no total limit, no balance owed, no history. Other sources agree: unclear spending limit or available funds is the third-largest in-store support theme (18 of 285 comments, 6.3%), insufficient spending power is 20.3% of in-store declines with the largest tickets ($243 average declined), the 2025 customer survey report records customers shown spending power in the app yet declined, and Affirm's public reviews show the same pattern (27 of 384 negative reviews, about 7%). Five customer interviews (AOV Trend IDIs, Oct 2026) add that customers who keep the limit as a cushion take comfort in knowing it is there, and one limits a $100 grocery order by paying $25 up front."
           },
-          "questions": [{"q": "Which of total limit, amount owed and history do customers most need to see?", "added": true}, {"q": "How often do customers open the Spending Power screen, and what do they do next?", "added": true}],
-          "review": "Check effort: it depends on whether total limit, balance owed and history already exist in the backend. The evidence is strong for the problem, not for the fix. Rank moved from #4 to #5 when the Vaultmate opportunities were added; to be confirmed.",
+          "questions": [{"q": "Which of total limit, amount owed and history do customers most need to see?", "added": true}, {"q": "How often do customers open the Spending Power screen, and what do they do next?", "added": true}, {"q": "Would seeing what an order leaves available help customers who keep their limit as a cushion?", "added": true}],
+          "review": "Check effort: it depends on whether total limit, balance owed and history already exist in the backend. The evidence is strong for the problem, not for the fix. Rank moved from #4 to #5 when the Vaultmate opportunities were added; to be confirmed. Evidence and a counterpoint added from five customer interviews (AOV Trend IDIs, Oct 2026) for discussion.",
+          "counter": "Showing more of the limit could lead some customers who keep headroom on purpose to spend less per order.",
           "dataToLookInto": ["Taps on the Spending power card and the Spending power increases link (Amplitude)", "Support contacts about limit or available funds across all orders; the in-store baseline is 6.3% (Vaultmate follow-up query)", "Trend in insufficient spending power declines (Snowflake)"],
           "signal": null,
           "hmwIds": [
@@ -4049,7 +4344,7 @@ const REPORT = {
           "type": "Refine",
           "evidence": {
             "strength": "Supporting",
-            "text": "Known from the team: increases bring customers back to purchase and use the new amount, and increasing spending power is the most common customer request. Other sources point the same way: insufficient spending power is 20.3% of in-store declines (six months to Sep 9, 2026) and 9.2% of lost transaction value, with the largest tickets ($243 average declined), and the 2025 customer survey report lists the low starting limit as pain point 1 (an estimated 35% to 50% of customers have used another BNPL) and faster, larger increases as feature request 1. No figure yet sizes the repeat-purchase lift, how many Situational and Casual customers are held back by their limit, or the loss cost. The Vaultmate Slack Query from Oct 19, 2026 adds that being too low and wanting an increase is about 4% of written spending power comments, steady."
+            "text": "Known from the team: increases bring customers back to purchase and use the new amount, and increasing spending power is the most common customer request. Other sources point the same way: insufficient spending power is 20.3% of in-store declines (six months to Sep 9, 2026) and 9.2% of lost transaction value, with the largest tickets ($243 average declined), and the 2025 customer survey report lists the low starting limit as pain point 1 (an estimated 35% to 50% of customers have used another BNPL) and faster, larger increases as feature request 1. No figure yet sizes the repeat-purchase lift, how many Situational and Casual customers are held back by their limit, or the loss cost. The Vaultmate Slack Query from Oct 19, 2026 adds that being too low and wanting an increase is about 4% of written spending power comments, steady. Five customer interviews (AOV Trend IDIs, Oct 2026) add a counterweight: four of five keep their limit as an emergency cushion and others are cutting spending, so some low use is a choice, not a cap."
           },
           "questions": [
             {
@@ -4065,10 +4360,13 @@ const REPORT = {
               "q": "How are Situational, Casual, Core and Loyal defined, and how many customers are in each?",
               "added": true
             },
-            {"q": "Do the customers who write in about a low limit match the group held back by it, or are they different?", "added": true}
+            {"q": "Do the customers who write in about a low limit match the group held back by it, or are they different?", "added": true},
+            {"q": "How much of low use is customers choosing to keep headroom, and how much is being held back? Five customer interviews suggest both exist.", "added": true},
+            {"q": "Do longer terms such as Pay in 8 depend on spending power or tier? Two of five interviewees no longer see one, and larger purchases are going to other providers.", "added": true}
           ],
-          "review": "Ratings are provisional (High / High). The size of the group held back by their limit is unknown, and Risk has to say how far limits can go.",
-          "dataToLookInto": ["Declines for insufficient spending power by tier (Snowflake; the 20.3% in-store figure is not yet split by tier)", "Repeat-purchase lift after an increase, by tier, as a matched comparison (Snowflake)", "Loss rate by limit size and tier, as the risk guardrail (Risk team)", "Tier definitions and sizes for Situational, Casual, Core and Loyal"],
+          "review": "Ratings are provisional (High / High). The size of the group held back by their limit is unknown, and Risk has to say how far limits can go. Evidence and a counterpoint added from five customer interviews (AOV Trend IDIs, Oct 2026) for discussion.",
+          "counter": "Some customers who spend less are not held back by their limit. Four of five interviewees keep it as an emergency cushion and are cutting wants, so a bigger limit may not raise their orders.",
+          "dataToLookInto": ["Declines for insufficient spending power by tier (Snowflake; the 20.3% in-store figure is not yet split by tier)", "Repeat-purchase lift after an increase, by tier, as a matched comparison (Snowflake)", "Loss rate by limit size and tier, as the risk guardrail (Risk team)", "Tier definitions and sizes for Situational, Casual, Core and Loyal", "Share of limit used per customer, by tier, to separate customers who keep headroom from those who are capped (Snowflake)"],
           "signal": null,
           "hmwIds": [
             "sooner"
@@ -4090,7 +4388,7 @@ const REPORT = {
               "note": "Split from problem 1. This one is about speed and fairness."
             }
           ],
-          "rationale": "Customers with an on-time record already qualify for increases, but the streak asks for five on-time orders for up to $100, and the automated model may miss good customers or reach them late. The Streaks page says 86.1% of customers who repaid five on-time orders received an increase (current to 4/10/2025), which leaves about 14% who did not. These customers have a track record, so this is the lower-risk way to give more customers an increase sooner, and the survey deck's own ideas point at it: a path after 3 payments instead of 5, or a flat $25 to $50 increase after 2 to 3 purchases.",
+          "rationale": "Customers with an on-time record already qualify for increases, but the streak asks for five on-time orders for up to $100, and the automated model may miss good customers or reach them late. Production shows 93.36% of customers who repaid five on-time orders received an increase (data from 07/09/2026), which leaves about 7% who did not. These customers have a track record, so this is the lower-risk way to give more customers an increase sooner, and the survey deck's own ideas point at it: a path after 3 payments instead of 5, or a flat $25 to $50 increase after 2 to 3 purchases.",
           "hypothesis": "Faster, broader increases for customers with a proven on-time record raise repeat purchases without raising loss rates.",
           "metrics": [
             "Share of qualifying customers who receive an increase, and days from qualifying to receiving it",
@@ -4101,7 +4399,7 @@ const REPORT = {
           "type": "Refine",
           "evidence": {
             "strength": "Supporting",
-            "text": "The 2025 customer survey report lists frequent on-time payers not feeling rewarded fast enough as pain point 2 (one customer says paying off five orders earns about $75) and suggests a faster path for high-tier customers and a flat $25 to $50 increase after 2 to 3 purchases. The Streaks page says 86.1% of customers who repaid 5 on-time orders received an increase (as of 4/10/2025). The team's known evidence is that the streak program and automated increases both exist today and that a risk partner is improving the model's data. No figure yet shows how many qualifying customers don't receive an increase or receive it late."
+            "text": "The 2025 customer survey report lists frequent on-time payers not feeling rewarded fast enough as pain point 2 (one customer says paying off five orders earns about $75) and suggests a faster path for high-tier customers and a flat $25 to $50 increase after 2 to 3 purchases. Production shows 93.36% of customers who repaid 5 on-time orders received an increase (data from 07/09/2026). The team's known evidence is that the streak program and automated increases both exist today and that a risk partner is improving the model's data. No figure yet shows how many qualifying customers don't receive an increase or receive it late. Five customer interviews (AOV Trend IDIs, Oct 2026) describe tight budgets even with good incomes, and some lost overtime or a job."
           },
           "questions": [
             {
@@ -4118,7 +4416,8 @@ const REPORT = {
               "q": "What is the loss and risk cost of increases, and where are the limits on how far we can go?"
             }
           ],
-          "review": "Ratings are provisional (High / Medium). The share of qualifying customers who miss an increase is only known for streak completers (about 14%, as of 4/10/2025). Rank moved from #2 to #3 when the Vaultmate opportunities were added; to be confirmed.",
+          "review": "Ratings are provisional (High / Medium). The share of qualifying customers who miss an increase is only known for streak completers (about 7%, data from 07/09/2026). Rank moved from #2 to #3 when the Vaultmate opportunities were added; to be confirmed. Evidence and a counterpoint added from five customer interviews (AOV Trend IDIs, Oct 2026) for discussion.",
+          "counter": "Interviewees report tight budgets even with good incomes, and some lost overtime or a job. Faster increases may add risk for customers under strain, so the risk guardrail has to reflect this.",
           "dataToLookInto": ["Share of customers who qualify for an increase but have not received one, and the median wait (Snowflake, Risk)", "Increase rate and timing by tier, and by streak versus automated model (Snowflake)", "Repeat-purchase and loss outcomes for customers who got an increase early, as a matched comparison"],
           "signal": null,
           "hmwIds": [
@@ -4236,7 +4535,7 @@ const REPORT = {
           "type": "Add",
           "evidence": {
             "strength": "Supporting",
-            "text": "The team's evidence is that increases bring customers back to purchase and use the new amount. The audited screens show the gap: the completion modal congratulates the customer (5 orders in a row, estimated spending power increase) with no call to action, the Home spending power sparkle is animation only and does not persist, and the Home banner Treat yourself to a bigger buy is a larger-first-installment offer, not a prompt tied to the increase. No figure shows how many customers place an order after an increase today."
+            "text": "The team's evidence is that increases bring customers back to purchase and use the new amount. The audited screens show the gap: the completion modal congratulates the customer (5 orders in a row, estimated spending power increase) with no call to action, the Home spending power sparkle is animation only and does not persist, and the Home banner Treat yourself to a bigger buy is a larger-first-installment offer, not a prompt tied to the increase. No figure shows how many customers place an order after an increase today. Five customer interviews (AOV Trend IDIs, Oct 2026): four of five protect their limit for emergencies, so an increase may be valued as headroom to keep, not a prompt to spend."
           },
           "questions": [
             {
@@ -4246,10 +4545,13 @@ const REPORT = {
             {
               "q": "Which next step should the prompt point to: any purchase, a merchant suggestion or an in-store purchase?",
               "added": true
-            }
+            },
+            {"q": "Is an increase valued as headroom to keep? Would retention or trust capture it better than an order within 7 days?", "added": true},
+            {"q": "Is encouraging customers to use an increase appropriate while budgets are tight? Risk and Legal to say.", "added": true}
           ],
-          "review": "New draft. Ratings are provisional. The evidence is the audit's screen notes and the team's known evidence; no figure shows the post-increase order rate. Check overlap with the two Product Designer items (a next-step affordance on the completion modal, and a persistent callout). Rank moved from #6 to #8 when the Vaultmate opportunities were added; to be confirmed.",
-          "dataToLookInto": ["7-day order rate after an increase, by tier (Snowflake)", "Where customers go after the streak completion modal and the Spending Power screen (Amplitude)", "Which next step to point to, from order history after an increase (Snowflake)"],
+          "review": "New draft. Ratings are provisional. The evidence is the audit's screen notes and the team's known evidence; no figure shows the post-increase order rate. Check overlap with the two Product Designer items (a next-step affordance on the completion modal, and a persistent callout). Rank moved from #6 to #8 when the Vaultmate opportunities were added; to be confirmed. Evidence and a counterpoint added from five customer interviews (AOV Trend IDIs, Oct 2026) for discussion.",
+          "counter": "Customers may value an increase as a cushion to keep, not spend. Four of five interviewees protect their limit for emergencies, so orders after an increase may not be the right measure, and nudging customers to spend while budgets are tight is a responsible-lending question.",
+          "dataToLookInto": ["7-day order rate after an increase, by tier (Snowflake)", "Where customers go after the streak completion modal and the Spending Power screen (Amplitude)", "Which next step to point to, from order history after an increase (Snowflake)", "Share of limit used before and after an increase, by tier (Snowflake)"],
           "signal": null,
           "hmwIds": [
             "see-increase"
@@ -5263,6 +5565,11 @@ function renderOppCard(opp, showLens, id, hmwCtx) {
         <div class="field-label">Hypothesis</div>
         <div class="field-value muted">${opp.hypothesis || "Not yet specified."}</div>
       </div>
+      ${opp.counter ? `
+      <div class="opp-field">
+        <div class="field-label">Counterpoint to discuss</div>
+        <div class="field-value muted">${opp.counter}</div>
+      </div>` : ""}
       ${opp.metrics && opp.metrics.length ? `
       <div class="opp-field">
         <div class="field-label">Metrics</div>
