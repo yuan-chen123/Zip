@@ -663,6 +663,8 @@
   .review-note { margin: 8px 0 12px; padding: 8px 10px; background: var(--bg); border: 1px dashed var(--text-muted); border-radius: 8px; font-size: 12px; line-height: 17px; color: var(--text); }
   .hmw-item.hmw-review { border-style: dashed; border-color: var(--text-muted); }
   .data-review-line { margin: 0 0 14px; font-size: 13px; color: var(--text-muted); }
+  .verify-note { margin: 0 0 10px; padding: 6px 10px; font-size: 12px; line-height: 17px; color: var(--text); background: var(--accent-tint); border-radius: 6px; }
+  .verify-note strong { color: var(--accent-dark); }
   .insight-notes { margin: 6px 0 0 16px; padding: 0; font-size: 12px; line-height: 17px; color: var(--text-muted); }
   .insight-details { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
   .insight-details summary { cursor: pointer; font-weight: 600; color: var(--accent-dark); }
@@ -4328,7 +4330,7 @@ const REPORT = {
           type: "Add",
           evidence: { strength: "Supporting", text: "Card declined at the register is the second-largest theme (28 comments, 9.8%) and happens after the purchase request, so the funnel should include a decline step with its reason rather than ending at purchase complete. Public reviews rank unexplained declines at 19% of cross-app complaints, and the public assessment's PM recommendation is the same: track first-attempt success rate and in-store contact rate. The premise that card-taps and button-taps are collapsed into one event does not hold: they already log as separate button-tap events (Pay in-store and Pay in-store - card component), so the funnel can split by entry point now. The primary button's label changed to Pay in-store¹ around April 2026, so the funnel needs to map both labels. The authorization table already records decline reasons, retries and timestamps for every in-store purchase, so the decline step can be built from it now (the data runs through Sep 9, 2026). Decline events and Braze notification events are both timestamped by customer, so the funnel can run decline, notification, retry and return, which is how the chat measured the notification effect." },
           hmwIds: ["declines", "recover"],
-          review: "The rationale says card-taps and button-taps are probably collapsed into one event, but the Snowflake data shows they already log separately. The rationale needs rewriting.",
+          review: "The rationale says card-taps and button-taps are probably collapsed into one event, but the Snowflake data shows they already log separately. The rationale needs rewriting. That Snowflake data is to be verified with the data analytics team (Sam).",
           signal: null,
           screenIds: [],
           severity: "High", effort: "Medium"
@@ -5296,6 +5298,7 @@ function renderSnapshotCard(sn) {
     <div class="section-label" id="dataCard-${slug}">${sn.title}</div>
     <div class="insight-card${sn.review ? " needs-review" : ""}${compact ? " compact" : ""}${open ? " expanded" : ""}" data-card="${slug}">
       <div class="insight-source">${sn.source}</div>
+      ${/snowflake/i.test((sn.source || "") + " " + (sn.sourceLabel || "")) ? `<p class="verify-note"><strong>To verify:</strong> check the Snowflake data on this card with the data analytics team (Sam) before relying on it.</p>` : ""}
       ${sn.review ? `<p class="review-note"><strong>&#9873; Needs review.</strong> ${sn.review}</p>` : ""}
       <p class="insight-headline">${sn.headline}</p>
       ${sn.total ? `<p class="snap-total"><strong>${sn.total.value}</strong>${sn.total.label}, ${sn.period}</p>` : ""}
