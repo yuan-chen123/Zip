@@ -5764,11 +5764,14 @@ let oppDetailOpen = {};
 function renderOppCard(opp, showLens, id, hmwCtx) {
   const d = getDecision(id);
   const compact = !!(opp.evidence && opp.evidence.summary);
-  const detail = `      <div class="opp-field">
+  // Short cards: the rationale is the summary; metrics and evidence go behind the toggle.
+  const compactShort = !compact && !!((opp.metrics && opp.metrics.length) || opp.evidence || (opp.questions && opp.questions.length));
+  const rationaleBlock = `      <div class="opp-field">
         <div class="field-label">Rationale</div>
         <div class="field-value muted">${opp.rationale}</div>
       </div>
-      <div class="opp-field">
+`;
+  const detail = `      <div class="opp-field">
         <div class="field-label">Hypothesis</div>
         <div class="field-value muted">${opp.hypothesis || "Not yet specified."}</div>
       </div>
@@ -5824,8 +5827,12 @@ function renderOppCard(opp, showLens, id, hmwCtx) {
       </div>
       <details class="opp-detail"${oppDetailOpen[id] ? " open" : ""} ontoggle="oppDetailOpen['${id}'] = this.open">
         <summary><span class="when-closed">Show detail: rationale, hypothesis, metrics, full evidence, open questions</span><span class="when-open">Hide detail</span></summary>
+        ${rationaleBlock}${detail}
+      </details>` : compactShort ? `${rationaleBlock}
+      <details class="opp-detail"${oppDetailOpen[id] ? " open" : ""} ontoggle="oppDetailOpen['${id}'] = this.open">
+        <summary><span class="when-closed">Show detail: hypothesis, metrics${opp.evidence ? ", evidence" : ""}</span><span class="when-open">Hide detail</span></summary>
         ${detail}
-      </details>` : detail}
+      </details>` : rationaleBlock + detail}
       ${opp.signal ? `
       <div class="opp-field">
         <div class="field-label">Seen elsewhere</div>
